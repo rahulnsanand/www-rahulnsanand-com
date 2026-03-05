@@ -5,7 +5,7 @@ Site: https://www.rahulnsanand.com
 
 ## Non-blog Pages
 - https://www.rahulnsanand.com/
-  Image "next/image"; styles "./page.module.css"; Home() { ( I'm Rahul Anand Looking for a starting point or more instructions? Head over to ); }.
+  Home() { ( I&apos;m Rahul Anand Looking for a starting point or more instructions? Head over to llms.txt . ); }.
 
 ## Blogs (Excerpts)
 - No blog content discovered.

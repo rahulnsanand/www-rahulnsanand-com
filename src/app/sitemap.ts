@@ -5,6 +5,6 @@ import type { MetadataRoute } from "next";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-05T09:18:39.629Z") },
+    { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-05T09:40:14.810Z") },
   ];
 }
