@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ContentPage } from "@/components/content/content-page";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -7,12 +8,9 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <section className="content-page">
-      <h1 className="content-title">Projects</h1>
-      <p className="content-copy">
-        Selected work across AI tools, personal data systems, and clean product
-        experiences.
-      </p>
-    </section>
+    <ContentPage
+      title="Projects"
+      copy="Selected work across AI tools, personal data systems, and clean product experiences."
+    />
   );
 }

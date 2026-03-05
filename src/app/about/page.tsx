@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ContentPage } from "@/components/content/content-page";
 
 export const metadata: Metadata = {
   title: "About",
@@ -7,12 +8,9 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <section className="content-page">
-      <h1 className="content-title">About</h1>
-      <p className="content-copy">
-        I build software products focused on clarity, usability, and long-term
-        maintainability.
-      </p>
-    </section>
+    <ContentPage
+      title="About"
+      copy="I build software products focused on clarity, usability, and long-term maintainability."
+    />
   );
 }

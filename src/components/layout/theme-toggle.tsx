@@ -1,11 +1,12 @@
 "use client";
 
 import { Moon, Sun } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
 const STORAGE_KEY = "theme";
+const THEME_EVENT = "themechange";
 
 function applyTheme(theme: Theme): void {
   document.documentElement.classList.remove("light", "dark");
@@ -32,22 +33,55 @@ function getInitialTheme(): Theme {
   return "light";
 }
 
+function getThemeSnapshot(): Theme {
+  return getInitialTheme();
+}
+
+function getServerThemeSnapshot(): Theme {
+  return "light";
+}
+
+function subscribeThemeStore(onStoreChange: () => void): () => void {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const notify = () => onStoreChange();
+
+  window.addEventListener("storage", notify);
+  window.addEventListener(THEME_EVENT, notify);
+  mediaQuery.addEventListener("change", notify);
+
+  return () => {
+    window.removeEventListener("storage", notify);
+    window.removeEventListener(THEME_EVENT, notify);
+    mediaQuery.removeEventListener("change", notify);
+  };
+}
+
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const theme = useSyncExternalStore(
+    subscribeThemeStore,
+    getThemeSnapshot,
+    getServerThemeSnapshot,
+  );
 
   const handleToggle = () => {
     const nextTheme: Theme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
     applyTheme(nextTheme);
     localStorage.setItem(STORAGE_KEY, nextTheme);
+    window.dispatchEvent(new Event(THEME_EVENT));
   };
+
+  const nextModeLabel = theme === "dark" ? "light" : "dark";
 
   return (
     <button
       type="button"
       className="theme-toggle"
       onClick={handleToggle}
-      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      aria-label={`Switch to ${nextModeLabel} mode`}
       title="Toggle theme"
     >
       {theme === "dark" ? (

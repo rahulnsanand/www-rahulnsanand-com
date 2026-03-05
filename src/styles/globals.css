@@ -372,6 +372,7 @@ html.dark .site-shell::after {
     @apply text-base leading-8 sm:text-lg;
     color: rgb(var(--muted));
   }
+
 }
 
 @media (max-width: 640px) {

@@ -5,13 +5,13 @@ Site: https://www.rahulnsanand.com
 
 ## Non-blog Pages
 - https://www.rahulnsanand.com/
-  "@/components/homepage"; Home().
+  "@/components/home/homepage"; Home().
 - https://www.rahulnsanand.com/about
-  "next"; metadata: Metadata = ; AboutPage().
+  "next"; "@/components/content/content-page"; metadata: Metadata = ; AboutPage().
 - https://www.rahulnsanand.com/contact
-  "next"; metadata: Metadata = ; ContactPage().
+  "next"; "@/components/content/content-page"; metadata: Metadata = ; ContactPage().
 - https://www.rahulnsanand.com/projects
-  "next"; metadata: Metadata = ; ProjectsPage().
+  "next"; "@/components/content/content-page"; metadata: Metadata = ; ProjectsPage().
 
 ## Blogs (Excerpts)
 - No blog content discovered.
