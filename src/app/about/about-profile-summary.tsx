@@ -9,25 +9,25 @@ const PRIMARY_LINKS = [
 
 export function AboutProfileSummary() {
   return (
-    <div className="px-1 text-center lg:w-[300px]">
+    <div className="about-profile">
       <Image
         src="https://github.com/rahulnsanand.png"
         alt="Rahul NS Anand profile photo"
         width={144}
         height={144}
-        className="mx-auto h-36 w-36 rounded-full border border-[rgb(var(--line))] object-cover"
+        className="about-profile-avatar"
         priority
       />
-      <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[rgb(var(--text))] sm:text-4xl">
+      <h1 className="about-profile-name">
         Rahul NS Anand
       </h1>
       
-      <div className="mt-7 flex flex-wrap justify-center gap-2">
+      <div className="about-profile-links">
         {PRIMARY_LINKS.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className="inline-flex items-center rounded-full border border-[rgb(var(--line))] px-3 py-1.5 text-xs font-medium text-[rgb(var(--muted))] transition hover:border-[rgb(var(--brand)/0.45)] hover:text-[rgb(var(--brand))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--brand))] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(var(--bg))]"
+            className="about-profile-link"
           >
             {link.label}
           </Link>

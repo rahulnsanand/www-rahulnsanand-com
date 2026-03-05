@@ -35,7 +35,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="antialiased">
+      <body className="site-body">
         <FooterAccentProvider>
           <div className="site-shell">
             <SiteHeader />

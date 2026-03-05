@@ -111,16 +111,16 @@ const RESUME_SECTIONS: ResumeSection[] = [
 
 export function AboutBody() {
   return (
-    <section className="relative pb-12 pt-2 sm:pt-4">
+    <section className="about-page">
       <FooterAccentText text="public void main()" />
-      <div className="relative z-10 mx-auto grid max-w-[1080px] grid-cols-1 gap-10 lg:items-start lg:grid-cols-[300px_48px_1fr] lg:gap-12">
-        <aside className="lg:sticky lg:top-20 lg:self-start" aria-label="Profile summary">
+      <div className="about-layout">
+        <aside className="about-sidebar" aria-label="Profile summary">
           <AboutProfileSummary />
         </aside>
 
-        <div className="relative hidden overflow-visible lg:block lg:self-stretch" aria-hidden>
+        <div className="about-separator-wrap" aria-hidden>
           <AboutSeparator
-            className="absolute inset-y-0 left-1/2 h-full w-8 -translate-x-1/2"
+            className="about-separator"
             filterId="about-orb-glow-desktop"
             glowBlurA={2.8}
             glowBlurB={5.5}
@@ -132,39 +132,39 @@ export function AboutBody() {
           />
         </div>
 
-        <div className="relative space-y-14">
+        <div className="about-content">
           {RESUME_SECTIONS.map((section) => (
             <article key={section.id} aria-labelledby={`about-section-${section.id}`}>
               <h2
                 id={`about-section-${section.id}`}
-                className="text-4xl font-semibold leading-[1.06] tracking-[-0.03em] text-[rgb(var(--text))] sm:text-[2.85rem]"
+                className="about-section-title"
               >
                 {section.heading}
               </h2>
 
-              <div className="mt-7 space-y-9">
+              <div className="about-section-block">
                 {section.groups.map((group) => (
                   <div key={group.id}>
-                    <ol className="space-y-9">
+                    <ol className="about-items">
                       {group.items.map((item) => (
-                        <li key={item.id} className="space-y-3.5 border-t border-[rgb(var(--line))/0.34] pt-5 first:border-t-0 first:pt-0">
-                          <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-x-6">
-                            <div className="space-y-1">
-                              <h4 className="text-[1.9rem] font-medium leading-[1.06] tracking-[-0.02em] text-[rgb(var(--text)/0.8)] sm:text-[2rem]">
+                        <li key={item.id} className="about-item">
+                          <div className="about-item-header">
+                            <div className="about-item-main">
+                              <h4 className="about-item-title">
                                 {item.title}
                               </h4>
-                              <p className="text-sm font-medium uppercase tracking-[0.07em] text-[rgb(var(--brand)/0.78)] sm:text-[0.96rem]">
+                              <p className="about-item-role">
                                 {item.role}
                               </p>
                             </div>
-                            <p className="text-sm font-semibold uppercase tracking-[0.04em] text-[rgb(var(--brand)/0.74)] sm:pt-1 sm:text-right sm:text-[0.98rem]">
+                            <p className="about-item-period">
                               {item.period}
                             </p>
                           </div>
 
-                          <ul className="space-y-2 pl-6 text-[1.03rem] font-normal leading-[1.52] text-[rgb(var(--text))/0.84] sm:text-[1.06rem] sm:leading-[1.5]">
+                          <ul className="about-item-bullets">
                             {item.bullets.map((line) => (
-                              <li key={line} className="list-disc marker:text-[rgb(var(--brand)/0.72)]">
+                              <li key={line} className="about-item-bullet">
                                 {line}
                               </li>
                             ))}

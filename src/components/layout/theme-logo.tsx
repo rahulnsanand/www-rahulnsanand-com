@@ -6,8 +6,8 @@ import { useSyncExternalStore } from "react";
 type Theme = "light" | "dark";
 
 const THEME_EVENT = "themechange";
-const LOGO_WIDTH = 61;
-const LOGO_HEIGHT = 36;
+const LOGO_WIDTH = 54;
+const LOGO_HEIGHT = 32;
 
 function getThemeSnapshot(): Theme {
   if (typeof document !== "undefined") {

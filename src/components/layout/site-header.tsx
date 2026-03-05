@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
+import { List, X } from "@phosphor-icons/react";
 import { ThemeLogo } from "@/components/layout/theme-logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 
@@ -36,12 +37,14 @@ function isNavItemActive(currentPath: string, href: string) {
 function NavLinks({
   onNavClick,
   currentPath,
+  id,
 }: {
   onNavClick: NavClickHandler;
   currentPath: string;
+  id?: string;
 }) {
   return (
-    <ul className="site-nav-links">
+    <ul className="site-nav-links" id={id}>
       {navItems.map((item) => {
         const isActive = isNavItemActive(currentPath, item.href);
         return (
@@ -62,21 +65,49 @@ function NavLinks({
 }
 
 function HeaderNav({ onNavClick, currentPath }: { onNavClick: NavClickHandler; currentPath: string }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 640) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const handleNavClick: NavClickHandler = (event, href) => {
+    setIsMenuOpen(false);
+    onNavClick(event, href);
+  };
+
   return (
-    <nav className="site-nav" aria-label="Primary navigation">
+    <nav className={`site-nav${isMenuOpen ? " site-nav--menu-open" : ""}`} aria-label="Primary navigation">
       <Link
         href="/"
         className="site-logo-link"
         aria-label="Rahul NS Anand home"
-        onClick={(event) => onNavClick(event, "/")}
+        onClick={(event) => handleNavClick(event, "/")}
       >
         <ThemeLogo />
       </Link>
 
       <div className="site-nav-right">
-        <NavLinks onNavClick={onNavClick} currentPath={currentPath} />
         <ThemeToggle />
+        <button
+          type="button"
+          className="site-nav-menu-toggle"
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMenuOpen}
+          aria-controls="primary-nav-links"
+          onClick={() => setIsMenuOpen((value) => !value)}
+        >
+          {isMenuOpen ? <X size={16} weight="bold" aria-hidden="true" /> : <List size={16} weight="bold" aria-hidden="true" />}
+        </button>
       </div>
+      <NavLinks onNavClick={handleNavClick} currentPath={currentPath} id="primary-nav-links" />
     </nav>
   );
 }
@@ -148,7 +179,7 @@ export function SiteHeader() {
   return (
     <>
       <header ref={staticHeaderRef} className="site-header">
-        <HeaderNav onNavClick={handleSamePageClick} currentPath={currentPath} />
+        <HeaderNav key={currentPath} onNavClick={handleSamePageClick} currentPath={currentPath} />
       </header>
       <header
         className={`site-header-floating${isFloating ? " site-header-floating--visible" : ""}`}
