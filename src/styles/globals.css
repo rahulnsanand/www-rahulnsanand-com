@@ -60,7 +60,8 @@ body {
 .site-shell {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   min-height: 100vh;
   --grid-size: 34px;
   background-color: rgb(var(--bg));
@@ -120,11 +121,51 @@ html.dark .site-shell::before {
   .site-header {
     width: min(1120px, calc(100% - 3rem));
     margin: 0 auto;
-    padding-top: 2rem;
+    padding-top: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transition:
+      width 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      padding-top 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .site-nav {
     @apply flex items-center justify-between;
+    pointer-events: auto;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 0.45rem 0.25rem;
+    transition:
+      background-color 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      backdrop-filter 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      padding 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .site-header-condensed {
+    position: fixed;
+    left: 50%;
+    top: 0;
+    width: min(760px, calc(100% - 2rem));
+    margin: 0;
+    padding-top: 0.45rem;
+    transform: translate(-50%, 8px);
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  .site-header-condensed .site-nav {
+    pointer-events: auto;
+    border-color: rgb(var(--line) / 0.58);
+    background: rgb(var(--bg) / 0.62);
+    backdrop-filter: blur(12px) saturate(145%);
+    box-shadow:
+      0 12px 40px rgb(0 0 0 / 0.25),
+      inset 0 1px 0 rgb(255 255 255 / 0.08);
+    padding: 0.35rem 0.45rem;
   }
 
   .site-logo-link {
@@ -301,7 +342,13 @@ html.dark .site-shell::before {
 
   .site-header {
     width: calc(100% - 2rem);
-    padding-top: 1.5rem;
+    padding-top: 0.75rem;
+  }
+
+  .site-header-condensed {
+    width: calc(100% - 1rem);
+    padding-top: 0.45rem;
+    transform: translate(-50%, 6px);
   }
 
   .site-nav-link {
@@ -342,6 +389,37 @@ html.dark .site-shell::before {
   }
 }
 
+.about-separator-draw {
+  filter: drop-shadow(0 0 10px rgb(var(--brand) / 0.95));
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: about-separator-draw 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.about-separator-orb-svg {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: about-separator-orb-svg 1.6s ease-in-out infinite;
+}
+
+@keyframes about-separator-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes about-separator-orb-svg {
+  0%,
+  100% {
+    transform: scale(0.95);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle,
   .theme-toggle-icon-sun,
@@ -352,6 +430,15 @@ html.dark .site-shell::before {
 
   .home-name-underline-main,
   .home-name-underline-detail {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .about-separator-orb-svg {
+    animation: none;
+  }
+
+  .about-separator-draw {
     animation: none;
     stroke-dashoffset: 0;
   }

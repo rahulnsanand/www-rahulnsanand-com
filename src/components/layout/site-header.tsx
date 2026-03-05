@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ThemeLogo } from "@/components/layout/theme-logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
@@ -11,8 +14,22 @@ const navItems = [
 ] as const;
 
 export function SiteHeader() {
+  const [isCondensed, setIsCondensed] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsCondensed(window.scrollY > 8);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
-    <header className="site-header">
+    <header className={`site-header ${isCondensed ? "site-header-condensed" : ""}`}>
       <nav className="site-nav" aria-label="Primary navigation">
         <Link href="/" className="site-logo-link" aria-label="Rahul NS Anand home">
           <ThemeLogo />
