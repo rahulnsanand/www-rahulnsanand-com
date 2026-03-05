@@ -3,6 +3,7 @@ import { ThemeLogo } from "@/components/layout/theme-logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const navItems = [
+  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
   { href: "/blogs", label: "Blogs" },

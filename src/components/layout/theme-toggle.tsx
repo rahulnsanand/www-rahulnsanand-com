@@ -85,10 +85,15 @@ export function ThemeToggle() {
       title="Toggle theme"
     >
       {theme === "dark" ? (
-        <Sun size={20} weight="duotone" aria-hidden="true" />
+        <span className="theme-toggle-icon theme-toggle-icon-sun" aria-hidden="true">
+          <Sun size={20} weight="duotone" />
+        </span>
       ) : (
-        <Moon size={20} weight="duotone" aria-hidden="true" />
+        <span className="theme-toggle-icon theme-toggle-icon-moon" aria-hidden="true">
+          <Moon size={20} weight="duotone" />
+        </span>
       )}
     </button>
   );
 }
+
