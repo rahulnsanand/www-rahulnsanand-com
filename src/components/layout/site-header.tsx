@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ThemeLogo } from "@/components/layout/theme-logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const navItems = [
@@ -14,13 +14,7 @@ export function SiteHeader() {
     <header className="site-header">
       <nav className="site-nav" aria-label="Primary navigation">
         <Link href="/" className="site-logo-link" aria-label="Rahul NS Anand home">
-          <Image
-            src="/logo-placeholder.png"
-            alt="Placeholder logo for Rahul NS Anand"
-            width={32}
-            height={32}
-            priority
-          />
+          <ThemeLogo />
         </Link>
 
         <div className="site-nav-right">

@@ -228,8 +228,12 @@ html.dark .site-shell::after {
   }
 
   .site-logo-link {
-    @apply inline-flex h-8 w-8 items-center justify-center rounded-full transition;
+    @apply inline-flex h-9 items-center justify-center rounded-full transition;
     color: rgb(var(--text));
+  }
+
+  .site-logo-image {
+    @apply block h-auto w-auto;
   }
 
   .site-logo-link:focus-visible {
