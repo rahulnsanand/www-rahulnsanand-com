@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AboutSeparator } from "./about-separator";
 
 type ResumeNode = {
   title: string;
@@ -70,8 +71,6 @@ const RESUME_SECTIONS: { heading: string; items: ResumeNode[] }[] = [
   },
 ];
 
-const SEPARATOR_PATH = "M16 12 C8 132, 24 242, 16 362 C8 492, 24 632, 16 772 C10 872, 22 942, 16 1012";
-
 const PRIMARY_LINKS = [
   { href: "/projects", label: "View Projects" },
   { href: "/blogs", label: "Read Blogs" },
@@ -83,7 +82,7 @@ export function AboutBody() {
     <section className="relative pb-12 pt-2 sm:pt-4">
       <div className="mx-auto grid max-w-[1080px] grid-cols-1 gap-10 lg:grid-cols-[300px_48px_1fr] lg:gap-12">
         <aside className="lg:self-start" aria-label="Profile summary">
-          <div className="px-1 lg:sticky lg:top-28 lg:w-[300px]">
+          <div className="px-1 lg:w-[300px]">
             <Image
               src="https://github.com/rahulnsanand.png"
               alt="Rahul NS Anand profile photo"
@@ -92,7 +91,6 @@ export function AboutBody() {
               className="h-36 w-36 rounded-full border border-[rgb(var(--line))] object-cover"
               priority
             />
-            <p className="mt-5 text-xs uppercase tracking-[0.18em] text-[rgb(var(--brand))]">About</p>
             <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[rgb(var(--text))] sm:text-4xl">
               Rahul NS Anand
             </h1>
@@ -132,96 +130,34 @@ export function AboutBody() {
 
         <div className="relative hidden lg:flex justify-center" aria-hidden>
           <div className="relative h-full w-px">
-            <svg
+            <AboutSeparator
               className="absolute left-1/2 top-0 h-full w-8 -translate-x-1/2"
-              viewBox="0 0 32 1024"
-              preserveAspectRatio="none"
-            >
-              <defs>
-                <filter id="about-orb-glow-desktop" x="-300%" y="-300%" width="700%" height="700%">
-                  <feGaussianBlur stdDeviation="2.8" result="blurA" />
-                  <feGaussianBlur stdDeviation="5.5" result="blurB" />
-                  <feMerge>
-                    <feMergeNode in="blurB" />
-                    <feMergeNode in="blurA" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              <path
-                d={SEPARATOR_PATH}
-                fill="none"
-                stroke="rgb(var(--brand) / 0.2)"
-                strokeWidth="1.4"
-                vectorEffect="non-scaling-stroke"
-              />
-              <path
-                d={SEPARATOR_PATH}
-                fill="none"
-                stroke="rgb(var(--brand) / 0.94)"
-                strokeWidth="2.05"
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
-                pathLength={1}
-                className="about-separator-draw"
-              />
-              <circle
-                cx="16"
-                cy="12"
-                r="4.2"
-                fill="rgb(var(--brand))"
-                filter="url(#about-orb-glow-desktop)"
-                className="about-separator-orb-svg"
-              />
-            </svg>
+              filterId="about-orb-glow-desktop"
+              glowBlurA={2.8}
+              glowBlurB={5.5}
+              baseStroke="rgb(var(--brand) / 0.2)"
+              baseWidth={1.4}
+              activeStroke="rgb(var(--brand) / 0.94)"
+              activeWidth={2.05}
+              orbRadius={4.2}
+            />
           </div>
         </div>
 
         <div className="relative space-y-14 pl-7 sm:pl-8 lg:pl-0">
           <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-7 lg:hidden" aria-hidden>
             <div className="relative h-full">
-              <svg
+              <AboutSeparator
                 className="absolute left-3 top-0 h-full w-6 -translate-x-1/2"
-                viewBox="0 0 32 1024"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <filter id="about-orb-glow-mobile" x="-300%" y="-300%" width="700%" height="700%">
-                    <feGaussianBlur stdDeviation="2.4" result="blurA" />
-                    <feGaussianBlur stdDeviation="4.8" result="blurB" />
-                    <feMerge>
-                      <feMergeNode in="blurB" />
-                      <feMergeNode in="blurA" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-                <path
-                  d={SEPARATOR_PATH}
-                  fill="none"
-                  stroke="rgb(var(--brand) / 0.16)"
-                  strokeWidth="1.2"
-                  vectorEffect="non-scaling-stroke"
-                />
-                <path
-                  d={SEPARATOR_PATH}
-                  fill="none"
-                  stroke="rgb(var(--brand) / 0.92)"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                  pathLength={1}
-                  className="about-separator-draw"
-                />
-                <circle
-                  cx="16"
-                  cy="12"
-                  r="3.2"
-                  fill="rgb(var(--brand))"
-                  filter="url(#about-orb-glow-mobile)"
-                  className="about-separator-orb-svg"
-                />
-              </svg>
+                filterId="about-orb-glow-mobile"
+                glowBlurA={2.4}
+                glowBlurB={4.8}
+                baseStroke="rgb(var(--brand) / 0.16)"
+                baseWidth={1.2}
+                activeStroke="rgb(var(--brand) / 0.92)"
+                activeWidth={1.6}
+                orbRadius={3.2}
+              />
             </div>
           </div>
           {RESUME_SECTIONS.map((section) => (

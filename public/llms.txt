@@ -7,7 +7,9 @@ Site: https://www.rahulnsanand.com
 - https://www.rahulnsanand.com/
   "@/components/home/homepage"; Home().
 - https://www.rahulnsanand.com/about
-  "next"; "@/components/content/content-page"; metadata: Metadata = ; AboutPage().
+  "next"; "./about-body"; metadata: Metadata = { title: "About", description: "About Rahul NS Anand - experience, projects, engineering focus, and the product principles behind his work.", alternates: , openGraph: , }; AboutPage().
+- https://www.rahulnsanand.com/blogs
+  "next"; "@/components/content/content-page"; metadata: Metadata = ; BlogsPage().
 - https://www.rahulnsanand.com/contact
   "next"; "@/components/content/content-page"; metadata: Metadata = ; ContactPage().
 - https://www.rahulnsanand.com/projects

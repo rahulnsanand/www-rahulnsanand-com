@@ -6,8 +6,9 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-05T11:33:50.390Z") },
-    { url: `https://www.rahulnsanand.com/about`, lastModified: new Date("2026-03-05T11:33:55.603Z") },
-    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-05T11:33:59.685Z") },
-    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-05T11:34:05.928Z") },
+    { url: `https://www.rahulnsanand.com/about`, lastModified: new Date("2026-03-05T14:01:58.707Z") },
+    { url: `https://www.rahulnsanand.com/blogs`, lastModified: new Date("2026-03-05T12:48:14.088Z") },
+    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-05T12:45:13.876Z") },
+    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-05T12:45:13.876Z") },
   ];
 }
