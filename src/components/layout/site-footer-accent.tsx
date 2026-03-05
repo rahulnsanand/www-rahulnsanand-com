@@ -51,7 +51,7 @@ export function SiteFooterAccent() {
         </div>
       ) : null}
       <p className="site-footer-meta">
-        {`© ${currentYear} Rahul NS Anand · Website License · rahulnsanand.com`}
+        {`© ${currentYear} Rahul NS Anand · GNU AGPL V3 · rahulnsanand.com`}
       </p>
     </>
   );

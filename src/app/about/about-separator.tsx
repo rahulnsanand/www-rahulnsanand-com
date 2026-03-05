@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from "motion/react";
 
 const VIEWBOX_HEIGHT = 1080;
-const EDGE_PADDING = 28;
 const SEPARATOR_PATH =
   "M16 28 C8 160, 24 270, 16 390 C8 520, 24 660, 16 800 C10 914, 22 990, 16 1052";
 
@@ -32,6 +31,7 @@ export function AboutSeparator({
 }: AboutSeparatorProps) {
   const shouldReduceMotion = useReducedMotion();
   const revealClipId = `${filterId}-reveal`;
+  void orbRadius;
 
   return (
     <svg
@@ -84,26 +84,10 @@ export function AboutSeparator({
         vectorEffect="non-scaling-stroke"
         clipPath={`url(#${revealClipId})`}
         style={{
-          filter: "drop-shadow(0 0 10px rgb(var(--brand) / 0.95))",
           opacity: 1,
         }}
       />
 
-      <motion.circle
-        cx="16"
-        cy={EDGE_PADDING}
-        r={orbRadius}
-        fill="rgb(var(--brand))"
-        filter={`url(#${filterId})`}
-        style={{ transformBox: "fill-box", transformOrigin: "center" }}
-        initial={{ scale: 0.96, opacity: 0.95 }}
-        animate={
-          shouldReduceMotion
-            ? { scale: 1, opacity: 1 }
-            : { scale: [0.95, 1.05, 0.95], opacity: [0.92, 1, 0.92] }
-        }
-        transition={shouldReduceMotion ? { duration: 0 } : { duration: 1.6, ease: "easeInOut", repeat: Infinity }}
-      />
     </svg>
   );
 }

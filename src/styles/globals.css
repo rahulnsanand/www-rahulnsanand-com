@@ -102,6 +102,7 @@ html.dark .site-shell::before {
 .site-nav-link,
 .theme-toggle,
 .home-copy,
+.home-cta-link,
 .home-portal-link,
 .content-copy {
   transition:
@@ -423,6 +424,28 @@ html.dark .site-shell::before {
 
   .home-portals {
     @apply flex items-center gap-3;
+  }
+
+  .home-cta {
+    @apply flex items-center;
+  }
+
+  .home-cta-link {
+    @apply inline-flex items-center text-sm font-medium leading-none tracking-[0.01em] underline-offset-4 transition;
+    color: rgb(var(--muted));
+    text-decoration: none;
+  }
+
+  .home-cta-link:hover {
+    color: rgb(var(--text));
+    text-decoration: underline;
+    transform: translateY(-1px);
+  }
+
+  .home-cta-link:focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    --tw-ring-color: rgb(var(--brand));
+    --tw-ring-offset-color: rgb(var(--bg));
   }
 
   .home-portal-link {

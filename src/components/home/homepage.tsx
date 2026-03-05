@@ -1,4 +1,5 @@
 import {
+  ArrowUpRight,
   Code,
   DevToLogo,
   GithubLogo,
@@ -6,6 +7,7 @@ import {
   MediumLogo,
   YoutubeLogo,
 } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 
 const portalLinks = [
@@ -47,6 +49,12 @@ export function Homepage() {
           Software Engineer 2 building AI and personal data tools with a focus
           on thoughtful design and reliable systems.
         </p>
+        <div className="home-cta" aria-label="Primary navigation">
+          <Link href="/about" className="home-cta-link">
+            see more about me{" "}
+            <ArrowUpRight size={16} weight="duotone" aria-hidden="true" />
+          </Link>
+        </div>
         <div className="home-portals" aria-label="Digital portals">
           {portalLinks.map((portal) => (
             <a
