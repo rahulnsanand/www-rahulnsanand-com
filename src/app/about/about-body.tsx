@@ -82,7 +82,7 @@ export function AboutBody() {
     <section className="relative pb-12 pt-2 sm:pt-4">
       <div className="mx-auto grid max-w-[1080px] grid-cols-1 gap-10 lg:grid-cols-[300px_48px_1fr] lg:gap-12">
         <aside className="lg:self-start" aria-label="Profile summary">
-          <div className="px-1 lg:w-[300px]">
+          <div className="px-1 lg:sticky lg:top-20 lg:w-[300px]">
             <Image
               src="https://github.com/rahulnsanand.png"
               alt="Rahul NS Anand profile photo"

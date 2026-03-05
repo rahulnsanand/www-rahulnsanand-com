@@ -31,6 +31,7 @@ export function AboutSeparator({
   orbRadius,
 }: AboutSeparatorProps) {
   const shouldReduceMotion = useReducedMotion();
+  const revealClipId = `${filterId}-reveal`;
 
   return (
     <svg
@@ -49,6 +50,20 @@ export function AboutSeparator({
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
+        <clipPath id={revealClipId} clipPathUnits="userSpaceOnUse">
+          <motion.rect
+            x="0"
+            y="0"
+            width="32"
+            initial={{ height: shouldReduceMotion ? VIEWBOX_HEIGHT : 0 }}
+            animate={{ height: VIEWBOX_HEIGHT }}
+            transition={{
+              duration: shouldReduceMotion ? 0 : 3,
+              delay: shouldReduceMotion ? 0 : 0.2,
+              ease: "easeInOut",
+            }}
+          />
+        </clipPath>
       </defs>
 
       <path
@@ -59,17 +74,19 @@ export function AboutSeparator({
         vectorEffect="non-scaling-stroke"
       />
 
-      <motion.path
+      <path
         d={SEPARATOR_PATH}
         fill="none"
         stroke={activeStroke}
         strokeWidth={activeWidth}
         strokeLinecap="round"
+        strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
-        initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 0.61, 0.36, 1] }}
-        style={{ filter: "drop-shadow(0 0 10px rgb(var(--brand) / 0.95))" }}
+        clipPath={`url(#${revealClipId})`}
+        style={{
+          filter: "drop-shadow(0 0 10px rgb(var(--brand) / 0.95))",
+          opacity: 1,
+        }}
       />
 
       <motion.circle
