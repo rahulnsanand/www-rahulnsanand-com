@@ -1,3 +1,21 @@
+import {
+  Code,
+  DevToLogo,
+  GithubLogo,
+  LinkedinLogo,
+  MediumLogo,
+  YoutubeLogo,
+} from "@phosphor-icons/react/dist/ssr";
+
+const portalLinks = [
+  { href: "https://github.com/rahulnsanand", label: "GitHub", icon: GithubLogo },
+  { href: "https://www.youtube.com/@rahulnsanand", label: "YouTube", icon: YoutubeLogo },
+  { href: "https://www.linkedin.com/in/rahulnsanand", label: "LinkedIn", icon: LinkedinLogo },
+  { href: "https://medium.com/@rahulnsanand", label: "Medium", icon: MediumLogo },
+  { href: "https://dev.to/rahulnsanand", label: "Dev.to", icon: DevToLogo },
+  { href: "https://leetcode.com/rahulnsanand", label: "LeetCode", icon: Code },
+] as const;
+
 export function Homepage() {
   return (
     <section className="home-page">
@@ -27,6 +45,20 @@ export function Homepage() {
           Software Engineer 2 building AI and personal data tools with a focus
           on thoughtful design and reliable systems.
         </p>
+        <div className="home-portals" aria-label="Digital portals">
+          {portalLinks.map((portal) => (
+            <a
+              key={portal.href}
+              href={portal.href}
+              className="home-portal-link"
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label={portal.label}
+            >
+              <portal.icon size={18} weight="duotone" aria-hidden="true" />
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );

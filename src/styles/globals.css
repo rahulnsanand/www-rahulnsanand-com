@@ -164,12 +164,14 @@ html.dark .site-shell::after {
 .site-nav-link,
 .theme-toggle,
 .home-copy,
+.home-portal-link,
 .content-copy {
   transition:
     color var(--theme-fade-duration) var(--theme-fade-easing),
     border-color var(--theme-fade-duration) var(--theme-fade-easing),
     background-color var(--theme-fade-duration) var(--theme-fade-easing),
-    opacity var(--theme-fade-duration) var(--theme-fade-easing);
+    opacity var(--theme-fade-duration) var(--theme-fade-easing),
+    transform 220ms ease;
 }
 
 @keyframes grid-chroma-drift {
@@ -245,12 +247,8 @@ html.dark .site-shell::after {
   }
 
   .site-nav-link {
-    @apply inline-flex items-center gap-1.5 text-sm font-medium leading-none tracking-[0.01em] transition-opacity hover:opacity-70;
+    @apply inline-flex items-center text-sm font-medium leading-none tracking-[0.01em] transition-opacity hover:opacity-70;
     color: rgb(var(--muted));
-  }
-
-  .site-nav-icon {
-    opacity: 0.88;
   }
 
   .site-nav-link:focus-visible {
@@ -336,6 +334,30 @@ html.dark .site-shell::after {
     @apply max-w-[580px] text-lg leading-8 [text-wrap:balance] sm:text-xl;
     color: rgb(var(--muted));
     margin: 0;
+  }
+
+  .home-portals {
+    @apply flex items-center gap-3;
+  }
+
+  .home-portal-link {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-full border;
+    color: rgb(var(--brand));
+    border-color: rgb(var(--line));
+    background-color: rgb(var(--bg) / 0.74);
+    backdrop-filter: blur(4px);
+  }
+
+  .home-portal-link:hover {
+    border-color: rgb(var(--muted) / 0.5);
+    background-color: rgb(var(--bg) / 0.92);
+    transform: translateY(-1px);
+  }
+
+  .home-portal-link:focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    --tw-ring-color: rgb(var(--brand));
+    --tw-ring-offset-color: rgb(var(--bg));
   }
 
   .content-page {

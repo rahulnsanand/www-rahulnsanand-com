@@ -1,16 +1,11 @@
-import {
-  DiamondsFour,
-  EnvelopeSimple,
-  Sparkle,
-} from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const navItems = [
-  { href: "/about", label: "About", icon: Sparkle },
-  { href: "/projects", label: "Projects", icon: DiamondsFour },
-  { href: "/contact", label: "Contact", icon: EnvelopeSimple },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export function SiteHeader() {
@@ -32,12 +27,6 @@ export function SiteHeader() {
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="site-nav-link">
-                  <item.icon
-                    size={16}
-                    weight="duotone"
-                    className="site-nav-icon"
-                    aria-hidden="true"
-                  />
                   {item.label}
                 </Link>
               </li>
