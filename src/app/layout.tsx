@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
+import { FooterAccentProvider, SiteFooterAccent } from "@/components/layout/site-footer-accent";
 
 const themeInitScript = `
   (() => {
@@ -35,10 +36,15 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="antialiased">
-        <div className="site-shell">
-          <SiteHeader />
-          <main className="site-main">{children}</main>
-        </div>
+        <FooterAccentProvider>
+          <div className="site-shell">
+            <SiteHeader />
+            <main className="site-main">{children}</main>
+            <footer className="site-footer">
+              <SiteFooterAccent />
+            </footer>
+          </div>
+        </FooterAccentProvider>
       </body>
     </html>
   );

@@ -24,25 +24,44 @@ function normalizePath(path: string) {
 
 type NavClickHandler = (event: MouseEvent<HTMLAnchorElement>, href: string) => void;
 
-function NavLinks({ onNavClick }: { onNavClick: NavClickHandler }) {
+function isNavItemActive(currentPath: string, href: string) {
+  const normalizedHref = normalizePath(href);
+  if (normalizedHref === "/") {
+    return currentPath === "/";
+  }
+
+  return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+}
+
+function NavLinks({
+  onNavClick,
+  currentPath,
+}: {
+  onNavClick: NavClickHandler;
+  currentPath: string;
+}) {
   return (
     <ul className="site-nav-links">
-      {navItems.map((item) => (
-        <li key={item.href}>
-          <Link
-            href={item.href}
-            className="site-nav-link"
-            onClick={(event) => onNavClick(event, item.href)}
-          >
-            {item.label}
-          </Link>
-        </li>
-      ))}
+      {navItems.map((item) => {
+        const isActive = isNavItemActive(currentPath, item.href);
+        return (
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              className={`site-nav-link${isActive ? " site-nav-link--active" : ""}`}
+              aria-current={isActive ? "page" : undefined}
+              onClick={(event) => onNavClick(event, item.href)}
+            >
+              {item.label}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }
 
-function HeaderNav({ onNavClick }: { onNavClick: NavClickHandler }) {
+function HeaderNav({ onNavClick, currentPath }: { onNavClick: NavClickHandler; currentPath: string }) {
   return (
     <nav className="site-nav" aria-label="Primary navigation">
       <Link
@@ -55,18 +74,18 @@ function HeaderNav({ onNavClick }: { onNavClick: NavClickHandler }) {
       </Link>
 
       <div className="site-nav-right">
-        <NavLinks onNavClick={onNavClick} />
+        <NavLinks onNavClick={onNavClick} currentPath={currentPath} />
         <ThemeToggle />
       </div>
     </nav>
   );
 }
 
-function FloatingNav({ onNavClick }: { onNavClick: NavClickHandler }) {
+function FloatingNav({ onNavClick, currentPath }: { onNavClick: NavClickHandler; currentPath: string }) {
   return (
     <nav className="site-nav site-nav--floating-mini" aria-label="Floating navigation">
       <div className="site-nav-right site-nav-right--floating">
-        <NavLinks onNavClick={onNavClick} />
+        <NavLinks onNavClick={onNavClick} currentPath={currentPath} />
         <ThemeToggle />
       </div>
     </nav>
@@ -124,18 +143,18 @@ export function SiteHeader() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [currentPath]);
 
   return (
     <>
       <header ref={staticHeaderRef} className="site-header">
-        <HeaderNav onNavClick={handleSamePageClick} />
+        <HeaderNav onNavClick={handleSamePageClick} currentPath={currentPath} />
       </header>
       <header
         className={`site-header-floating${isFloating ? " site-header-floating--visible" : ""}`}
         aria-hidden={!isFloating}
       >
-        <FloatingNav onNavClick={handleSamePageClick} />
+        <FloatingNav onNavClick={handleSamePageClick} currentPath={currentPath} />
       </header>
     </>
   );

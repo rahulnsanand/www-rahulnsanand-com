@@ -6,6 +6,7 @@ import {
   MediumLogo,
   YoutubeLogo,
 } from "@phosphor-icons/react/dist/ssr";
+import { FooterAccentText } from "@/components/layout/site-footer-accent";
 
 const portalLinks = [
   { href: "https://github.com/rahulnsanand", label: "GitHub", icon: GithubLogo },
@@ -19,12 +20,7 @@ const portalLinks = [
 export function Homepage() {
   return (
     <section className="home-page relative">
-      <div
-        className="pointer-events-none fixed -bottom-[0.2em] left-0 z-0 text-left text-[16vw] font-semibold leading-none tracking-[-0.06em] text-[rgb(var(--brand)/0.12)] sm:text-[9rem]"
-        aria-hidden="true"
-      >
-        Hello World
-      </div>
+      <FooterAccentText text="Hello World" />
       <div className="home-stack relative z-10">
         <h1 className="home-title">
           I&apos;m{" "}

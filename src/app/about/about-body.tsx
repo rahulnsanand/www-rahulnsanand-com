@@ -1,5 +1,6 @@
 import { AboutSeparator } from "./about-separator";
 import { AboutProfileSummary } from "./about-profile-summary";
+import { FooterAccentText } from "@/components/layout/site-footer-accent";
 
 type ResumeNode = {
   title: string;
@@ -73,7 +74,8 @@ const RESUME_SECTIONS: { heading: string; items: ResumeNode[] }[] = [
 export function AboutBody() {
   return (
     <section className="relative pb-12 pt-2 sm:pt-4">
-      <div className="mx-auto grid max-w-[1080px] grid-cols-1 gap-10 lg:items-start lg:grid-cols-[300px_48px_1fr] lg:gap-12">
+      <FooterAccentText text="public void main()" />
+      <div className="relative z-10 mx-auto grid max-w-[1080px] grid-cols-1 gap-10 lg:items-start lg:grid-cols-[300px_48px_1fr] lg:gap-12">
         <aside className="lg:sticky lg:top-20 lg:self-start" aria-label="Profile summary">
           <AboutProfileSummary />
         </aside>
