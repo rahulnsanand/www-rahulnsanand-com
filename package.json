@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-robots.mjs && node scripts/generate-llms-txt.mjs && node scripts/generate-sitemap.mjs",
     "build": "pnpm lint && pnpm typecheck && next build",
     "start": "next start",
     "lint": "eslint .",
