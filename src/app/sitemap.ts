@@ -5,6 +5,9 @@ import type { MetadataRoute } from "next";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-05T09:40:14.810Z") },
+    { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-05T09:51:20.062Z") },
+    { url: `https://www.rahulnsanand.com/about`, lastModified: new Date("2026-03-05T09:58:54.639Z") },
+    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-05T09:59:02.760Z") },
+    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-05T09:58:58.695Z") },
   ];
 }

@@ -5,7 +5,13 @@ Site: https://www.rahulnsanand.com
 
 ## Non-blog Pages
 - https://www.rahulnsanand.com/
-  Home() { ( I&apos;m Rahul Anand Looking for a starting point or more instructions? Head over to llms.txt . ); }.
+  "@/components/homepage"; Home().
+- https://www.rahulnsanand.com/about
+  "next"; metadata: Metadata = ; AboutPage().
+- https://www.rahulnsanand.com/contact
+  "next"; metadata: Metadata = ; ContactPage().
+- https://www.rahulnsanand.com/projects
+  "next"; metadata: Metadata = ; ProjectsPage().
 
 ## Blogs (Excerpts)
 - No blog content discovered.

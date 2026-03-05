@@ -1,22 +1,327 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light dark;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Segoe UI", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --bg: 245 245 243;
+  --text: 28 28 30;
+  --muted: 102 102 108;
+  --line: 224 224 228;
+  --brand: 57 57 61;
+  --grid-p1: 205 224 255;
+  --grid-p2: 255 217 227;
+  --grid-p3: 214 241 232;
+  --grid-p4: 236 228 255;
+  --theme-fade-duration: 520ms;
+  --theme-fade-easing: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+html.light {
+  --bg: 245 245 243;
+  --text: 28 28 30;
+  --muted: 102 102 108;
+  --line: 224 224 228;
+  --brand: 57 57 61;
+  --grid-p1: 205 224 255;
+  --grid-p2: 255 217 227;
+  --grid-p3: 214 241 232;
+  --grid-p4: 236 228 255;
+}
+
+html.dark {
+  --bg: 16 16 18;
+  --text: 236 236 240;
+  --muted: 148 148 155;
+  --line: 44 44 49;
+  --brand: 216 216 221;
+  --grid-p1: 106 132 180;
+  --grid-p2: 166 122 143;
+  --grid-p3: 104 148 137;
+  --grid-p4: 132 122 170;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light):not(.dark) {
+    --bg: 16 16 18;
+    --text: 236 236 240;
+    --muted: 148 148 155;
+    --line: 44 44 49;
+    --brand: 216 216 221;
+    --grid-p1: 106 132 180;
+    --grid-p2: 166 122 143;
+    --grid-p3: 104 148 137;
+    --grid-p4: 132 122 170;
+  }
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
+  height: 100%;
+}
+
+html {
+  background: rgb(var(--bg));
+  transition: background-color var(--theme-fade-duration) var(--theme-fade-easing);
 }
 
 body {
-  line-height: 1.6;
-  font-family: var(--font-geist-sans), system-ui, -apple-system, Segoe UI, sans-serif;
+  font-family: var(--font-sans);
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+  transition:
+    background-color var(--theme-fade-duration) var(--theme-fade-easing),
+    color var(--theme-fade-duration) var(--theme-fade-easing);
+}
+
+.site-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  background-color: rgb(var(--bg));
+  transition: background-color var(--theme-fade-duration) var(--theme-fade-easing);
+}
+
+.site-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 0.7px 0.7px, rgb(var(--line) / 0.76) 0.72px, transparent 0.9px),
+    radial-gradient(circle at 0.7px 0.7px, rgb(var(--line) / 0.76) 0.72px, transparent 0.9px);
+  background-size: 34px 6px, 6px 34px;
+  background-position: 0 0, 0 0;
+  opacity: 0.94;
+  transition: opacity var(--theme-fade-duration) var(--theme-fade-easing);
+}
+
+html.light .site-shell::before {
+  opacity: 1;
+}
+
+html.dark .site-shell::before {
+  opacity: 0.64;
+}
+
+.site-shell::after {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    radial-gradient(68rem 44rem at 9% 14%, rgb(var(--grid-p1) / 0.2), transparent 61%),
+    radial-gradient(62rem 40rem at 87% 22%, rgb(var(--grid-p2) / 0.2), transparent 62%),
+    radial-gradient(70rem 50rem at 31% 86%, rgb(var(--grid-p3) / 0.2), transparent 61%),
+    radial-gradient(60rem 40rem at 73% 77%, rgb(var(--grid-p4) / 0.2), transparent 63%),
+    conic-gradient(
+      from 128deg at 54% 52%,
+      rgb(var(--grid-p1) / 0.08),
+      rgb(var(--grid-p2) / 0.1),
+      rgb(var(--grid-p3) / 0.08),
+      rgb(var(--grid-p4) / 0.1),
+      rgb(var(--grid-p1) / 0.08)
+    );
+  background-size: 130% 130%, 140% 140%, 135% 135%, 145% 145%, 180% 180%;
+  background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 50% 50%;
+  -webkit-mask-image:
+    radial-gradient(circle at 0.7px 0.7px, #000 0.72px, transparent 0.9px),
+    radial-gradient(circle at 0.7px 0.7px, #000 0.72px, transparent 0.9px);
+  -webkit-mask-size: 34px 6px, 6px 34px;
+  -webkit-mask-repeat: repeat;
+  -webkit-mask-position: 0 0, 0 0;
+  -webkit-mask-composite: source-over, source-over;
+  mask-image:
+    radial-gradient(circle at 0.7px 0.7px, #000 0.72px, transparent 0.9px),
+    radial-gradient(circle at 0.7px 0.7px, #000 0.72px, transparent 0.9px);
+  mask-size: 34px 6px, 6px 34px;
+  mask-repeat: repeat;
+  mask-position: 0 0, 0 0;
+  mask-composite: add;
+  opacity: 0.42;
+  animation: grid-chroma-drift 120s linear infinite alternate;
+  transition: opacity var(--theme-fade-duration) var(--theme-fade-easing);
+}
+
+html.light .site-shell::after {
+  opacity: 0.56;
+}
+
+html.dark .site-shell::after {
+  opacity: 0.24;
+  animation-name: grid-chroma-drift-dark;
+}
+
+.site-header,
+.site-main {
+  position: relative;
+  z-index: 2;
+}
+
+.site-logo-link,
+.site-nav-link,
+.theme-toggle,
+.home-copy,
+.content-copy {
+  transition:
+    color var(--theme-fade-duration) var(--theme-fade-easing),
+    border-color var(--theme-fade-duration) var(--theme-fade-easing),
+    background-color var(--theme-fade-duration) var(--theme-fade-easing),
+    opacity var(--theme-fade-duration) var(--theme-fade-easing);
+}
+
+@keyframes grid-chroma-drift {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 45% 50%;
+    opacity: 0.38;
+  }
+  50% {
+    background-position: 16% 12%, 84% 9%, 9% 88%, 93% 82%, 54% 58%;
+    opacity: 0.43;
+  }
+  100% {
+    background-position: 30% 20%, 70% 18%, 20% 70%, 76% 74%, 60% 42%;
+    opacity: 0.39;
+  }
+}
+
+@keyframes grid-chroma-drift-dark {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 45% 50%;
+    opacity: 0.2;
+  }
+  50% {
+    background-position: 16% 12%, 84% 9%, 9% 88%, 93% 82%, 54% 58%;
+    opacity: 0.24;
+  }
+  100% {
+    background-position: 30% 20%, 70% 18%, 20% 70%, 76% 74%, 60% 42%;
+    opacity: 0.21;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-shell::after {
+    animation: none;
+  }
+}
+
+.site-main {
+  width: min(1120px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 4.5rem 0 5rem;
+}
+
+@layer components {
+  .site-header {
+    width: min(1120px, calc(100% - 3rem));
+    margin: 0 auto;
+    padding-top: 2rem;
+  }
+
+  .site-nav {
+    @apply flex items-center justify-between;
+  }
+
+  .site-logo-link {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-full transition;
+    color: rgb(var(--text));
+  }
+
+  .site-logo-link:focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    --tw-ring-color: rgb(var(--brand));
+    --tw-ring-offset-color: rgb(var(--bg));
+  }
+
+  .site-nav-right {
+    @apply flex items-center gap-5 sm:gap-8;
+  }
+
+  .site-nav-links {
+    @apply flex items-center gap-4 sm:gap-8;
+  }
+
+  .site-nav-link {
+    @apply inline-flex items-center gap-1.5 text-sm font-medium leading-none tracking-[0.01em] transition-opacity hover:opacity-70;
+    color: rgb(var(--muted));
+  }
+
+  .site-nav-icon {
+    opacity: 0.88;
+  }
+
+  .site-nav-link:focus-visible {
+    @apply rounded-sm outline-none ring-2 ring-offset-2;
+    --tw-ring-color: rgb(var(--brand));
+    --tw-ring-offset-color: rgb(var(--bg));
+  }
+
+  .theme-toggle {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-full border transition;
+    color: rgb(var(--brand));
+    border-color: rgb(var(--line));
+    background-color: rgb(var(--bg) / 0.72);
+    backdrop-filter: blur(4px);
+  }
+
+  .theme-toggle:focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    --tw-ring-color: rgb(var(--brand));
+    --tw-ring-offset-color: rgb(var(--bg));
+  }
+
+  .theme-toggle:hover {
+    border-color: rgb(var(--muted) / 0.5);
+    background-color: rgb(var(--bg) / 0.92);
+  }
+
+  .home-page {
+    @apply flex min-h-[55vh] items-center;
+  }
+
+  .home-stack {
+    @apply flex max-w-[700px] flex-col items-start gap-5 text-left;
+  }
+
+  .home-title {
+    @apply text-4xl font-semibold tracking-[-0.04em] [text-wrap:balance] sm:text-6xl;
+    line-height: 1.08;
+  }
+
+  .home-copy {
+    @apply max-w-[580px] text-lg leading-8 [text-wrap:balance] sm:text-xl;
+    color: rgb(var(--muted));
+  }
+
+  .content-page {
+    @apply flex min-h-[55vh] max-w-[760px] flex-col justify-center gap-4;
+  }
+
+  .content-title {
+    @apply text-3xl font-semibold tracking-[-0.03em] sm:text-5xl;
+  }
+
+  .content-copy {
+    @apply text-base leading-8 sm:text-lg;
+    color: rgb(var(--muted));
+  }
+}
+
+@media (max-width: 640px) {
+  .site-main {
+    width: calc(100% - 2rem);
+    padding-top: 3.5rem;
+  }
+
+  .site-header {
+    width: calc(100% - 2rem);
+    padding-top: 1.5rem;
+  }
+
+  .site-nav-link {
+    font-size: 0.8125rem;
+  }
 }
