@@ -52,6 +52,7 @@ body {
   font-family: var(--font-sans);
   background: rgb(var(--bg));
   color: rgb(var(--text));
+  overflow-x: hidden;
   transition:
     background-color var(--theme-fade-duration) var(--theme-fade-easing),
     color var(--theme-fade-duration) var(--theme-fade-easing);
@@ -60,8 +61,7 @@ body {
 .site-shell {
   position: relative;
   isolation: isolate;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: visible;
   min-height: 100vh;
   --grid-size: 34px;
   background-color: rgb(var(--bg));
