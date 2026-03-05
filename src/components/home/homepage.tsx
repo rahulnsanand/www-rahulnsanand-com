@@ -20,7 +20,7 @@ export function Homepage() {
   return (
     <section className="home-page relative">
       <div
-        className="pointer-events-none fixed -bottom-[0.2em] -left-[0.35em] z-0 text-left text-[16vw] font-semibold leading-none tracking-[-0.06em] text-[rgb(var(--brand)/0.12)] sm:text-[9rem]"
+        className="pointer-events-none fixed -bottom-[0.2em] left-0 z-0 text-left text-[16vw] font-semibold leading-none tracking-[-0.06em] text-[rgb(var(--brand)/0.12)] sm:text-[9rem]"
         aria-hidden="true"
       >
         Hello World

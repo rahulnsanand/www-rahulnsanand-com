@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <ContentPage
-      title="About"
+      title="public void main()"
+      accentText="public void main()"
       copy="I build software products focused on clarity, usability, and long-term maintainability."
     />
   );

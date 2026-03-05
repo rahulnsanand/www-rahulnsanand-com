@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <ContentPage
-      title="Contact"
+      title="ping rahulnsanand.com"
+      accentText="ping rahulnsanand.com"
       copy="Reach out for collaborations, product engineering work, or discussions around AI and design-led software."
     />
   );

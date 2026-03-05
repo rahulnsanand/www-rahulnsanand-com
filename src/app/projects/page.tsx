@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <ContentPage
-      title="Projects"
+      title="src/deployed"
+      accentText="src/deployed"
       copy="Selected work across AI tools, personal data systems, and clean product experiences."
     />
   );
