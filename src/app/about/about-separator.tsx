@@ -2,7 +2,10 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
-const SEPARATOR_PATH = "M16 0 C8 132, 24 242, 16 362 C8 492, 24 632, 16 772 C10 886, 22 962, 16 1024";
+const VIEWBOX_HEIGHT = 1080;
+const EDGE_PADDING = 28;
+const SEPARATOR_PATH =
+  "M16 28 C8 160, 24 270, 16 390 C8 520, 24 660, 16 800 C10 914, 22 990, 16 1052";
 
 type AboutSeparatorProps = {
   className: string;
@@ -30,7 +33,12 @@ export function AboutSeparator({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <svg className={className} viewBox="0 0 32 1024" preserveAspectRatio="none">
+    <svg
+      className={className}
+      viewBox={`0 0 32 ${VIEWBOX_HEIGHT}`}
+      preserveAspectRatio="none"
+      style={{ overflow: "visible" }}
+    >
       <defs>
         <filter id={filterId} x="-300%" y="-300%" width="700%" height="700%">
           <feGaussianBlur stdDeviation={glowBlurA} result="blurA" />
@@ -58,15 +66,15 @@ export function AboutSeparator({
         strokeWidth={activeWidth}
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
-        initial={{ pathLength: shouldReduceMotion ? 1 : 0, opacity: shouldReduceMotion ? 1 : 0.8 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 1.4, ease: [0.22, 0.61, 0.36, 1] }}
+        initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 0.61, 0.36, 1] }}
         style={{ filter: "drop-shadow(0 0 10px rgb(var(--brand) / 0.95))" }}
       />
 
       <motion.circle
         cx="16"
-        cy="0"
+        cy={EDGE_PADDING}
         r={orbRadius}
         fill="rgb(var(--brand))"
         filter={`url(#${filterId})`}

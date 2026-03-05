@@ -128,38 +128,21 @@ export function AboutBody() {
           </div>
         </aside>
 
-        <div className="relative hidden lg:flex justify-center" aria-hidden>
-          <div className="relative h-full w-px">
-            <AboutSeparator
-              className="absolute left-1/2 top-0 h-full w-8 -translate-x-1/2"
-              filterId="about-orb-glow-desktop"
-              glowBlurA={2.8}
-              glowBlurB={5.5}
-              baseStroke="rgb(var(--brand) / 0.2)"
-              baseWidth={1.4}
-              activeStroke="rgb(var(--brand) / 0.94)"
-              activeWidth={2.05}
-              orbRadius={4.2}
-            />
-          </div>
+        <div className="relative hidden overflow-visible lg:block lg:self-stretch" aria-hidden>
+          <AboutSeparator
+            className="absolute inset-y-0 left-1/2 h-full w-8 -translate-x-1/2"
+            filterId="about-orb-glow-desktop"
+            glowBlurA={2.8}
+            glowBlurB={5.5}
+            baseStroke="rgb(var(--brand) / 0.2)"
+            baseWidth={1.4}
+            activeStroke="rgb(var(--brand) / 0.94)"
+            activeWidth={2.05}
+            orbRadius={4.2}
+          />
         </div>
 
-        <div className="relative space-y-14 pl-7 sm:pl-8 lg:pl-0">
-          <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-7 lg:hidden" aria-hidden>
-            <div className="relative h-full">
-              <AboutSeparator
-                className="absolute left-3 top-0 h-full w-6 -translate-x-1/2"
-                filterId="about-orb-glow-mobile"
-                glowBlurA={2.4}
-                glowBlurB={4.8}
-                baseStroke="rgb(var(--brand) / 0.16)"
-                baseWidth={1.2}
-                activeStroke="rgb(var(--brand) / 0.92)"
-                activeWidth={1.6}
-                orbRadius={3.2}
-              />
-            </div>
-          </div>
+        <div className="relative space-y-14">
           {RESUME_SECTIONS.map((section) => (
             <article key={section.heading} aria-labelledby={`about-section-${section.heading.toLowerCase()}`}>
               <h2
