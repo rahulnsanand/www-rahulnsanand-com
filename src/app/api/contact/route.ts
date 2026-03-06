@@ -55,15 +55,23 @@ function getSmtpConfig() {
   const pass = process.env.SMTP_PASS;
   const destinationEmail = process.env.CONTACT_DESTINATION_EMAIL;
 
-  if (!host || !portValue || !user || !pass || !destinationEmail) return null;
+  const missing = [
+    !host ? "SMTP_HOST" : "",
+    !portValue ? "SMTP_PORT" : "",
+    !user ? "SMTP_USER" : "",
+    !pass ? "SMTP_PASS" : "",
+    !destinationEmail ? "CONTACT_DESTINATION_EMAIL" : "",
+  ].filter(Boolean);
+
+  if (missing.length > 0) return { missing };
 
   const port = Number(portValue);
-  if (!Number.isInteger(port) || port <= 0) return null;
+  if (!Number.isInteger(port) || port <= 0) return { missing: ["SMTP_PORT (invalid)"] };
 
   const secure = process.env.SMTP_SECURE === "true" || port === 465;
   const from = process.env.SMTP_FROM ?? user;
 
-  return { host, port, user, pass, secure, from, destinationEmail };
+  return { host, port, user, pass, secure, from, destinationEmail, missing: [] as string[] };
 }
 
 function isValidEmail(email: string) {
@@ -213,9 +221,9 @@ function renderHtmlEmail(params: {
 
 export async function POST(request: Request) {
   const smtp = getSmtpConfig();
-  if (!smtp) {
+  if (smtp.missing.length > 0) {
     return NextResponse.json(
-      { error: "Contact service is not configured yet." },
+      { error: `Contact service is not configured yet. Missing: ${smtp.missing.join(", ")}` },
       { status: 500 },
     );
   }
