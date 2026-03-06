@@ -9,7 +9,7 @@ export function AboutBody() {
     <section className="about-page">
       <FooterAccentText text="public void main()" />
       <div className="about-layout">
-        <aside className="about-sidebar" aria-label="Profile summary">
+        <aside className="about-sidebar" aria-label="Profile summary" data-sketch-safe-zone="hard">
           <AboutProfileSummary />
         </aside>
 
@@ -27,14 +27,11 @@ export function AboutBody() {
           />
         </div>
 
-        <div className="about-content">
+        <div className="about-content" data-sketch-safe-zone="hard">
           <AboutIntroPanel />
           {aboutContent.sections.map((section) => (
             <article key={section.id} aria-labelledby={`about-section-${section.id}`}>
-              <h2
-                id={`about-section-${section.id}`}
-                className="about-section-title"
-              >
+              <h2 id={`about-section-${section.id}`} className="about-section-title">
                 {section.heading}
               </h2>
 
@@ -46,16 +43,10 @@ export function AboutBody() {
                         <li key={item.id} className="about-item">
                           <div className="about-item-header">
                             <div className="about-item-main">
-                              <h4 className="about-item-title">
-                                {item.title}
-                              </h4>
-                              <p className="about-item-role">
-                                {item.role}
-                              </p>
+                              <h4 className="about-item-title">{item.title}</h4>
+                              <p className="about-item-role">{item.role}</p>
                             </div>
-                            <p className="about-item-period">
-                              {item.period}
-                            </p>
+                            <p className="about-item-period">{item.period}</p>
                           </div>
 
                           <ul className="about-item-bullets">

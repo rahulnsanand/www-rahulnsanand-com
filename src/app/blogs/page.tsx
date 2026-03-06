@@ -1,5 +1,6 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { BlogDashboard } from "@/components/blog/blog-dashboard";
+import { SketchPageShell } from "@/components/background/sketch-page-shell";
 import { getAllBlogPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
 
 export default async function BlogsPage() {
   const posts = await getAllBlogPosts();
-  return <BlogDashboard posts={posts} />;
+  return (
+    <SketchPageShell page="blogs">
+      <BlogDashboard posts={posts} />
+    </SketchPageShell>
+  );
 }
-

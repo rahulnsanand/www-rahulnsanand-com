@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AboutBody } from "./about-body";
+import { SketchPageShell } from "@/components/background/sketch-page-shell";
 
 export const metadata: Metadata = {
   title: "About",
@@ -18,5 +19,9 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <AboutBody />;
+  return (
+    <SketchPageShell page="about">
+      <AboutBody />
+    </SketchPageShell>
+  );
 }

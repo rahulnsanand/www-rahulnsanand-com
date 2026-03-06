@@ -16,7 +16,7 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
       <FooterAccentText text="src/deployed" />
 
       <section className="projects-section" aria-labelledby="projects-highlight-heading">
-        <div className="projects-section-head">
+        <div className="projects-section-head" data-sketch-safe-zone="hard">
           <h2 id="projects-highlight-heading" className="projects-section-sr-title">
             Highlighted projects
           </h2>
@@ -27,7 +27,7 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
       </section>
 
       <section className="projects-section" aria-labelledby="projects-other-heading">
-        <div className="projects-section-head">
+        <div className="projects-section-head" data-sketch-safe-zone="hard">
           <h2 id="projects-other-heading" className="projects-section-sr-title">
             Other projects
           </h2>
@@ -39,7 +39,7 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
         {otherProjects.length === 0 ? (
           <p className="projects-empty-state">Unable to load repositories from GitHub right now.</p>
         ) : (
-          <ol className="projects-grid" aria-label="Other GitHub repositories">
+          <ol className="projects-grid" aria-label="Other GitHub repositories" data-sketch-safe-zone="hard">
             {otherProjects.map((project) => (
               <li key={project.id} className="projects-grid-item">
                 <article className="project-card">

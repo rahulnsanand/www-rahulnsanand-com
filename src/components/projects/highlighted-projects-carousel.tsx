@@ -199,6 +199,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
   return (
     <div
       className="projects-highlight-carousel"
+      data-sketch-safe-zone="hard"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}

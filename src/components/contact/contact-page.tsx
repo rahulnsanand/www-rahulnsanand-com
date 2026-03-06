@@ -123,7 +123,7 @@ export function ContactPageBody() {
     <section className="contact-page relative" aria-label="Contact Rahul NS Anand">
       <FooterAccentText text="connect()" />
 
-      <header className="contact-header">
+      <header className="contact-header" data-sketch-safe-zone="hard">
         <p className="contact-kicker">Contact</p>
         <h1 className="contact-title">Let&apos;s build something useful.</h1>
         <p className="contact-copy">
@@ -132,7 +132,7 @@ export function ContactPageBody() {
         </p>
       </header>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
+      <form className="contact-form" onSubmit={handleSubmit} data-sketch-safe-zone="hard">
         <input
           type="text"
           name="companyWebsite"
@@ -193,7 +193,7 @@ export function ContactPageBody() {
         </div>
       </form>
 
-      <div className="contact-socials" aria-label="Social links">
+      <div className="contact-socials" aria-label="Social links" data-sketch-safe-zone="hard">
         <p className="contact-socials-title">Or reach out here:</p>
         <ul className="contact-socials-list">
           {socialLinks.map((link) => (

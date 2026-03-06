@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ProjectsShowcase } from "@/components/projects/projects-showcase";
+import { SketchPageShell } from "@/components/background/sketch-page-shell";
 import { serializeJsonLd } from "@/lib/json-ld";
 import { getProjectsPageData } from "@/lib/projects";
 
@@ -39,12 +40,12 @@ export default async function ProjectsPage() {
   };
 
   return (
-    <>
+    <SketchPageShell page="projects">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
       <ProjectsShowcase highlightedProjects={highlightedProjects} otherProjects={otherProjects} />
-    </>
+    </SketchPageShell>
   );
 }

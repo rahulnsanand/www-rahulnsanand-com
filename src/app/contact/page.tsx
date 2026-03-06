@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactPageBody } from "@/components/contact/contact-page";
+import { SketchPageShell } from "@/components/background/sketch-page-shell";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -18,5 +19,9 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactPageBody />;
+  return (
+    <SketchPageShell page="contact">
+      <ContactPageBody />
+    </SketchPageShell>
+  );
 }

@@ -5,19 +5,19 @@ import type { MetadataRoute } from "next";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-05T11:33:50.390Z"), changeFrequency: "weekly", priority: 1 },
-    { url: `https://www.rahulnsanand.com/about`, lastModified: new Date("2026-03-05T14:01:58.707Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/blogs`, lastModified: new Date("2026-03-06T06:49:43.251Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-06T17:13:40.109Z"), changeFrequency: "weekly", priority: 1 },
+    { url: `https://www.rahulnsanand.com/about`, lastModified: new Date("2026-03-06T17:13:45.959Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/blogs`, lastModified: new Date("2026-03-06T17:14:27.086Z"), changeFrequency: "weekly", priority: 0.7 },
     { url: `https://www.rahulnsanand.com/blogs/building-reliable-ai-features-without-overengineering`, lastModified: new Date("2026-03-06T06:49:11.430Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/designing-a-quiet-developer-portfolio`, lastModified: new Date("2026-03-06T14:54:48.199Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/from-side-project-to-credible-product-signal`, lastModified: new Date("2026-03-06T14:54:57.471Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/lessons-from-reducing-frontend-bundle-noise`, lastModified: new Date("2026-03-06T14:55:01.401Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/what-changed-when-i-treated-content-like-a-product`, lastModified: new Date("2026-03-06T14:54:54.589Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/writing-technical-posts-that-engineers-actually-finish`, lastModified: new Date("2026-03-06T06:49:30.241Z"), changeFrequency: "weekly", priority: 0.8 },
-    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-06T10:48:24.547Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-03-06T17:03:58.959Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-03-06T17:03:58.959Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-06T12:27:41.313Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-03-06T17:03:58.959Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-06T17:14:27.082Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-03-06T17:36:55.075Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-03-06T17:36:55.075Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-06T17:14:27.082Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-03-06T17:36:55.075Z"), changeFrequency: "weekly", priority: 0.7 },
   ];
 }

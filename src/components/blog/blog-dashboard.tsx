@@ -131,7 +131,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
     <section className="blogs-page">
       <FooterAccentText text="publish()" />
 
-      <header className="blogs-header">
+      <header className="blogs-header" data-sketch-safe-zone="hard">
         <h1 className="blogs-page-sr-title">Blogs</h1>
 
         <div className="blogs-search-wrap">
@@ -151,7 +151,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
       </header>
 
       {normalizedQuery ? (
-        <section className="blogs-section" aria-labelledby="blogs-results-heading">
+        <section className="blogs-section" aria-labelledby="blogs-results-heading" data-sketch-safe-zone="hard">
           <div className="blogs-section-head">
             <h2 id="blogs-results-heading" className="blogs-section-title">
               Search results
@@ -175,7 +175,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
         </section>
       ) : (
         <>
-          <section className="blogs-section" aria-labelledby="blogs-most-recent-heading">
+          <section className="blogs-section" aria-labelledby="blogs-most-recent-heading" data-sketch-safe-zone="hard">
             <div className="blogs-section-head">
               <h2 id="blogs-most-recent-heading" className="blogs-section-title">
                 Recent blogs
@@ -191,7 +191,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
             </ol>
           </section>
 
-          <section className="blogs-section" aria-labelledby="blogs-earlier-heading">
+          <section className="blogs-section" aria-labelledby="blogs-earlier-heading" data-sketch-safe-zone="hard">
             <div className="blogs-section-head">
               <h2 id="blogs-earlier-heading" className="blogs-section-title">
                 Previous blogs
