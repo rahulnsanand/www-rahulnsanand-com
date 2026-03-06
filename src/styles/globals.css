@@ -3666,16 +3666,12 @@ html.dark.perf-lite .site-shell::before {
   opacity: 0.3;
 }
 
-html.perf-lite .home-name-underline-main,
-html.perf-lite .home-name-underline-detail,
 html.perf-lite .about-separator-orb-svg,
 html.perf-lite .about-separator-draw {
   animation: none;
   filter: none;
 }
 
-html.perf-lite .home-name-underline-main,
-html.perf-lite .home-name-underline-detail,
 html.perf-lite .about-separator-draw {
   stroke-dashoffset: 0;
 }

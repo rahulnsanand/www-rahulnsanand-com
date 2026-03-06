@@ -4,6 +4,10 @@ import process from "node:process";
 import postcss from "postcss";
 
 const THEME_CLASSES = new Set(["light", "dark"]);
+const PERF_LITE_PROTECTED_TARGETS = new Set([
+  ".home-name-underline-main",
+  ".home-name-underline-detail",
+]);
 const defaultCssPath = path.resolve(process.cwd(), "src/styles/globals.css");
 const cssPath = path.resolve(process.cwd(), process.argv[2] ?? defaultCssPath);
 
@@ -53,6 +57,7 @@ const ast = postcss.parse(cssSource, { from: cssPath });
 const themeDecls = new Map();
 const stateDecls = new Map();
 const combinedDecls = new Map();
+const protectedPerfLiteIssues = [];
 
 ast.walkRules((rule) => {
   if (!rule.selectors || rule.selectors.length === 0) {
@@ -68,6 +73,14 @@ ast.walkRules((rule) => {
     const context = contextKey(rule);
     const themes = parsed.htmlClasses.filter((className) => THEME_CLASSES.has(className));
     const states = parsed.htmlClasses.filter((className) => !THEME_CLASSES.has(className));
+
+    if (states.includes("perf-lite") && PERF_LITE_PROTECTED_TARGETS.has(parsed.targetSelector)) {
+      const line = rule.source?.start?.line ?? 0;
+      protectedPerfLiteIssues.push({
+        line,
+        selector: selector.trim(),
+      });
+    }
 
     rule.walkDecls((decl) => {
       const property = decl.prop.trim().toLowerCase();
@@ -145,8 +158,13 @@ for (const [stateKey, occurrences] of stateDecls.entries()) {
   }
 }
 
-if (issues.length > 0) {
-  console.error("Theme cascade lint failed. Potential state-vs-theme override conflicts:");
+if (issues.length > 0 || protectedPerfLiteIssues.length > 0) {
+  console.error("Theme cascade lint failed.");
+
+  if (issues.length > 0) {
+    console.error("Potential state-vs-theme override conflicts:");
+  }
+
   for (const issue of issues) {
     console.error(
       `- ${path.relative(process.cwd(), cssPath)}:${issue.line} selector "${issue.selector}"` +
@@ -154,6 +172,17 @@ if (issues.length > 0) {
         ` property "${issue.property}" in ${issue.context}.`,
     );
   }
+
+  if (protectedPerfLiteIssues.length > 0) {
+    console.error("Protected home SVG animation selectors cannot be targeted by html.perf-lite:");
+  }
+
+  for (const issue of protectedPerfLiteIssues) {
+    console.error(
+      `- ${path.relative(process.cwd(), cssPath)}:${issue.line} contains disallowed selector "${issue.selector}".`,
+    );
+  }
+
   process.exit(1);
 }
 
