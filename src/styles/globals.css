@@ -3658,6 +3658,14 @@ html.perf-lite .site-shell::before {
   opacity: 0.45;
 }
 
+html.light.perf-lite .site-shell::before {
+  opacity: 0.8;
+}
+
+html.dark.perf-lite .site-shell::before {
+  opacity: 0.3;
+}
+
 html.perf-lite .home-name-underline-main,
 html.perf-lite .home-name-underline-detail,
 html.perf-lite .about-separator-orb-svg,
