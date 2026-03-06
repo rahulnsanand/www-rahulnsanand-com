@@ -9,7 +9,8 @@
     "prebuild": "pnpm run sync:content",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint . && pnpm run lint:theme-cascade",
+    "lint:theme-cascade": "node scripts/lint-theme-state-conflicts.mjs",
     "typecheck": "next typegen && tsc --noEmit",
     "format": "prettier --write ."
   },

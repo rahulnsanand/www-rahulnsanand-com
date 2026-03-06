@@ -3694,7 +3694,6 @@ html.perf-lite .media-fade-image,
 html.perf-lite .media-fade-iframe,
 html.perf-lite .media-fade-placeholder,
 html.perf-lite .site-logo-stack .site-logo-variant {
-  transition: none;
   animation: none;
 }
 

@@ -7,20 +7,40 @@ import { PageTransition } from "@/components/layout/page-transition";
 const themeInitScript = `
   (() => {
     try {
+      const PERF_MODE_KEY = "perf-mode";
       const stored = localStorage.getItem("theme");
+      const perfMode = localStorage.getItem(PERF_MODE_KEY);
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       const theme = stored === "light" || stored === "dark" ? stored : (prefersDark ? "dark" : "light");
-      const lowMemory = typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 4;
-      const lowCpu = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+      const deviceMemory = typeof navigator.deviceMemory === "number" ? navigator.deviceMemory : null;
+      const cpuCores = typeof navigator.hardwareConcurrency === "number" ? navigator.hardwareConcurrency : null;
+      const isMobile =
+        Boolean(navigator.userAgentData && navigator.userAgentData.mobile) ||
+        /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      const lowMemory = deviceMemory !== null && deviceMemory <= 2;
+      const veryLowCpu = cpuCores !== null && cpuCores <= 2;
+      const constrainedMobile = isMobile && deviceMemory !== null && cpuCores !== null && deviceMemory <= 4 && cpuCores <= 4;
       const saveData = Boolean(navigator.connection && navigator.connection.saveData);
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const perfReasons = [];
+      if (prefersReducedMotion) perfReasons.push("reduced-motion");
+      if (saveData) perfReasons.push("save-data");
+      if (lowMemory) perfReasons.push("low-memory");
+      if (veryLowCpu) perfReasons.push("very-low-cpu");
+      if (constrainedMobile) perfReasons.push("constrained-mobile");
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(theme);
       document.documentElement.style.colorScheme = theme;
-      if (lowMemory || lowCpu || saveData || prefersReducedMotion) {
+
+      const perfLiteEnabled =
+        perfMode === "lite" ? true : perfMode === "full" ? false : perfReasons.length > 0;
+
+      if (perfLiteEnabled) {
         document.documentElement.classList.add("perf-lite");
+        document.documentElement.setAttribute("data-perf-lite-reasons", perfReasons.join(","));
       } else {
         document.documentElement.classList.remove("perf-lite");
+        document.documentElement.removeAttribute("data-perf-lite-reasons");
       }
     } catch {}
     document.documentElement.setAttribute("data-theme-ready", "true");
