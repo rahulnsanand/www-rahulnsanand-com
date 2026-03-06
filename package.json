@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "sync:content": "node scripts/generate-robots.mjs && node scripts/generate-llms-txt.mjs && node scripts/generate-sitemap.mjs",
+    "sync:content": "node scripts/generate-blog-content.mjs && node scripts/generate-robots.mjs && node scripts/generate-llms-txt.mjs && node scripts/generate-sitemap.mjs",
     "predev": "pnpm run sync:content",
     "dev": "next dev",
     "prebuild": "pnpm run sync:content",

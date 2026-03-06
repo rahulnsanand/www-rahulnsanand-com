@@ -43,6 +43,13 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
             {otherProjects.map((project) => (
               <li key={project.id} className="projects-grid-item">
                 <article className="project-card">
+                  <Link
+                    href={project.cardClickUrl}
+                    className="project-card-overlay-link"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={`Open ${project.displayTitle} on ${project.cardClickTarget === "website" ? "website" : "GitHub"}`}
+                  />
                   <div className="project-card-media-wrap">
                     <Image
                       src={project.previewImageUrl}
@@ -61,7 +68,9 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
                   <div className="project-card-links">
                     <Link
                       href={project.htmlUrl}
-                      className="project-card-link project-card-link--icon"
+                      className={`project-card-link project-card-link--icon project-card-link--github${
+                        project.cardClickTarget === "github" ? " project-card-link--active-target" : ""
+                      }`}
                       target="_blank"
                       rel="noreferrer noopener"
                       aria-label={`Open ${project.displayTitle} on GitHub`}
@@ -72,7 +81,9 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
                     {project.homepage ? (
                       <Link
                         href={project.homepage}
-                        className="project-card-link project-card-link--icon"
+                        className={`project-card-link project-card-link--icon project-card-link--website${
+                          project.cardClickTarget === "website" ? " project-card-link--active-target" : ""
+                        }`}
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`Open ${project.displayTitle} website`}

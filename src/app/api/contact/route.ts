@@ -4,23 +4,40 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-type ContactPayload = {
-  e?: string;
-  m?: string;
-  h?: string;
-  t?: string;
-  d?: {
-    b?: string;
-    l?: string;
-    z?: string;
-    s?: string;
-  };
-};
-
 type ContactGuardState = {
   ipAttempts: Map<string, number[]>;
   senderCooldown: Map<string, number>;
   duplicateMessages: Map<string, number>;
+};
+
+type ContactMailerState = {
+  transporter?: nodemailer.Transporter;
+  key?: string;
+};
+
+type SmtpConfig = {
+  host: string;
+  port: number;
+  user: string;
+  pass: string;
+  secure: boolean;
+  from: string;
+  destinationEmail: string;
+};
+
+type ParsedContactPayload = {
+  senderEmail: string;
+  message: string;
+  companyWebsite: string;
+  formStartedAt: string;
+  clientMetadata: {
+    browser: string;
+    language: string;
+    timezone: string;
+    screenSize: string;
+    theme: string;
+    localSentAt: string;
+  };
 };
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
@@ -33,6 +50,24 @@ const MIN_FORM_FILL_MS = 2500;
 const MAX_FORM_AGE_MS = 2 * 60 * 60 * 1000;
 const MAX_URLS_IN_MESSAGE = 4;
 const MAX_GUARD_ENTRIES = 5000;
+const SMTP_MAX_CONNECTIONS = 5;
+const SMTP_MAX_MESSAGES_PER_CONNECTION = 100;
+const SMTP_CONNECTION_TIMEOUT_MS = 10_000;
+const SMTP_SOCKET_TIMEOUT_MS = 15_000;
+const REQUEST_TIMEOUT_RETRY_SECONDS = 30;
+const DEFAULT_ALLOWED_ORIGIN_DOMAINS = [
+  "rahulanand.in",
+  "rahulnsanand.com",
+  "lyfie.org",
+  "lyfie.app",
+  "papyra.app",
+  "luthor.fyi",
+];
+const DEFAULT_ALLOWED_EXACT_ORIGINS = ["http://localhost:3000"];
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
 
 function getGuardState() {
   const globalWithGuard = globalThis as typeof globalThis & { __contactGuardState?: ContactGuardState };
@@ -55,23 +90,15 @@ function getSmtpConfig() {
   const pass = process.env.SMTP_PASS;
   const destinationEmail = process.env.CONTACT_DESTINATION_EMAIL;
 
-  const missing = [
-    !host ? "SMTP_HOST" : "",
-    !portValue ? "SMTP_PORT" : "",
-    !user ? "SMTP_USER" : "",
-    !pass ? "SMTP_PASS" : "",
-    !destinationEmail ? "CONTACT_DESTINATION_EMAIL" : "",
-  ].filter(Boolean);
-
-  if (missing.length > 0) return { missing };
+  if (!host || !portValue || !user || !pass || !destinationEmail) return null;
 
   const port = Number(portValue);
-  if (!Number.isInteger(port) || port <= 0) return { missing: ["SMTP_PORT (invalid)"] };
+  if (!Number.isInteger(port) || port <= 0) return null;
 
   const secure = process.env.SMTP_SECURE === "true" || port === 465;
   const from = process.env.SMTP_FROM ?? user;
 
-  return { host, port, user, pass, secure, from, destinationEmail, missing: [] as string[] };
+  return { host, port, user, pass, secure, from, destinationEmail };
 }
 
 function isValidEmail(email: string) {
@@ -116,6 +143,47 @@ function trimMapSize<T>(map: Map<string, T>) {
   }
 }
 
+function getMailerState() {
+  const globalWithMailer = globalThis as typeof globalThis & { __contactMailerState?: ContactMailerState };
+
+  if (!globalWithMailer.__contactMailerState) {
+    globalWithMailer.__contactMailerState = {};
+  }
+
+  return globalWithMailer.__contactMailerState;
+}
+
+function getSmtpConfigKey(smtp: SmtpConfig) {
+  return [smtp.host, smtp.port, smtp.user, smtp.secure, smtp.from, smtp.destinationEmail].join("|");
+}
+
+function getTransporter(smtp: SmtpConfig) {
+  const state = getMailerState();
+  const key = getSmtpConfigKey(smtp);
+
+  if (state.transporter && state.key === key) {
+    return state.transporter;
+  }
+
+  state.transporter = nodemailer.createTransport({
+    host: smtp.host,
+    port: smtp.port,
+    secure: smtp.secure,
+    pool: true,
+    maxConnections: SMTP_MAX_CONNECTIONS,
+    maxMessages: SMTP_MAX_MESSAGES_PER_CONNECTION,
+    connectionTimeout: SMTP_CONNECTION_TIMEOUT_MS,
+    socketTimeout: SMTP_SOCKET_TIMEOUT_MS,
+    auth: {
+      user: smtp.user,
+      pass: smtp.pass,
+    },
+  });
+  state.key = key;
+
+  return state.transporter;
+}
+
 function cleanupGuardState(state: ContactGuardState, now: number) {
   for (const [key, timestamps] of state.ipAttempts) {
     const active = timestamps.filter((ts) => now - ts <= RATE_LIMIT_WINDOW_MS);
@@ -136,8 +204,14 @@ function cleanupGuardState(state: ContactGuardState, now: number) {
   trimMapSize(state.duplicateMessages);
 }
 
+function jsonResponse(payload: Record<string, boolean | string>, status = 200) {
+  const response = NextResponse.json(payload, { status });
+  response.headers.set("Cache-Control", "no-store");
+  return response;
+}
+
 function jsonRateLimit(error: string, retryAfterSeconds: number) {
-  const response = NextResponse.json({ error }, { status: 429 });
+  const response = jsonResponse({ error }, 429);
   response.headers.set("Retry-After", String(Math.max(1, retryAfterSeconds)));
   return response;
 }
@@ -161,6 +235,89 @@ function readRequestMetadata(request: Request) {
   };
 }
 
+function getAllowedDomains() {
+  const configured = normalizeText(process.env.CONTACT_ALLOWED_ORIGIN_DOMAINS, 3000);
+  const configuredDomains = configured
+    .split(",")
+    .map((domain) => domain.trim().toLowerCase())
+    .filter((domain) => domain.length > 0);
+
+  return configuredDomains.length > 0 ? configuredDomains : DEFAULT_ALLOWED_ORIGIN_DOMAINS;
+}
+
+function getAllowedExactOrigins(request: Request) {
+  const configured = normalizeText(process.env.CONTACT_ALLOWED_ORIGINS, 3000);
+  const configuredOrigins = configured
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter((origin) => origin.length > 0);
+
+  const host = normalizeText(request.headers.get("host"), 200);
+  const forwardedProto = normalizeText(request.headers.get("x-forwarded-proto"), 20);
+  const inferredProto = forwardedProto || (host.startsWith("localhost") ? "http" : "https");
+  const inferredOrigin = host ? `${inferredProto}://${host}` : "";
+
+  return new Set([...DEFAULT_ALLOWED_EXACT_ORIGINS, ...configuredOrigins, inferredOrigin].filter(Boolean));
+}
+
+function isAllowedDomainHost(hostname: string, domains: string[]) {
+  const normalizedHost = hostname.toLowerCase();
+  return domains.some((domain) => normalizedHost === domain || normalizedHost.endsWith(`.${domain}`));
+}
+
+function hasAllowedOrigin(request: Request) {
+  const originHeader = request.headers.get("origin");
+  if (!originHeader) {
+    return true;
+  }
+
+  let origin: string;
+  try {
+    origin = new URL(originHeader).origin;
+  } catch {
+    return false;
+  }
+
+  const url = new URL(origin);
+  const allowedExactOrigins = getAllowedExactOrigins(request);
+  if (allowedExactOrigins.has(url.origin)) {
+    return true;
+  }
+
+  const isLocalhost = url.hostname === "localhost" || url.hostname === "127.0.0.1";
+  if (!isLocalhost && url.protocol !== "https:") {
+    return false;
+  }
+
+  const allowedDomains = getAllowedDomains();
+  return isAllowedDomainHost(url.hostname, allowedDomains);
+}
+
+function parsePayload(rawPayload: unknown): ParsedContactPayload | null {
+  if (!isRecord(rawPayload)) return null;
+
+  const nestedMetadata = isRecord(rawPayload.d) ? rawPayload.d : undefined;
+  const senderEmail = normalizeText(rawPayload.e, 320);
+  const message = normalizeText(rawPayload.m, 5000);
+  const companyWebsite = normalizeText(rawPayload.h, 300);
+  const formStartedAt = normalizeText(rawPayload.t, 40);
+
+  return {
+    senderEmail,
+    message,
+    companyWebsite,
+    formStartedAt,
+    clientMetadata: {
+      browser: normalizeText(nestedMetadata?.b, 120),
+      language: normalizeText(nestedMetadata?.l, 120),
+      timezone: normalizeText(nestedMetadata?.z, 120),
+      screenSize: normalizeText(nestedMetadata?.s, 60),
+      theme: normalizeText(nestedMetadata?.th, 24),
+      localSentAt: normalizeText(nestedMetadata?.lt, 140),
+    },
+  };
+}
+
 function renderMetadataRows(metadata: Record<string, string>) {
   return Object.entries(metadata)
     .filter(([, value]) => Boolean(value))
@@ -171,6 +328,42 @@ function renderMetadataRows(metadata: Record<string, string>) {
         )}</td><td style="padding:8px 10px;border:1px solid #cfdae8;background:#ffffff;">${escapeHtml(value)}</td></tr>`,
     )
     .join("");
+}
+
+function formatDateTime12Hour(params: { date: Date; timeZone?: string; includeZoneName?: boolean }) {
+  const { date, timeZone, includeZoneName = true } = params;
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+    timeZone,
+    timeZoneName: includeZoneName ? "short" : undefined,
+  });
+
+  return formatter.format(date);
+}
+
+function formatClientLocalSentTime(localSentAt: string, timezone: string) {
+  const parsed = new Date(localSentAt);
+  if (Number.isNaN(parsed.getTime())) {
+    return localSentAt;
+  }
+
+  if (timezone) {
+    try {
+      const formatted = formatDateTime12Hour({ date: parsed, timeZone: timezone });
+      return `${formatted} (${timezone})`;
+    } catch {
+      return formatDateTime12Hour({ date: parsed });
+    }
+  }
+
+  return formatDateTime12Hour({ date: parsed });
 }
 
 function renderHtmlEmail(params: {
@@ -219,43 +412,51 @@ function renderHtmlEmail(params: {
   `;
 }
 
+function jsonServiceUnavailable(error: string, retryAfterSeconds: number) {
+  const response = jsonResponse({ error }, 503);
+  response.headers.set("Retry-After", String(Math.max(1, retryAfterSeconds)));
+  return response;
+}
+
 export async function POST(request: Request) {
   const smtp = getSmtpConfig();
-  if (smtp.missing.length > 0) {
-    return NextResponse.json(
-      { error: `Contact service is not configured yet. Missing: ${smtp.missing.join(", ")}` },
-      { status: 500 },
-    );
+  if (!smtp) {
+    return jsonResponse({ error: "Contact service is temporarily unavailable." }, 503);
   }
 
-  let payload: ContactPayload;
+  if (!hasAllowedOrigin(request)) {
+    return jsonResponse({ error: "Invalid request origin." }, 403);
+  }
+
+  const contentType = normalizeText(request.headers.get("content-type"), 120).toLowerCase();
+  if (!contentType.includes("application/json")) {
+    return jsonResponse({ error: "Content-Type must be application/json." }, 415);
+  }
+
+  let rawPayload: unknown;
   try {
-    payload = (await request.json()) as ContactPayload;
+    rawPayload = (await request.json()) as unknown;
   } catch {
-    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    return jsonResponse({ error: "Invalid request body." }, 400);
   }
 
-  const senderEmail = String(payload.e ?? "").trim();
-  const message = String(payload.m ?? "").trim();
-  const companyWebsite = normalizeText(payload.h, 300);
-  const formStartedAt = normalizeText(payload.t, 40);
-  const clientMetadata = {
-    browser: normalizeText(payload.d?.b, 120),
-    language: normalizeText(payload.d?.l, 120),
-    timezone: normalizeText(payload.d?.z, 120),
-    screenSize: normalizeText(payload.d?.s, 60),
-  };
+  const parsedPayload = parsePayload(rawPayload);
+  if (!parsedPayload) {
+    return jsonResponse({ error: "Invalid request payload." }, 400);
+  }
+
+  const { senderEmail, message, companyWebsite, formStartedAt, clientMetadata } = parsedPayload;
   const requestMetadata = readRequestMetadata(request);
   const now = Date.now();
 
   // Honeypot field: bots often fill hidden fields. Return success without sending.
   if (companyWebsite) {
-    return NextResponse.json({ ok: true });
+    return jsonResponse({ ok: true });
   }
 
   const startedAtMs = Number(formStartedAt);
   if (!Number.isFinite(startedAtMs) || startedAtMs <= 0) {
-    return NextResponse.json({ error: "Invalid form state. Please refresh and try again." }, { status: 400 });
+    return jsonResponse({ error: "Invalid form state. Please refresh and try again." }, 400);
   }
 
   const formAgeMs = now - startedAtMs;
@@ -264,35 +465,23 @@ export async function POST(request: Request) {
   }
 
   if (formAgeMs > MAX_FORM_AGE_MS) {
-    return NextResponse.json(
-      { error: "This form has expired. Please refresh the page and try again." },
-      { status: 400 },
-    );
+    return jsonResponse({ error: "This form has expired. Please refresh the page and try again." }, 400);
   }
 
   if (!senderEmail || !message) {
-    return NextResponse.json(
-      { error: "Sender email and message are required." },
-      { status: 400 },
-    );
+    return jsonResponse({ error: "Sender email and message are required." }, 400);
   }
 
   if (!isValidEmail(senderEmail)) {
-    return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
+    return jsonResponse({ error: "Please enter a valid email address." }, 400);
   }
 
   if (message.length < 8 || message.length > 5000) {
-    return NextResponse.json(
-      { error: "Message should be between 8 and 5000 characters." },
-      { status: 400 },
-    );
+    return jsonResponse({ error: "Message should be between 8 and 5000 characters." }, 400);
   }
 
   if (countUrls(message) > MAX_URLS_IN_MESSAGE) {
-    return NextResponse.json(
-      { error: "Message contains too many links. Please keep it concise." },
-      { status: 400 },
-    );
+    return jsonResponse({ error: "Message contains too many links. Please keep it concise." }, 400);
   }
 
   const guard = getGuardState();
@@ -337,17 +526,10 @@ export async function POST(request: Request) {
   guard.senderCooldown.set(cooldownKey, now + COOLDOWN_MS);
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: smtp.host,
-      port: smtp.port,
-      secure: smtp.secure,
-      auth: {
-        user: smtp.user,
-        pass: smtp.pass,
-      },
-    });
+    const transporter = getTransporter(smtp);
 
-    const serverReceivedAt = new Date().toISOString();
+    const serverReceivedAt = formatDateTime12Hour({ date: new Date(), timeZone: "UTC" });
+    const clientLocalSentAt = formatClientLocalSentTime(clientMetadata.localSentAt, clientMetadata.timezone);
     const location = [requestMetadata.city, requestMetadata.region, requestMetadata.country]
       .filter(Boolean)
       .join(", ");
@@ -357,6 +539,8 @@ export async function POST(request: Request) {
       "Browser UA (request)": requestMetadata.requestUserAgent,
       Language: clientMetadata.language,
       Timezone: clientMetadata.timezone,
+      "Theme selected (client)": clientMetadata.theme,
+      "Client local sent time": clientLocalSentAt,
       "Screen size": clientMetadata.screenSize,
       "Approx location": location,
       "Client IP": requestMetadata.ipAddress,
@@ -366,12 +550,13 @@ export async function POST(request: Request) {
       .filter(([, value]) => Boolean(value))
       .map(([label, value]) => `- ${label}: ${value}`)
       .join("\n");
+    const safeSenderForSubject = senderEmail.replace(/[\r\n]+/g, " ");
 
     await transporter.sendMail({
       from: smtp.from,
       to: smtp.destinationEmail,
       replyTo: senderEmail,
-      subject: `Portfolio contact from ${senderEmail}`,
+      subject: `Portfolio contact from ${safeSenderForSubject}`,
       text: `Sender email: ${senderEmail}\n\nMessage:\n${message}\n\nSubmission details:\n${textMetadata}`,
       html: renderHtmlEmail({
         senderEmail,
@@ -383,8 +568,12 @@ export async function POST(request: Request) {
 
     guard.duplicateMessages.set(duplicateKey, now + DUPLICATE_MESSAGE_WINDOW_MS);
 
-    return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ error: "Failed to send message." }, { status: 502 });
+    return jsonResponse({ ok: true });
+  } catch (error) {
+    console.error("Contact send failed", error instanceof Error ? error.message : "unknown_error");
+    return jsonServiceUnavailable(
+      "Unable to send the message right now. Please try again shortly.",
+      REQUEST_TIMEOUT_RETRY_SECONDS,
+    );
   }
 }

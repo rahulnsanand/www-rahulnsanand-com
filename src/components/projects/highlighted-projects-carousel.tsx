@@ -115,6 +115,13 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
 
     return (
       <article className="project-highlight project-highlight--solo">
+        <Link
+          href={project.cardClickUrl}
+          className="project-highlight-overlay-link"
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label={`Open ${project.displayTitle} on ${project.cardClickTarget === "website" ? "website" : "GitHub"}`}
+        />
         <div className="project-highlight-media-wrap">
           <Image
             src={project.demoGifUrl ?? project.previewImageUrl}
@@ -133,7 +140,9 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
           <div className="project-highlight-links">
             <Link
               href={project.htmlUrl}
-              className="project-highlight-link project-highlight-link--icon"
+              className={`project-highlight-link project-highlight-link--icon project-highlight-link--github${
+                project.cardClickTarget === "github" ? " project-highlight-link--active-target" : ""
+              }`}
               target="_blank"
               rel="noreferrer noopener"
               aria-label={`Open ${project.displayTitle} on GitHub`}
@@ -144,7 +153,9 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
             {project.homepage ? (
               <Link
                 href={project.homepage}
-                className="project-highlight-link project-highlight-link--icon"
+                className={`project-highlight-link project-highlight-link--icon project-highlight-link--website${
+                  project.cardClickTarget === "website" ? " project-highlight-link--active-target" : ""
+                }`}
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label={`Open ${project.displayTitle} website`}
@@ -217,6 +228,13 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
             return (
               <li key={`${project.id}-${index}`} className={`project-highlight-slot${isCenterCard ? " project-highlight-slot--center" : ""}`}>
                 <article className="project-highlight">
+                  <Link
+                    href={project.cardClickUrl}
+                    className="project-highlight-overlay-link"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={`Open ${project.displayTitle} on ${project.cardClickTarget === "website" ? "website" : "GitHub"}`}
+                  />
                   <div className="project-highlight-media-wrap">
                     <Image
                       src={mediaSource}
@@ -236,7 +254,9 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
                     <div className="project-highlight-links">
                       <Link
                         href={project.htmlUrl}
-                        className="project-highlight-link project-highlight-link--icon"
+                        className={`project-highlight-link project-highlight-link--icon project-highlight-link--github${
+                          project.cardClickTarget === "github" ? " project-highlight-link--active-target" : ""
+                        }`}
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`Open ${project.displayTitle} on GitHub`}
@@ -247,7 +267,9 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
                       {project.homepage ? (
                         <Link
                           href={project.homepage}
-                          className="project-highlight-link project-highlight-link--icon"
+                          className={`project-highlight-link project-highlight-link--icon project-highlight-link--website${
+                            project.cardClickTarget === "website" ? " project-highlight-link--active-target" : ""
+                          }`}
                           target="_blank"
                           rel="noreferrer noopener"
                           aria-label={`Open ${project.displayTitle} website`}
