@@ -36,34 +36,28 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
   const maxPosition = total > 1 ? total * 3 - 1 : 0;
 
   useEffect(() => {
-    if (total < 2) {
-      setPosition(0);
-      return;
-    }
+    const frame = window.requestAnimationFrame(() => {
+      if (total < 2) {
+        setPosition(0);
+        return;
+      }
 
-    setIsTransitionEnabled(false);
-    setPosition(total);
+      setIsTransitionEnabled(false);
+      setPosition(total);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
   }, [total]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => {
-      const navigatorInfo = navigator as Navigator & {
-        deviceMemory?: number;
-        connection?: {
-          saveData?: boolean;
-        };
-      };
-
-      const isLowMemoryDevice =
-        typeof navigatorInfo.deviceMemory === "number" && navigatorInfo.deviceMemory <= 4;
-      const isLowCpuDevice =
-        typeof navigatorInfo.hardwareConcurrency === "number" &&
-        navigatorInfo.hardwareConcurrency <= 4;
-      const isSaveDataEnabled = navigatorInfo.connection?.saveData === true;
+      const isPerfLite = document.documentElement.classList.contains("perf-lite");
 
       setAllowAnimatedPreview(
-        !mediaQuery.matches && !isLowMemoryDevice && !isLowCpuDevice && !isSaveDataEnabled,
+        !mediaQuery.matches && !isPerfLite,
       );
     };
 
