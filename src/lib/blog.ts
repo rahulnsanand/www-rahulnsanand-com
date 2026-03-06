@@ -8,6 +8,8 @@ type BlogFrontmatter = {
   tags: string[];
   youtubeUrl?: string;
   coverImage?: string;
+  mediumUrl?: string;
+  devtoUrl?: string;
 };
 
 export type BlogPost = BlogFrontmatter & {
@@ -46,6 +48,8 @@ function toBlogPost(value: unknown): BlogPost | null {
   const updatedAt = asString(value.updatedAt);
   const youtubeUrl = asString(value.youtubeUrl) ?? undefined;
   const coverImage = asString(value.coverImage) ?? undefined;
+  const mediumUrl = asString(value.mediumUrl) ?? undefined;
+  const devtoUrl = asString(value.devtoUrl) ?? undefined;
 
   if (!slug || !title || !description || !date || !tags || !content || !wordCount || !readingTimeMinutes || !updatedAt) {
     return null;
@@ -59,6 +63,8 @@ function toBlogPost(value: unknown): BlogPost | null {
     tags,
     youtubeUrl,
     coverImage,
+    mediumUrl,
+    devtoUrl,
     content,
     wordCount,
     readingTimeMinutes,

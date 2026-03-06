@@ -7,6 +7,7 @@ tags:
   - Frontend
   - Web Vitals
 youtubeUrl: "https://www.youtube.com/watch?v=9bZkp7q19f0"
+mediumUrl: "https://medium.com/@rahulnsanand/reducing-frontend-bundle-noise-dummy"
 ---
 ## Performance work starts with scope discipline
 

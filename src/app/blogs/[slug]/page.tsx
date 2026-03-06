@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { FadeInIframe } from "@/components/ui/fade-in-iframe";
 import { FadeInImage } from "@/components/ui/fade-in-image";
-import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeft, DevToLogo, MediumLogo } from "@phosphor-icons/react/dist/ssr";
 import { notFound } from "next/navigation";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 import { BlogMarkdown } from "@/components/blog/blog-markdown";
@@ -143,19 +143,47 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.title}
             </h1>
             <p className="blog-post-description">{post.description}</p>
-
-          <div className="blog-post-meta">
-            <span>{formatBlogDate(post.date)}</span>
-            <span aria-hidden="true">-</span>
-            <span>{`${post.readingTimeMinutes} min read`}</span>
-            <span aria-hidden="true">-</span>
-            <span className="blog-post-meta-author">
-              <Link href="/about" className="blog-post-meta-author-name">
-                Rahul Anand
-              </Link>
-            </span>
-          </div>
-        </header>
+            <div className="blog-post-meta-row">
+              <div className="blog-post-meta">
+                <span>{formatBlogDate(post.date)}</span>
+                <span aria-hidden="true">-</span>
+                <span>{`${post.readingTimeMinutes} min read`}</span>
+                <span aria-hidden="true">-</span>
+                <span className="blog-post-meta-author">
+                  <Link href="/about" className="blog-post-meta-author-name">
+                    Rahul Anand
+                  </Link>
+                </span>
+              </div>
+              <div className="blog-post-header-actions" role="group" aria-label="Post sharing actions">
+                <BlogShareButton title={post.title} url={postUrl} />
+                {post.mediumUrl ? (
+                  <a
+                    href={post.mediumUrl}
+                    className="blog-post-action-icon-link"
+                    aria-label="Read this post on Medium"
+                    title="Read on Medium"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    <MediumLogo size={16} weight="duotone" aria-hidden="true" />
+                  </a>
+                ) : null}
+                {post.devtoUrl ? (
+                  <a
+                    href={post.devtoUrl}
+                    className="blog-post-action-icon-link"
+                    aria-label="Read this post on Dev.to"
+                    title="Read on Dev.to"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    <DevToLogo size={16} weight="duotone" aria-hidden="true" />
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          </header>
 
           <BlogMarkdown markdown={post.content} />
 
@@ -167,12 +195,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </li>
               ))}
             </ul>
-            <div className="blog-post-actions" role="group" aria-label="Post actions">
-              <BlogShareButton title={post.title} url={postUrl} />
-              <BlogScrollTopButton />
-            </div>
           </footer>
         </div>
+        <aside className="blog-post-side-actions" aria-label="Post page controls">
+          <BlogScrollTopButton />
+        </aside>
       </div>
     </article>
   );

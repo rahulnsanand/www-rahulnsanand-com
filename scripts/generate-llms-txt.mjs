@@ -53,7 +53,7 @@ function parseFrontmatter(raw) {
       continue;
     }
 
-    if (["title", "description", "date", "youtubeUrl", "coverImage"].includes(key)) {
+    if (["title", "description", "date", "youtubeUrl", "coverImage", "mediumUrl", "devtoUrl"].includes(key)) {
       const cleaned = value.replace(/^["']|["']$/g, "");
       if (cleaned) {
         frontmatter[key] = cleaned;
@@ -149,6 +149,8 @@ async function readBlogPosts(siteUrl) {
         tags: frontmatter.tags,
         coverImage: frontmatter.coverImage || null,
         youtubeUrl: frontmatter.youtubeUrl || null,
+        mediumUrl: frontmatter.mediumUrl || null,
+        devtoUrl: frontmatter.devtoUrl || null,
         wordCount,
         readingTimeMinutes: getReadingTimeMinutes(wordCount),
         excerpt: firstWords(text, 56),

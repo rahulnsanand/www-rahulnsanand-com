@@ -54,7 +54,15 @@ function parseFrontmatter(raw) {
       continue;
     }
 
-    if (key === "title" || key === "description" || key === "date" || key === "youtubeUrl" || key === "coverImage") {
+    if (
+      key === "title" ||
+      key === "description" ||
+      key === "date" ||
+      key === "youtubeUrl" ||
+      key === "coverImage" ||
+      key === "mediumUrl" ||
+      key === "devtoUrl"
+    ) {
       const cleaned = value.replace(/^["']|["']$/g, "");
       if (cleaned) {
         frontmatter[key] = cleaned;
@@ -105,6 +113,8 @@ async function main() {
         tags: frontmatter.tags,
         youtubeUrl: frontmatter.youtubeUrl ?? undefined,
         coverImage: frontmatter.coverImage ?? undefined,
+        mediumUrl: frontmatter.mediumUrl ?? undefined,
+        devtoUrl: frontmatter.devtoUrl ?? undefined,
         content: body,
         wordCount,
         readingTimeMinutes: getReadingTimeMinutes(body),
