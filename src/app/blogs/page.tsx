@@ -1,6 +1,6 @@
 ﻿import type { Metadata } from "next";
 import { BlogDashboard } from "@/components/blog/blog-dashboard";
-import { getAllBlogPosts } from "@/lib/blog";
+import { getAllBlogPostSummaries } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blogs",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogsPage() {
-  const posts = await getAllBlogPosts();
+  const posts = await getAllBlogPostSummaries();
   return <BlogDashboard posts={posts} />;
 }
 

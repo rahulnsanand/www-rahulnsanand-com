@@ -20,6 +20,20 @@ export type BlogPost = BlogFrontmatter & {
   updatedAt: string;
 };
 
+export type BlogPostSummary = Pick<
+  BlogPost,
+  | "slug"
+  | "title"
+  | "description"
+  | "date"
+  | "tags"
+  | "coverImage"
+  | "youtubeUrl"
+  | "readingTimeMinutes"
+> & {
+  searchText: string;
+};
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
@@ -77,6 +91,25 @@ export const getAllBlogPosts = cache(async (): Promise<BlogPost[]> => {
   return source
     .map(toBlogPost)
     .filter((post): post is BlogPost => post !== null);
+});
+
+export const getAllBlogPostSummaries = cache(async (): Promise<BlogPostSummary[]> => {
+  const posts = await getAllBlogPosts();
+
+  return posts.map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    description: post.description,
+    date: post.date,
+    tags: post.tags,
+    coverImage: post.coverImage,
+    youtubeUrl: post.youtubeUrl,
+    readingTimeMinutes: post.readingTimeMinutes,
+    searchText: `${post.title} ${post.description} ${post.tags.join(" ")} ${post.content
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 900)}`,
+  }));
 });
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {

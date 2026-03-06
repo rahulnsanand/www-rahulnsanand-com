@@ -6,6 +6,10 @@ import Link from "next/link";
 import { List, X } from "@phosphor-icons/react";
 import { ThemeLogo } from "@/components/layout/theme-logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import {
+  SITE_HEADER_FLOATING_CHANGE_EVENT,
+  type SiteHeaderFloatingChangeDetail,
+} from "@/lib/site-header-events";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -149,6 +153,11 @@ export function SiteHeader() {
         return;
       }
 
+      if (window.innerWidth <= 640) {
+        setIsFloating(false);
+        return;
+      }
+
       const headerBottom = staticHeader.getBoundingClientRect().bottom;
       const isHeaderAlmostOut = headerBottom <= floatTriggerOffset;
 
@@ -175,6 +184,16 @@ export function SiteHeader() {
       window.removeEventListener("resize", onScroll);
     };
   }, [currentPath]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("site-nav-condensed", isFloating);
+
+    window.dispatchEvent(
+      new CustomEvent<SiteHeaderFloatingChangeDetail>(SITE_HEADER_FLOATING_CHANGE_EVENT, {
+        detail: { isFloating },
+      }),
+    );
+  }, [isFloating]);
 
   return (
     <>
