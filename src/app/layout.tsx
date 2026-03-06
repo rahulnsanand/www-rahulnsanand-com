@@ -10,9 +10,18 @@ const themeInitScript = `
       const stored = localStorage.getItem("theme");
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       const theme = stored === "light" || stored === "dark" ? stored : (prefersDark ? "dark" : "light");
+      const lowMemory = typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 4;
+      const lowCpu = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+      const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(theme);
       document.documentElement.style.colorScheme = theme;
+      if (lowMemory || lowCpu || saveData || prefersReducedMotion) {
+        document.documentElement.classList.add("perf-lite");
+      } else {
+        document.documentElement.classList.remove("perf-lite");
+      }
     } catch {}
     document.documentElement.setAttribute("data-theme-ready", "true");
   })();

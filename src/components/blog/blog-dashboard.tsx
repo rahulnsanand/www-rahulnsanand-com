@@ -1,16 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import Fuse from "fuse.js";
 import Link from "next/link";
 import { ArrowUpRight, MagnifyingGlass } from "@phosphor-icons/react";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 import { FadeInImage } from "@/components/ui/fade-in-image";
-import { type BlogPost } from "@/lib/blog";
+import { type BlogPostSummary } from "@/lib/blog";
 import { formatBlogDate, getBlogMediaImage } from "@/lib/blog-shared";
 
 type BlogDashboardProps = {
-  posts: BlogPost[];
+  posts: BlogPostSummary[];
 };
 
 function BlogMedia({
@@ -18,7 +18,7 @@ function BlogMedia({
   className,
   priority = false,
 }: {
-  post: Pick<BlogPost, "title" | "coverImage" | "youtubeUrl">;
+  post: Pick<BlogPostSummary, "title" | "coverImage" | "youtubeUrl">;
   className: string;
   priority?: boolean;
 }) {
@@ -47,7 +47,7 @@ function BlogMedia({
   );
 }
 
-function BlogCard({ post, priority = false }: { post: BlogPost; priority?: boolean }) {
+function BlogCard({ post, priority = false }: { post: BlogPostSummary; priority?: boolean }) {
   return (
     <Link href={`/blogs/${post.slug}`} className="blog-card-shell" aria-label={`Read blog: ${post.title}`}>
       <article className="blog-card blog-card--recent">
@@ -71,7 +71,7 @@ function BlogCard({ post, priority = false }: { post: BlogPost; priority?: boole
   );
 }
 
-function BlogRow({ post }: { post: BlogPost }) {
+function BlogRow({ post }: { post: BlogPostSummary }) {
   return (
     <Link href={`/blogs/${post.slug}`} className="blog-row-shell" aria-label={`Read blog: ${post.title}`}>
       <article className="blog-row">
@@ -98,7 +98,8 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
   const PREVIOUS_BATCH_SIZE = 5;
   const [query, setQuery] = useState("");
   const [visiblePreviousCount, setVisiblePreviousCount] = useState(PREVIOUS_BATCH_SIZE);
-  const normalizedQuery = query.trim();
+  const deferredQuery = useDeferredValue(query);
+  const normalizedQuery = deferredQuery.trim();
 
   const fuse = useMemo(
     () =>
@@ -111,7 +112,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
           { name: "title", weight: 0.35 },
           { name: "description", weight: 0.25 },
           { name: "tags", weight: 0.1 },
-          { name: "content", weight: 0.3 },
+          { name: "searchText", weight: 0.3 },
         ],
       }),
     [posts],

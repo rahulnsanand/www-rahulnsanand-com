@@ -2,28 +2,36 @@
 
 import { useEffect, useState } from "react";
 import { ArrowUp } from "@phosphor-icons/react";
+import {
+  SITE_HEADER_FLOATING_CHANGE_EVENT,
+  type SiteHeaderFloatingChangeDetail,
+} from "@/lib/site-header-events";
 
 export function BlogScrollTopButton() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const titleElement = document.getElementById("blog-post-title");
-    if (!titleElement) return;
+    const syncWithHeader = () => {
+      setIsVisible(document.documentElement.classList.contains("site-nav-condensed"));
+    };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry) {
-          return;
-        }
-        setIsVisible(!entry.isIntersecting);
-      },
-      {
-        threshold: 0,
-      },
-    );
+    const handleFloatingHeaderChange = (event: Event) => {
+      const detail = (event as CustomEvent<SiteHeaderFloatingChangeDetail>).detail;
 
-    observer.observe(titleElement);
-    return () => observer.disconnect();
+      if (detail && typeof detail.isFloating === "boolean") {
+        setIsVisible(detail.isFloating);
+        return;
+      }
+
+      syncWithHeader();
+    };
+
+    syncWithHeader();
+    window.addEventListener(SITE_HEADER_FLOATING_CHANGE_EVENT, handleFloatingHeaderChange as EventListener);
+
+    return () => {
+      window.removeEventListener(SITE_HEADER_FLOATING_CHANGE_EVENT, handleFloatingHeaderChange as EventListener);
+    };
   }, []);
 
   const handleScrollToTop = () => {

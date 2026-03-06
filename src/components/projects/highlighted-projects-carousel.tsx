@@ -20,8 +20,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
   const total = projects.length;
   const [position, setPosition] = useState(() => (projects.length > 1 ? projects.length : 0));
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [allowAnimatedPreview, setAllowAnimatedPreview] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(0);
 
   const loopedProjects = useMemo<HighlightProject[]>(() => {
@@ -49,7 +48,23 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => {
-      setPrefersReducedMotion(mediaQuery.matches);
+      const navigatorInfo = navigator as Navigator & {
+        deviceMemory?: number;
+        connection?: {
+          saveData?: boolean;
+        };
+      };
+
+      const isLowMemoryDevice =
+        typeof navigatorInfo.deviceMemory === "number" && navigatorInfo.deviceMemory <= 4;
+      const isLowCpuDevice =
+        typeof navigatorInfo.hardwareConcurrency === "number" &&
+        navigatorInfo.hardwareConcurrency <= 4;
+      const isSaveDataEnabled = navigatorInfo.connection?.saveData === true;
+
+      setAllowAnimatedPreview(
+        !mediaQuery.matches && !isLowMemoryDevice && !isLowCpuDevice && !isSaveDataEnabled,
+      );
     };
 
     update();
@@ -75,18 +90,6 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
       observer.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    if (total < 2 || isPaused || prefersReducedMotion) return;
-
-    const timer = window.setInterval(() => {
-      setPosition((current) => Math.min(maxPosition, current + 1));
-    }, 5000);
-
-    return () => {
-      window.clearInterval(timer);
-    };
-  }, [isPaused, maxPosition, prefersReducedMotion, total]);
 
   useEffect(() => {
     if (isTransitionEnabled) return;
@@ -199,10 +202,6 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
   return (
     <div
       className="projects-highlight-carousel"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocusCapture={() => setIsPaused(true)}
-      onBlurCapture={() => setIsPaused(false)}
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") {
           event.preventDefault();
@@ -227,13 +226,16 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
           className="projects-highlight-track"
           style={{
             transform: `translateX(${trackTranslatePx}px)`,
-            transition: isTransitionEnabled ? "transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1)" : "none",
+            transition: isTransitionEnabled ? "transform 340ms cubic-bezier(0.22, 0.61, 0.36, 1)" : "none",
           }}
           onTransitionEnd={handleTrackTransitionEnd}
         >
           {loopedProjects.map((project, index) => {
             const isCenterCard = index === position;
-            const mediaSource = isCenterCard && project.demoGifUrl ? project.demoGifUrl : project.previewImageUrl;
+            const mediaSource =
+              isCenterCard && allowAnimatedPreview && project.demoGifUrl
+                ? project.demoGifUrl
+                : project.previewImageUrl;
 
             return (
               <li key={`${project.id}-${index}`} className={`project-highlight-slot${isCenterCard ? " project-highlight-slot--center" : ""}`}>
