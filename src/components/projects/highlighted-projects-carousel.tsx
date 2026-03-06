@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type TransitionEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -15,16 +15,10 @@ type HighlightedProjectsCarouselProps = {
   projects: HighlightProject[];
 };
 
-function toRealIndex(position: number, total: number): number {
-  if (position === 0) return total - 1;
-  if (position === total + 1) return 0;
-  return position - 1;
-}
-
 export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCarouselProps) {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const total = projects.length;
-  const [position, setPosition] = useState(1);
+  const [position, setPosition] = useState(() => (projects.length > 1 ? projects.length : 0));
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -32,18 +26,25 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
 
   const loopedProjects = useMemo<HighlightProject[]>(() => {
     if (total < 2) return projects;
-
-    const first = projects[0];
-    const last = projects[total - 1];
-    if (!first || !last) return projects;
-
-    return [last, ...projects, first];
+    return [...projects, ...projects, ...projects];
   }, [projects, total]);
 
-  const activeProjectIndex = total > 0 ? toRealIndex(position, total) : 0;
+  const activeProjectIndex = total > 0 ? ((position % total) + total) % total : 0;
   const slideWidth = viewportWidth * 0.8;
   const sidePeekOffset = (viewportWidth - slideWidth) / 2;
   const trackTranslatePx = sidePeekOffset - position * slideWidth;
+  const minPosition = 0;
+  const maxPosition = total > 1 ? total * 3 - 1 : 0;
+
+  useEffect(() => {
+    if (total < 2) {
+      setPosition(0);
+      return;
+    }
+
+    setIsTransitionEnabled(false);
+    setPosition(total);
+  }, [total]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -79,13 +80,13 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
     if (total < 2 || isPaused || prefersReducedMotion) return;
 
     const timer = window.setInterval(() => {
-      setPosition((current) => current + 1);
+      setPosition((current) => Math.min(maxPosition, current + 1));
     }, 5000);
 
     return () => {
       window.clearInterval(timer);
     };
-  }, [isPaused, prefersReducedMotion, total]);
+  }, [isPaused, maxPosition, prefersReducedMotion, total]);
 
   useEffect(() => {
     if (isTransitionEnabled) return;
@@ -171,23 +172,27 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
   }
 
   const goToPrevious = () => {
-    setPosition((current) => current - 1);
+    setPosition((current) => Math.max(minPosition, current - 1));
   };
 
   const goToNext = () => {
-    setPosition((current) => current + 1);
+    setPosition((current) => Math.min(maxPosition, current + 1));
   };
 
-  const handleTrackTransitionEnd = () => {
-    if (position === total + 1) {
-      setIsTransitionEnabled(false);
-      setPosition(1);
+  const handleTrackTransitionEnd = (event: TransitionEvent<HTMLOListElement>) => {
+    if (event.target !== event.currentTarget || event.propertyName !== "transform") {
       return;
     }
 
-    if (position === 0) {
+    if (position >= total * 2) {
       setIsTransitionEnabled(false);
-      setPosition(total);
+      setPosition((current) => current - total);
+      return;
+    }
+
+    if (position < total) {
+      setIsTransitionEnabled(false);
+      setPosition((current) => current + total);
     }
   };
 
@@ -212,7 +217,12 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
       aria-roledescription="carousel"
       aria-label="Highlighted projects"
     >
-      <div ref={viewportRef} className="projects-highlight-viewport">
+      <div
+        ref={viewportRef}
+        className={`projects-highlight-viewport${
+          !isTransitionEnabled ? " projects-highlight-viewport--loop-resetting" : ""
+        }`}
+      >
         <ol
           className="projects-highlight-track"
           style={{
