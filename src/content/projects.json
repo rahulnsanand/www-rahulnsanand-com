@@ -1,0 +1,58 @@
+{
+  "githubOwners": ["rahulnsanand", "lyfie-org"],
+  "highlightedProjects": [
+    {
+      "repo": "rahulnsanand/www-rahulnsanand-com",
+      "demoGifUrl": "",
+      "imageUrl": "",
+      "websiteUrl": "",
+      "title": "",
+      "description": "Test Description"
+    },
+    {
+      "repo": "rahulnsanand/santa",
+      "demoGifUrl": ""
+    },
+    {
+      "repo": "rahulnsanand/TickTrack",
+      "demoGifUrl": ""
+    },
+    {
+      "repo": "lyfie-org/luthor",
+      "demoGifUrl": ""
+    },
+    {
+      "repo": "lyfie-org/papyra",
+      "demoGifUrl": ""
+    }
+  ],
+  "otherProjects": [
+    {
+      "repo": "rahulnsanand/rahulnsanand",
+      "imageUrl": "",
+      "websiteUrl": "",
+      "title": "",
+      "description": ""
+    },
+    "rahulnsanand/my_portfolio",
+    "rahulnsanand/note-web",
+    "rahulnsanand/note",
+    "rahulnsanand/Python-SkillUp",
+    "rahulnsanand/Java-DataStructures",
+    "rahulnsanand/CodeStudio",
+    "rahulnsanand/GraphGenerator",
+    "rahulnsanand/Face-Recognition",
+    "rahulnsanand/Playground",
+    "rahulnsanand/bus-reservation",
+    "rahulnsanand/servechat-java",
+    "rahulnsanand/servechat-school-version",
+    "rahulnsanand/BigData-For-Dummies",
+    "rahulnsanand/face-detect",
+    "rahulnsanand/AndroidStudio-GoogleSignInAPI",
+    "rahulnsanand/Single-Image-Dehazer---Dark-Channel",
+    "rahulnsanand/SearchIt-Java",
+    "rahulnsanand/End-To-End-Encryption",
+    "rahulnsanand/drowsiness-detection-dlib",
+    "rahulnsanand/image-to-text"
+  ]
+}

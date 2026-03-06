@@ -179,7 +179,7 @@ export function SiteHeader() {
   return (
     <>
       <header ref={staticHeaderRef} className="site-header">
-        <HeaderNav key={currentPath} onNavClick={handleSamePageClick} currentPath={currentPath} />
+        <HeaderNav onNavClick={handleSamePageClick} currentPath={currentPath} />
       </header>
       <header
         className={`site-header-floating${isFloating ? " site-header-floating--visible" : ""}`}

@@ -12,6 +12,26 @@ const nextConfig: NextConfig = {
         hostname: "github.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "opengraph.githubassets.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "media.githubusercontent.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/**",
+      },
     ],
   },
 };

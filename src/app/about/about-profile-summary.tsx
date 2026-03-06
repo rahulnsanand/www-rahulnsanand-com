@@ -1,29 +1,28 @@
-import Image from "next/image";
 import Link from "next/link";
-
-const PRIMARY_LINKS = [
-  { href: "/projects", label: "View Projects" },
-  { href: "/blogs", label: "Read Blogs" },
-  { href: "/contact", label: "Contact Rahul" },
-] as const;
+import { FadeInImage } from "@/components/ui/fade-in-image";
+import { aboutContent } from "@/lib/about";
 
 export function AboutProfileSummary() {
+  const { profile } = aboutContent;
+
   return (
     <div className="about-profile">
-      <Image
-        src="https://github.com/rahulnsanand.png"
-        alt="Rahul NS Anand profile photo"
+      <FadeInImage
+        src={profile.avatarUrl}
+        alt={`${profile.name} profile photo`}
         width={144}
         height={144}
-        className="about-profile-avatar"
+        frameClassName="about-profile-avatar-frame"
+        imageClassName="about-profile-avatar"
+        placeholderClassName="about-profile-avatar-placeholder"
         priority
       />
       <h1 className="about-profile-name">
-        Rahul NS Anand
+        {profile.name}
       </h1>
       
       <div className="about-profile-links">
-        {PRIMARY_LINKS.map((link) => (
+        {profile.primaryLinks.map((link) => (
           <Link
             key={link.href}
             href={link.href}
