@@ -9,6 +9,14 @@
   --theme-fade-duration: 520ms;
   --theme-fade-easing: cubic-bezier(0.22, 0.61, 0.36, 1);
   --site-nav-inline-gap: 0.82rem;
+  --site-main-top-gap: 2.5rem;
+  --site-main-top-gap-mobile: 1.65rem;
+  --page-top-gap: 0.5rem;
+  --page-bottom-gap: 3rem;
+  --page-title-size: clamp(1.9rem, 3.3vw, 2.65rem);
+  --page-title-tracking: -0.03em;
+  --page-lead-size: clamp(1rem, 1.3vw, 1.08rem);
+  --page-lead-line-height: 1.75;
 }
 
 html.light {
@@ -191,7 +199,7 @@ html.dark .site-shell::before {
 .site-main {
   width: min(1120px, calc(100% - 3rem));
   margin: 0 auto;
-  padding: 4.5rem 0 0;
+  padding: var(--site-main-top-gap) 0 0;
 }
 
 .page-transition-root {
@@ -743,21 +751,29 @@ html.dark .site-logo-link:hover .site-logo-image {
 }
 
 .content-title {
-  font-size: 1.875rem;
+  font-size: var(--page-title-size);
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: var(--page-title-tracking);
+  line-height: 1.1;
 }
 
 .content-copy {
-  font-size: 1rem;
-  line-height: 2rem;
+  font-size: var(--page-lead-size);
+  line-height: var(--page-lead-line-height);
   color: rgb(var(--muted));
+}
+
+.contact-page,
+.projects-page,
+.blogs-page,
+.about-page,
+.blog-post-page {
+  padding-top: var(--page-top-gap);
+  padding-bottom: var(--page-bottom-gap);
 }
 
 .contact-page {
   position: relative;
-  padding-top: 0.5rem;
-  padding-bottom: 3rem;
   max-width: 760px;
 }
 
@@ -777,17 +793,17 @@ html.dark .site-logo-link:hover .site-logo-image {
 .contact-title {
   margin-top: 0.65rem;
   margin-bottom: 0;
-  font-size: 2rem;
+  font-size: var(--page-title-size);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  line-height: 1.1;
+  letter-spacing: var(--page-title-tracking);
 }
 
 .contact-copy {
   margin-top: 0.85rem;
   margin-bottom: 0;
-  font-size: 1.02rem;
-  line-height: 1.76;
+  font-size: var(--page-lead-size);
+  line-height: var(--page-lead-line-height);
   color: rgb(var(--muted));
 }
 
@@ -943,8 +959,6 @@ html.dark .site-logo-link:hover .site-logo-image {
 
 .projects-page {
   position: relative;
-  padding-top: 0.5rem;
-  padding-bottom: 3rem;
 }
 
 .projects-header {
@@ -1502,8 +1516,6 @@ html.light .project-highlight-main::before {
 
 .blogs-page {
   position: relative;
-  padding-top: 0.5rem;
-  padding-bottom: 3rem;
 }
 
 .blogs-page-sr-title {
@@ -1935,12 +1947,10 @@ html.light .project-highlight-main::before {
 }
 
 .blog-post-page {
-  padding-top: 0;
-  padding-bottom: 4.2rem;
   width: min(1040px, 100%);
   max-width: none;
   margin-inline: auto;
-  margin-top: -1.2rem;
+  margin-top: 0;
 }
 
 .blog-post-layout {
@@ -2021,9 +2031,9 @@ html.light .project-highlight-main::before {
 .blog-post-title {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 2rem;
-  letter-spacing: -0.035em;
-  line-height: 1.12;
+  font-size: var(--page-title-size);
+  letter-spacing: var(--page-title-tracking);
+  line-height: 1.1;
   text-wrap: balance;
 }
 
@@ -2032,8 +2042,8 @@ html.light .project-highlight-main::before {
   margin-bottom: 0;
   max-width: 66ch;
   color: rgb(var(--muted));
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: var(--page-lead-size);
+  line-height: var(--page-lead-line-height);
 }
 
 .blog-post-meta {
@@ -2436,8 +2446,6 @@ html.light .project-highlight-main::before {
 
 .about-page {
   position: relative;
-  padding-top: 0.5rem;
-  padding-bottom: 3rem;
 }
 
 .about-layout {
@@ -2484,10 +2492,10 @@ html.light .project-highlight-main::before {
 
 .about-intro-name {
   margin: 0;
-  font-size: 1.95rem;
+  font-size: var(--page-title-size);
   font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  line-height: 1.1;
+  letter-spacing: var(--page-title-tracking);
   color: rgb(var(--text));
 }
 
@@ -3090,23 +3098,7 @@ html.light .project-highlight-main::before {
   }
 
   .content-title {
-    font-size: 3rem;
-  }
-
-  .content-copy {
-    font-size: 1.125rem;
-  }
-
-  .contact-page {
-    padding-top: 1rem;
-  }
-
-  .contact-title {
-    font-size: 2.65rem;
-  }
-
-  .contact-copy {
-    font-size: 1.1rem;
+    font-size: clamp(2.2rem, 3.5vw, 3rem);
   }
 
   .projects-title {
@@ -3210,12 +3202,8 @@ html.light .project-highlight-main::before {
     font-size: 1.05rem;
   }
 
-  .about-page {
-    padding-top: 1rem;
-  }
-
   .about-intro-name {
-    font-size: 2.25rem;
+    font-size: clamp(2.2rem, 3.5vw, 2.9rem);
   }
 
   .about-item-header {
@@ -3310,7 +3298,7 @@ html.light .project-highlight-main::before {
 
   .site-main {
     width: calc(100% - 2rem);
-    padding-top: 2.75rem;
+    padding-top: var(--site-main-top-gap-mobile);
   }
 
   .site-header {
@@ -3413,18 +3401,6 @@ html.light .project-highlight-main::before {
   .site-logo-stack {
     width: 48px;
     height: 28px;
-  }
-
-  .blogs-page {
-    padding-top: 0.2rem;
-  }
-
-  .projects-page {
-    padding-top: 0.2rem;
-  }
-
-  .contact-page {
-    padding-top: 0.2rem;
   }
 
   .contact-title {
@@ -3605,9 +3581,7 @@ html.light .project-highlight-main::before {
   }
 
   .blog-post-page {
-    padding-top: 0;
     padding-bottom: 3.7rem;
-    margin-top: -0.75rem;
   }
 
   .blog-post-layout {

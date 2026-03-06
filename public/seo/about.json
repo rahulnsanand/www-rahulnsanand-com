@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T14:09:39.530Z",
+  "generatedAt": "2026-03-06T17:03:58.943Z",
   "siteUrl": "https://www.rahulnsanand.com",
   "about": {
     "profile": {
@@ -23,7 +23,7 @@
     "sections": [
       {
         "id": "experience",
-        "heading": "Experience",
+        "heading": "Work Experience",
         "groups": [
           {
             "id": "product-engineering",
@@ -105,6 +105,6 @@
         ]
       }
     ],
-    "text": "Rahul NS Anand. View Projects (/projects). Read Blogs (/blogs). Contact Rahul (/contact). Experience: Senior Software Engineer - Product Engineering (2023 - Present). Own end-to-end feature delivery across web and platform layers. Drive architecture decisions with maintainability and clarity as constraints. Mentor engineers through design reviews and execution planning. Software Engineer - Frontend + DX (2020 - 2023). Built reusable UI systems and introduced typed API boundaries. Reduced bundle and route load costs through targeted performance work. Projects: Developer Portfolio Platform - Personal Product (2025 - Present). Crafting a narrative-first site with intentional interaction design. Balancing expressive visuals with lightweight, accessible implementation. Workflow Automation Toolkit - Internal (2024). Shipped automation scripts that cut repetitive ops tasks by over 50%. Education: Computer Science - Engineering Foundation (2016 - 2020). Focused on systems, software design, and practical product development."
+    "text": "Rahul NS Anand. View Projects (/projects). Read Blogs (/blogs). Contact Rahul (/contact). Work Experience: Senior Software Engineer - Product Engineering (2023 - Present). Own end-to-end feature delivery across web and platform layers. Drive architecture decisions with maintainability and clarity as constraints. Mentor engineers through design reviews and execution planning. Software Engineer - Frontend + DX (2020 - 2023). Built reusable UI systems and introduced typed API boundaries. Reduced bundle and route load costs through targeted performance work. Projects: Developer Portfolio Platform - Personal Product (2025 - Present). Crafting a narrative-first site with intentional interaction design. Balancing expressive visuals with lightweight, accessible implementation. Workflow Automation Toolkit - Internal (2024). Shipped automation scripts that cut repetitive ops tasks by over 50%. Education: Computer Science - Engineering Foundation (2016 - 2020). Focused on systems, software design, and practical product development."
   }
 }
