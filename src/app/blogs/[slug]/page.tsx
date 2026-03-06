@@ -10,6 +10,7 @@ import { BlogShareButton } from "@/components/blog/blog-share-button";
 import { BlogScrollTopButton } from "@/components/blog/blog-scroll-top-button";
 import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog";
 import { formatBlogDate, getBlogMediaImage, parseYouTubeVideoId } from "@/lib/blog-shared";
+import { serializeJsonLd } from "@/lib/json-ld";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -98,7 +99,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <article className="blog-post-page" aria-labelledby="blog-post-title">
       <FooterAccentText text="read()" />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingSchema) }} />
 
       <Link href="/blogs" className="blog-post-back-link">
         <ArrowLeft size={14} weight="duotone" aria-hidden="true" />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ProjectsShowcase } from "@/components/projects/projects-showcase";
+import { serializeJsonLd } from "@/lib/json-ld";
 import { getProjectsPageData } from "@/lib/projects";
 
 export const metadata: Metadata = {
@@ -41,7 +42,7 @@ export default async function ProjectsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
       <ProjectsShowcase highlightedProjects={highlightedProjects} otherProjects={otherProjects} />
     </>

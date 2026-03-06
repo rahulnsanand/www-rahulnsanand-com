@@ -1,57 +1,161 @@
 {
-  "githubOwners": ["rahulnsanand", "lyfie-org"],
+  "defaultCardClickTarget": "github",
   "highlightedProjects": [
     {
       "repo": "rahulnsanand/www-rahulnsanand-com",
-      "demoGifUrl": "",
-      "imageUrl": "",
-      "websiteUrl": "",
-      "title": "",
-      "description": "Test Description"
+      "title": "www-rahulnsanand-com",
+      "description": "Personal website with blogs, projects, and contact workflows.",
+      "imageUrl": "/projects/project-placeholder.svg",
+      "websiteUrl": "https://www.rahulnsanand.com",
+      "cardClickTarget": "website"
     },
     {
       "repo": "rahulnsanand/santa",
-      "demoGifUrl": ""
+      "title": "Santa",
+      "description": "Experimental product and frontend exploration repository.",
+      "imageUrl": "/projects/project-placeholder.svg"
     },
     {
       "repo": "rahulnsanand/TickTrack",
-      "demoGifUrl": ""
+      "title": "TickTrack",
+      "description": "Task and productivity focused project experiments.",
+      "imageUrl": "/projects/project-placeholder.svg"
     },
     {
       "repo": "lyfie-org/luthor",
-      "demoGifUrl": ""
+      "title": "Luthor",
+      "description": "AI + personal data tooling under the Lyfie ecosystem.",
+      "imageUrl": "/projects/project-placeholder.svg",
+      "websiteUrl": "https://luthor.fyi"
     },
     {
       "repo": "lyfie-org/papyra",
-      "demoGifUrl": ""
+      "title": "Papyra",
+      "description": "Knowledge and content-focused product within Lyfie.",
+      "imageUrl": "/projects/project-placeholder.svg",
+      "websiteUrl": "https://papyra.app"
     }
   ],
   "otherProjects": [
     {
       "repo": "rahulnsanand/rahulnsanand",
-      "imageUrl": "",
-      "websiteUrl": "",
-      "title": "",
-      "description": ""
+      "title": "rahulnsanand",
+      "description": "Profile and open-source identity repository.",
+      "imageUrl": "/projects/project-placeholder.svg"
     },
-    "rahulnsanand/my_portfolio",
-    "rahulnsanand/note-web",
-    "rahulnsanand/note",
-    "rahulnsanand/Python-SkillUp",
-    "rahulnsanand/Java-DataStructures",
-    "rahulnsanand/CodeStudio",
-    "rahulnsanand/GraphGenerator",
-    "rahulnsanand/Face-Recognition",
-    "rahulnsanand/Playground",
-    "rahulnsanand/bus-reservation",
-    "rahulnsanand/servechat-java",
-    "rahulnsanand/servechat-school-version",
-    "rahulnsanand/BigData-For-Dummies",
-    "rahulnsanand/face-detect",
-    "rahulnsanand/AndroidStudio-GoogleSignInAPI",
-    "rahulnsanand/Single-Image-Dehazer---Dark-Channel",
-    "rahulnsanand/SearchIt-Java",
-    "rahulnsanand/End-To-End-Encryption",
-    "rahulnsanand/drowsiness-detection-dlib"
+    {
+      "repo": "rahulnsanand/my_portfolio",
+      "title": "my_portfolio",
+      "description": "Earlier portfolio implementation and design iteration.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/note-web",
+      "title": "note-web",
+      "description": "Web notes experience and frontend architecture experiments.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/note",
+      "title": "note",
+      "description": "Notes tooling and supporting application logic.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/Python-SkillUp",
+      "title": "Python SkillUp",
+      "description": "Python learning material and practice implementations.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/Java-DataStructures",
+      "title": "Java DataStructures",
+      "description": "Data structures and algorithm implementations in Java.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/CodeStudio",
+      "title": "CodeStudio",
+      "description": "Developer-focused experimentation and utility work.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/GraphGenerator",
+      "title": "GraphGenerator",
+      "description": "Graph generation and visualization experiments.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/Face-Recognition",
+      "title": "Face Recognition",
+      "description": "Computer vision experimentation with facial recognition.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/Playground",
+      "title": "Playground",
+      "description": "Sandbox repository for rapid prototypes and ideas.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/bus-reservation",
+      "title": "bus-reservation",
+      "description": "Reservation workflow modeling and backend logic exercises.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/servechat-java",
+      "title": "servechat-java",
+      "description": "Chat application implementation in Java.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/servechat-school-version",
+      "title": "servechat-school-version",
+      "description": "School-focused version of the ServeChat application.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/BigData-For-Dummies",
+      "title": "BigData For Dummies",
+      "description": "Learning-oriented content and code for big data concepts.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/face-detect",
+      "title": "face-detect",
+      "description": "Face detection experiments and model iteration.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/AndroidStudio-GoogleSignInAPI",
+      "title": "AndroidStudio GoogleSignInAPI",
+      "description": "Android authentication implementation with Google Sign-In.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/Single-Image-Dehazer---Dark-Channel",
+      "title": "Single Image Dehazer Dark Channel",
+      "description": "Image processing project for dehazing algorithms.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/SearchIt-Java",
+      "title": "SearchIt Java",
+      "description": "Search-related Java implementation and experiments.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/End-To-End-Encryption",
+      "title": "End To End Encryption",
+      "description": "Security and encryption concept implementations.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    },
+    {
+      "repo": "rahulnsanand/drowsiness-detection-dlib",
+      "title": "drowsiness-detection-dlib",
+      "description": "Computer vision model for drowsiness detection.",
+      "imageUrl": "/projects/project-placeholder.svg"
+    }
   ]
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 
@@ -24,10 +24,17 @@ const socialLinks = [
   },
 ] as const;
 
+const MESSAGE_MIN_LENGTH = 8;
+const MESSAGE_MAX_LENGTH = 5000;
+const REQUEST_TIMEOUT_MS = 12_000;
+
 function collectClientMetadata() {
+  if (typeof window === "undefined") {
+    return { b: "", l: "", z: "", s: "" };
+  }
+
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-  const screenSize =
-    typeof window !== "undefined" ? `${window.screen.width}x${window.screen.height}` : "";
+  const screenSize = `${window.screen.width}x${window.screen.height}`;
   const ua = navigator.userAgent || "";
 
   const browser =
@@ -38,13 +45,19 @@ function collectClientMetadata() {
     l: navigator.language || "",
     z: timezone,
     s: screenSize,
+    th: document.documentElement.classList.contains("dark")
+      ? "dark"
+      : document.documentElement.classList.contains("light")
+        ? "light"
+        : "unknown",
+    lt: new Date().toISOString(),
   };
 }
 
 export function ContactPageBody() {
   const [submitState, setSubmitState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
-  const formStartedAt = useMemo(() => Date.now().toString(), []);
+  const [formStartedAt, setFormStartedAt] = useState(() => Date.now().toString());
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -58,8 +71,20 @@ export function ContactPageBody() {
     const startedAt = String(formData.get("formStartedAt") ?? "").trim();
     const metadata = collectClientMetadata();
 
-    if (!senderEmail || !message) return;
+    if (!senderEmail || !message) {
+      setSubmitState("error");
+      setStatusMessage("Sender email and message are required.");
+      return;
+    }
 
+    if (message.length < MESSAGE_MIN_LENGTH || message.length > MESSAGE_MAX_LENGTH) {
+      setSubmitState("error");
+      setStatusMessage(`Message should be between ${MESSAGE_MIN_LENGTH} and ${MESSAGE_MAX_LENGTH} characters.`);
+      return;
+    }
+
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
     try {
       setSubmitState("sending");
       setStatusMessage("Sending...");
@@ -67,6 +92,7 @@ export function ContactPageBody() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({ e: senderEmail, m: message, d: metadata, h: companyWebsite, t: startedAt }),
       });
 
@@ -78,10 +104,18 @@ export function ContactPageBody() {
       setSubmitState("success");
       setStatusMessage("Message sent. Thanks for reaching out.");
       form.reset();
+      setFormStartedAt(Date.now().toString());
     } catch (error) {
-      const messageText = error instanceof Error ? error.message : "Could not send message.";
+      const messageText =
+        error instanceof Error && error.name === "AbortError"
+          ? "Request timed out. Please try again."
+          : error instanceof Error
+            ? error.message
+            : "Could not send message.";
       setSubmitState("error");
       setStatusMessage(messageText);
+    } finally {
+      window.clearTimeout(timeout);
     }
   }
 
@@ -121,6 +155,7 @@ export function ContactPageBody() {
             required
             placeholder="you@company.com"
             autoComplete="email"
+            maxLength={320}
           />
         </div>
 
@@ -135,11 +170,18 @@ export function ContactPageBody() {
             rows={7}
             required
             placeholder="Share a little context about what you want to discuss."
+            minLength={MESSAGE_MIN_LENGTH}
+            maxLength={MESSAGE_MAX_LENGTH}
           />
         </div>
 
         <div className="contact-actions">
-          <button type="submit" className="contact-submit" disabled={submitState === "sending"}>
+          <button
+            type="submit"
+            className="contact-submit"
+            disabled={submitState === "sending"}
+            aria-busy={submitState === "sending"}
+          >
             {submitState === "sending" ? "Sending..." : "Send message"}
           </button>
           <p

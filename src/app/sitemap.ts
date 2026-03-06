@@ -14,10 +14,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `https://www.rahulnsanand.com/blogs/lessons-from-reducing-frontend-bundle-noise`, lastModified: new Date("2026-03-06T06:49:22.375Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/what-changed-when-i-treated-content-like-a-product`, lastModified: new Date("2026-03-06T06:49:25.437Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/writing-technical-posts-that-engineers-actually-finish`, lastModified: new Date("2026-03-06T06:49:30.241Z"), changeFrequency: "weekly", priority: 0.8 },
-    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-05T12:45:13.876Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-03-06T08:38:12.596Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-03-06T08:38:12.596Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-05T12:45:13.876Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-03-06T08:38:12.596Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-06T10:48:24.547Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-03-06T12:55:22.203Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-03-06T12:55:22.203Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-06T12:27:41.313Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-03-06T12:55:22.203Z"), changeFrequency: "weekly", priority: 0.7 },
   ];
 }

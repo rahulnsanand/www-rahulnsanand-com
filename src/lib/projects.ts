@@ -1,7 +1,16 @@
 import projectsConfig from "@/content/projects.json";
 
+export type CardClickTarget = "github" | "website";
+
+export type ProjectLinks = {
+  githubUrl: string;
+  websiteUrl: string | null;
+  youtubeUrl: string | null;
+  blogUrl: string | null;
+};
+
 export type GithubProject = {
-  id: number;
+  id: string;
   owner: string;
   fullName: string;
   name: string;
@@ -15,6 +24,9 @@ export type GithubProject = {
   updatedAt: string;
   fork: boolean;
   archived: boolean;
+  links: ProjectLinks;
+  cardClickTarget: CardClickTarget;
+  cardClickUrl: string;
 };
 
 export type HighlightProject = GithubProject & {
@@ -26,306 +38,191 @@ type ProjectsPageData = {
   otherProjects: GithubProject[];
 };
 
-type ProjectItemConfig = {
-  repo: string;
-  demoGifUrl?: string;
-  description?: string;
-  websiteUrl?: string;
-  imageUrl?: string;
-  title?: string;
+type ProjectConfig = {
+  repo?: unknown;
+  title?: unknown;
+  description?: unknown;
+  imageUrl?: unknown;
+  demoGifUrl?: unknown;
+  websiteUrl?: unknown;
+  githubUrl?: unknown;
+  youtubeUrl?: unknown;
+  blogUrl?: unknown;
+  language?: unknown;
+  updatedAt?: unknown;
+  cardClickTarget?: unknown;
 };
 
-const DEFAULT_OWNER = "rahulnsanand";
 const CONFIG_RECORD = projectsConfig as Record<string, unknown>;
+const PLACEHOLDER_IMAGE_URL = "/projects/project-placeholder.svg";
+const DEFAULT_UPDATED_AT = "2026-03-06T00:00:00.000Z";
+const REPO_REFERENCE_REGEX = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
+const DEFAULT_CARD_CLICK_TARGET: CardClickTarget = "github";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
-function toStringArray(value: unknown): string[] {
-  if (!Array.isArray(value)) return [];
-
-  return value
-    .filter((item): item is string => typeof item === "string")
-    .map((item) => item.trim())
-    .filter((item) => item.length > 0);
+function normalizeText(value: unknown, maxLength = 240): string {
+  return String(value ?? "").trim().slice(0, maxLength);
 }
 
-const configuredOwners = (() => {
-  const fromOwners = toStringArray(CONFIG_RECORD["githubOwners"]);
-  if (fromOwners.length > 0) {
-    return Array.from(new Set(fromOwners));
+function sanitizeExternalUrl(value: unknown): string | null {
+  const normalized = normalizeText(value, 2000);
+  if (!normalized) return null;
+
+  try {
+    const parsed = new URL(normalized);
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
+    return parsed.toString();
+  } catch {
+    return null;
+  }
+}
+
+function sanitizeImageUrl(value: unknown): string {
+  const normalized = normalizeText(value, 2000);
+  if (normalized.startsWith("/")) {
+    return normalized;
   }
 
-  const maybeUsername = CONFIG_RECORD["githubUsername"];
-  if (typeof maybeUsername === "string" && maybeUsername.trim().length > 0) {
-    return [maybeUsername.trim()];
-  }
+  return sanitizeExternalUrl(normalized) ?? PLACEHOLDER_IMAGE_URL;
+}
 
-  return [DEFAULT_OWNER];
-})();
+function toDisplayTitle(repoName: string): string {
+  return repoName
+    .replaceAll(/[-_]+/g, " ")
+    .replaceAll(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
 
-const primaryOwner = configuredOwners[0] ?? DEFAULT_OWNER;
+function parseRepo(value: unknown): { owner: string; name: string; fullName: string } | null {
+  const repo = normalizeText(value, 180);
+  if (!REPO_REFERENCE_REGEX.test(repo)) return null;
 
-function parseProjectItemConfig(item: unknown): ProjectItemConfig | null {
-  if (typeof item === "string" && item.trim().length > 0) {
-    return { repo: item.trim() };
+  const [owner, name] = repo.split("/", 2);
+  if (!owner || !name) return null;
+
+  return { owner, name, fullName: `${owner}/${name}` };
+}
+
+function parseProjectConfig(item: unknown): ProjectConfig | null {
+  if (typeof item === "string") {
+    const repo = normalizeText(item, 180);
+    if (!repo) return null;
+    return { repo };
   }
 
   if (!isRecord(item)) return null;
-  const repo = item["repo"];
-  if (typeof repo !== "string" || repo.trim().length === 0) return null;
-
-  const demoGifUrl = item["demoGifUrl"];
-  const description = item["description"];
-  const websiteUrl = item["websiteUrl"];
-  const imageUrl = item["imageUrl"];
-  const title = item["title"];
-
-  return {
-    repo: repo.trim(),
-    demoGifUrl: typeof demoGifUrl === "string" ? demoGifUrl.trim() : undefined,
-    description: typeof description === "string" ? description.trim() : undefined,
-    websiteUrl: typeof websiteUrl === "string" ? websiteUrl.trim() : undefined,
-    imageUrl: typeof imageUrl === "string" ? imageUrl.trim() : undefined,
-    title: typeof title === "string" ? title.trim() : undefined,
-  };
+  return item as ProjectConfig;
 }
 
-const configuredHighlights: ProjectItemConfig[] = Array.isArray(CONFIG_RECORD["highlightedProjects"])
-  ? CONFIG_RECORD["highlightedProjects"].flatMap((item) => {
-      const parsed = parseProjectItemConfig(item);
-      return parsed ? [parsed] : [];
-    })
-  : [];
+function parseCardClickTarget(value: unknown): CardClickTarget | null {
+  const target = normalizeText(value, 20).toLowerCase();
+  if (target === "github" || target === "website") {
+    return target;
+  }
+  return null;
+}
 
-const configuredOtherProjects: ProjectItemConfig[] = Array.isArray(CONFIG_RECORD["otherProjects"])
-  ? CONFIG_RECORD["otherProjects"].flatMap((item) => {
-      const parsed = parseProjectItemConfig(item);
-      return parsed ? [parsed] : [];
-    })
-  : [];
+const configuredDefaultCardClickTarget =
+  parseCardClickTarget(CONFIG_RECORD.defaultCardClickTarget) ?? DEFAULT_CARD_CLICK_TARGET;
 
-function parseRepoReference(value: string, fallbackOwner: string): { owner: string; repo: string; key: string } {
-  const normalized = value.trim();
-  if (normalized.includes("/")) {
-    const [ownerPart, repoPart] = normalized.split("/");
-    const owner = ownerPart?.trim() || fallbackOwner;
-    const repo = repoPart?.trim() || normalized;
-    return {
-      owner,
-      repo,
-      key: `${owner}/${repo}`,
-    };
+function resolveCardClick(params: {
+  preferredTarget: CardClickTarget;
+  githubUrl: string;
+  websiteUrl: string | null;
+}): { target: CardClickTarget; url: string } {
+  if (params.preferredTarget === "website" && params.websiteUrl) {
+    return { target: "website", url: params.websiteUrl };
   }
 
-  return {
-    owner: fallbackOwner,
-    repo: normalized,
-    key: `${fallbackOwner}/${normalized}`,
-  };
+  return { target: "github", url: params.githubUrl };
 }
 
-function getGithubReposEndpoint(owner: string): string {
-  return `https://api.github.com/users/${owner}/repos?per_page=100&sort=updated`;
-}
+function toProjectBase(item: unknown): GithubProject | null {
+  const config = parseProjectConfig(item);
+  if (!config) return null;
 
-function getPosterImageUrl(owner: string, repoName: string): string {
-  const cacheKey = `${owner}-${repoName}-showcase`;
-  return `https://opengraph.githubassets.com/${cacheKey}/${owner}/${repoName}`;
-}
+  const repoInfo = parseRepo(config.repo);
+  if (!repoInfo) return null;
 
-function toProject(repo: unknown): GithubProject | null {
-  if (!isRecord(repo)) return null;
-
-  const id = repo["id"];
-  const name = repo["name"];
-  const fullName = repo["full_name"];
-  const htmlUrl = repo["html_url"];
-  const description = repo["description"];
-  const stars = repo["stargazers_count"];
-  const language = repo["language"];
-  const updatedAt = repo["updated_at"];
-  const fork = repo["fork"];
-  const archived = repo["archived"];
-  const homepage = repo["homepage"];
-  const ownerRecord = repo["owner"];
-  const owner = isRecord(ownerRecord) && typeof ownerRecord["login"] === "string" ? ownerRecord["login"] : null;
-
-  if (
-    typeof id !== "number" ||
-    typeof name !== "string" ||
-    typeof fullName !== "string" ||
-    typeof htmlUrl !== "string" ||
-    typeof stars !== "number" ||
-    typeof updatedAt !== "string" ||
-    typeof fork !== "boolean" ||
-    typeof archived !== "boolean" ||
-    typeof owner !== "string"
-  ) {
-    return null;
-  }
+  const title = normalizeText(config.title, 160) || toDisplayTitle(repoInfo.name);
+  const description = normalizeText(config.description, 400) || "Open-source project by Rahul NS Anand.";
+  const githubUrl = sanitizeExternalUrl(config.githubUrl) ?? `https://github.com/${repoInfo.fullName}`;
+  const websiteUrl = sanitizeExternalUrl(config.websiteUrl);
+  const youtubeUrl = sanitizeExternalUrl(config.youtubeUrl);
+  const blogUrl = sanitizeExternalUrl(config.blogUrl);
+  const language = normalizeText(config.language, 80) || null;
+  const updatedAt = normalizeText(config.updatedAt, 40) || DEFAULT_UPDATED_AT;
+  const preferredCardClickTarget = parseCardClickTarget(config.cardClickTarget) ?? configuredDefaultCardClickTarget;
+  const cardClick = resolveCardClick({
+    preferredTarget: preferredCardClickTarget,
+    githubUrl,
+    websiteUrl,
+  });
 
   return {
-    id,
-    owner,
-    fullName,
-    name,
-    displayTitle: fullName,
-    description: typeof description === "string" ? description : null,
-    htmlUrl,
-    homepage: typeof homepage === "string" && homepage.trim().length > 0 ? homepage.trim() : null,
-    previewImageUrl: getPosterImageUrl(owner, name),
-    stars,
-    language: typeof language === "string" ? language : null,
+    id: repoInfo.fullName.toLowerCase(),
+    owner: repoInfo.owner,
+    fullName: repoInfo.fullName,
+    name: repoInfo.name,
+    displayTitle: title,
+    description,
+    htmlUrl: githubUrl,
+    homepage: websiteUrl,
+    previewImageUrl: sanitizeImageUrl(config.imageUrl),
+    stars: 0,
+    language,
     updatedAt,
-    fork,
-    archived,
+    fork: false,
+    archived: false,
+    cardClickTarget: cardClick.target,
+    cardClickUrl: cardClick.url,
+    links: {
+      githubUrl,
+      websiteUrl,
+      youtubeUrl,
+      blogUrl,
+    },
   };
 }
 
-function byRecency(a: GithubProject, b: GithubProject): number {
-  return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-}
+function toHighlightedProject(item: unknown): HighlightProject | null {
+  const config = parseProjectConfig(item);
+  if (!config) return null;
 
-function applyProjectOverrides(project: GithubProject, overrides: ProjectItemConfig): GithubProject {
-  const titleOverride =
-    typeof overrides.title === "string" && overrides.title.trim().length > 0
-      ? overrides.title.trim()
-      : project.displayTitle;
-  const descriptionOverride =
-    typeof overrides.description === "string" && overrides.description.trim().length > 0
-      ? overrides.description.trim()
-      : project.description;
-  const imageOverride =
-    typeof overrides.imageUrl === "string" && overrides.imageUrl.trim().length > 0
-      ? overrides.imageUrl.trim()
-      : project.previewImageUrl;
-  const websiteOverride =
-    typeof overrides.websiteUrl === "string"
-      ? overrides.websiteUrl.trim().length > 0
-        ? overrides.websiteUrl.trim()
-        : null
-      : project.homepage;
+  const base = toProjectBase(config);
+  if (!base) return null;
+
+  const demoGifUrl = sanitizeExternalUrl(config.demoGifUrl) ?? null;
 
   return {
-    ...project,
-    displayTitle: titleOverride,
-    description: descriptionOverride,
-    previewImageUrl: imageOverride,
-    homepage: websiteOverride,
+    ...base,
+    demoGifUrl,
   };
 }
 
-function buildProjectIndexes(allProjects: GithubProject[]) {
-  const byFullName = new Map<string, GithubProject>();
-  const byOwnerAndName = new Map<string, GithubProject>();
-
-  for (const project of allProjects) {
-    byFullName.set(project.fullName.toLowerCase(), project);
-    byOwnerAndName.set(`${project.owner}/${project.name}`.toLowerCase(), project);
-  }
-
-  return { byFullName, byOwnerAndName };
-}
-
-function buildHighlightedProjects(allProjects: GithubProject[]): HighlightProject[] {
-  const { byFullName, byOwnerAndName } = buildProjectIndexes(allProjects);
-  const usedIds = new Set<number>();
-
-  return configuredHighlights.flatMap((entryConfig) => {
-    const parsed = parseRepoReference(entryConfig.repo, primaryOwner);
-    const key = parsed.key.toLowerCase();
-
-    const project = byFullName.get(key) ?? byOwnerAndName.get(key);
-    if (!project || usedIds.has(project.id)) {
-      return [];
-    }
-
-    usedIds.add(project.id);
-
-    return [
-      {
-        ...applyProjectOverrides(project, entryConfig),
-        demoGifUrl:
-          entryConfig.demoGifUrl && entryConfig.demoGifUrl.length > 0 ? entryConfig.demoGifUrl : null,
-      },
-    ];
-  });
-}
-
-function buildOtherProjects(allProjects: GithubProject[], highlightedProjects: HighlightProject[]): GithubProject[] {
-  const highlightedIds = new Set(highlightedProjects.map((project) => project.id));
-  const { byFullName, byOwnerAndName } = buildProjectIndexes(allProjects);
-
-  if (configuredOtherProjects.length > 0) {
-    const usedIds = new Set<number>();
-
-    return configuredOtherProjects.flatMap((projectConfig) => {
-      const parsed = parseRepoReference(projectConfig.repo, primaryOwner);
-      const key = parsed.key.toLowerCase();
-      const project = byFullName.get(key) ?? byOwnerAndName.get(key);
-
-      if (!project || highlightedIds.has(project.id) || usedIds.has(project.id)) {
-        return [];
-      }
-
-      usedIds.add(project.id);
-      return [applyProjectOverrides(project, projectConfig)];
-    });
-  }
-
-  return allProjects
-    .filter((project) => !highlightedIds.has(project.id))
-    .sort(byRecency);
-}
-
-async function fetchOwnerRepos(owner: string): Promise<GithubProject[]> {
-  const response = await fetch(getGithubReposEndpoint(owner), {
-    next: { revalidate: 60 * 60 },
-    headers: {
-      Accept: "application/vnd.github+json",
-    },
-  });
-
-  if (!response.ok) {
-    return [];
-  }
-
-  const payload: unknown = await response.json();
-  if (!Array.isArray(payload)) {
-    return [];
-  }
-
-  return payload
-    .map(toProject)
-    .filter((project): project is GithubProject => project !== null)
-    .filter((project) => !project.archived);
+function readList(key: "highlightedProjects" | "otherProjects"): unknown[] {
+  const raw = CONFIG_RECORD[key];
+  return Array.isArray(raw) ? raw : [];
 }
 
 export async function getProjectsPageData(): Promise<ProjectsPageData> {
-  try {
-    const ownerRepoLists = await Promise.all(configuredOwners.map((owner) => fetchOwnerRepos(owner)));
+  const highlightedProjects = readList("highlightedProjects")
+    .map(toHighlightedProject)
+    .filter((project): project is HighlightProject => project !== null);
 
-    const dedupedById = new Map<number, GithubProject>();
-    for (const repoList of ownerRepoLists) {
-      for (const project of repoList) {
-        dedupedById.set(project.id, project);
-      }
-    }
+  const highlightedIds = new Set(highlightedProjects.map((project) => project.id));
 
-    const projects = Array.from(dedupedById.values());
-    const highlightedProjects = buildHighlightedProjects(projects);
-    const otherProjects = buildOtherProjects(projects, highlightedProjects);
+  const otherProjects = readList("otherProjects")
+    .map(toProjectBase)
+    .filter((project): project is GithubProject => project !== null)
+    .filter((project) => !highlightedIds.has(project.id));
 
-    return {
-      highlightedProjects,
-      otherProjects,
-    };
-  } catch {
-    return {
-      highlightedProjects: [],
-      otherProjects: [],
-    };
-  }
+  return {
+    highlightedProjects,
+    otherProjects,
+  };
 }
