@@ -6,7 +6,7 @@ import { SketchBackgroundLayer } from "./SketchBackgroundLayer";
 import { SKETCH_DEFAULTS, generateSketchPlacements } from "./sketch.placement";
 import { sketchManifest } from "./sketch.manifest";
 import { measureProtectedZones } from "./sketch.protected-zones";
-import type { PlacedSketch, SketchBackgroundProps } from "./sketch.types";
+import type { PlacedSketch, Rect, SketchBackgroundProps } from "./sketch.types";
 import { createDebouncedCallback } from "./sketch.utils";
 
 const RESIZE_DEBOUNCE_MS = 180;
@@ -20,6 +20,24 @@ type LayoutSnapshot = {
 
 function getNextSeed(seed: number, revision: number): number {
   return seed + revision * 9973;
+}
+
+function getVisibleRegionInShell(shell: HTMLElement, shellHeight: number, shellWidth: number): Rect | undefined {
+  const shellRect = shell.getBoundingClientRect();
+  const visibleTop = Math.min(Math.max(-shellRect.top, 0), shellHeight);
+  const visibleBottom = Math.min(Math.max(visibleTop + window.innerHeight, 0), shellHeight);
+  const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+  if (visibleHeight < 120 || shellWidth < 120) {
+    return undefined;
+  }
+
+  return {
+    x: 0,
+    y: visibleTop,
+    width: shellWidth,
+    height: visibleHeight,
+  };
 }
 
 export function SketchBackground({ page, className, maxItems }: SketchBackgroundProps) {
@@ -71,6 +89,7 @@ export function SketchBackground({ page, className, maxItems }: SketchBackground
       }
 
       layoutRef.current = { width, height };
+      const visibleRegion = getVisibleRegionInShell(shell, height, width);
       // Any element marked with data-sketch-safe-zone participates in collision avoidance.
       const protectedZones = measureProtectedZones({
         shell,
@@ -83,6 +102,7 @@ export function SketchBackground({ page, className, maxItems }: SketchBackground
       const nextPlacements = generateSketchPlacements({
         width,
         height,
+        visibleRegion,
         assets,
         protectedZones,
         maxItems,

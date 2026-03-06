@@ -39,6 +39,7 @@ export type SketchBackgroundProps = {
 export type GenerateSketchPlacementsInput = {
   width: number;
   height: number;
+  visibleRegion?: Rect;
   assets: readonly string[];
   protectedZones: readonly SketchSafeZoneRect[];
   maxItems?: number;

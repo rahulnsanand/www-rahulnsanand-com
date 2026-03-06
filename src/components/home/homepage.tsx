@@ -23,7 +23,7 @@ export function Homepage() {
   return (
     <section className="home-page relative">
       <FooterAccentText text="Hello World" />
-      <div className="home-stack relative z-10" data-sketch-safe-zone="hard">
+      <div className="home-stack relative z-10" data-sketch-safe-zone="soft">
         <h1 className="home-title">
           I&apos;m{" "}
           <span className="home-name">
