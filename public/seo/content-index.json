@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T14:09:39.530Z",
+  "generatedAt": "2026-03-06T17:03:58.943Z",
   "site": {
     "url": "https://www.rahulnsanand.com",
     "name": "Rahul NS Anand",
@@ -54,7 +54,7 @@
     "sections": [
       {
         "id": "experience",
-        "heading": "Experience",
+        "heading": "Work Experience",
         "groups": [
           {
             "id": "product-engineering",
@@ -136,7 +136,7 @@
         ]
       }
     ],
-    "text": "Rahul NS Anand. View Projects (/projects). Read Blogs (/blogs). Contact Rahul (/contact). Experience: Senior Software Engineer - Product Engineering (2023 - Present). Own end-to-end feature delivery across web and platform layers. Drive architecture decisions with maintainability and clarity as constraints. Mentor engineers through design reviews and execution planning. Software Engineer - Frontend + DX (2020 - 2023). Built reusable UI systems and introduced typed API boundaries. Reduced bundle and route load costs through targeted performance work. Projects: Developer Portfolio Platform - Personal Product (2025 - Present). Crafting a narrative-first site with intentional interaction design. Balancing expressive visuals with lightweight, accessible implementation. Workflow Automation Toolkit - Internal (2024). Shipped automation scripts that cut repetitive ops tasks by over 50%. Education: Computer Science - Engineering Foundation (2016 - 2020). Focused on systems, software design, and practical product development."
+    "text": "Rahul NS Anand. View Projects (/projects). Read Blogs (/blogs). Contact Rahul (/contact). Work Experience: Senior Software Engineer - Product Engineering (2023 - Present). Own end-to-end feature delivery across web and platform layers. Drive architecture decisions with maintainability and clarity as constraints. Mentor engineers through design reviews and execution planning. Software Engineer - Frontend + DX (2020 - 2023). Built reusable UI systems and introduced typed API boundaries. Reduced bundle and route load costs through targeted performance work. Projects: Developer Portfolio Platform - Personal Product (2025 - Present). Crafting a narrative-first site with intentional interaction design. Balancing expressive visuals with lightweight, accessible implementation. Workflow Automation Toolkit - Internal (2024). Shipped automation scripts that cut repetitive ops tasks by over 50%. Education: Computer Science - Engineering Foundation (2016 - 2020). Focused on systems, software design, and practical product development."
   },
   "blogs": [
     {
@@ -146,7 +146,7 @@
       "description": "How I designed a minimal portfolio UI with stronger hierarchy, calmer motion, and better readability without losing personality.",
       "date": "2026-03-02",
       "publishedAt": "2026-03-02T00:00:00.000Z",
-      "updatedAt": "2026-03-06T06:49:16.681Z",
+      "updatedAt": "2026-03-06T14:54:48.199Z",
       "tags": [
         "Design Systems",
         "Frontend Architecture",
@@ -154,7 +154,7 @@
       ],
       "coverImage": "/blog-covers/default.svg",
       "youtubeUrl": null,
-      "mediumUrl": null,
+      "mediumUrl": "https://medium.com/@rahulnsanand/designing-a-quiet-developer-portfolio-dummy",
       "devtoUrl": null,
       "wordCount": 381,
       "readingTimeMinutes": 2,
@@ -169,7 +169,7 @@
       "description": "A practical breakdown of how I reworked my writing workflow so blog posts improve discoverability, maintainability, and reader trust.",
       "date": "2026-02-25",
       "publishedAt": "2026-02-25T00:00:00.000Z",
-      "updatedAt": "2026-03-06T06:49:25.437Z",
+      "updatedAt": "2026-03-06T14:54:54.589Z",
       "tags": [
         "Content Strategy",
         "Product Thinking",
@@ -178,7 +178,7 @@
       "coverImage": "/blog-covers/default.svg",
       "youtubeUrl": null,
       "mediumUrl": null,
-      "devtoUrl": null,
+      "devtoUrl": "https://dev.to/rahulnsanand/content-like-a-product-surface-dummy",
       "wordCount": 299,
       "readingTimeMinutes": 2,
       "excerpt": "The original problem I used to write blog posts as isolated documents. Each article was decent on its own, but the overall experience felt disconnected. There was no clear content model, no predictable update pattern, and no reliable way to evolve posts without breaking structure. That approach fails at scale. Content as a system I shifted",
@@ -215,7 +215,7 @@
       "description": "How to position personal projects so they communicate architecture depth, product judgment, and execution quality to technical interviewers.",
       "date": "2026-01-28",
       "publishedAt": "2026-01-28T00:00:00.000Z",
-      "updatedAt": "2026-03-06T06:49:19.392Z",
+      "updatedAt": "2026-03-06T14:54:57.471Z",
       "tags": [
         "Career Growth",
         "Product Engineering",
@@ -223,8 +223,8 @@
       ],
       "coverImage": "/blog-covers/default.svg",
       "youtubeUrl": null,
-      "mediumUrl": null,
-      "devtoUrl": null,
+      "mediumUrl": "https://medium.com/@rahulnsanand/side-project-to-product-signal-dummy",
+      "devtoUrl": "https://dev.to/rahulnsanand/side-project-to-credible-product-signal-dummy",
       "wordCount": 214,
       "readingTimeMinutes": 1,
       "excerpt": "The issue with most side projects Many projects show effort but not engineering maturity. They often demonstrate implementation, yet skip tradeoffs, constraints, and long-term thinking. Hiring teams look for signal, not just screenshots. Three things that improve signal quality Show constraints explicitly A project becomes credible when you describe real constraints: budget limits performance targets device",
@@ -238,7 +238,7 @@
       "description": "A practical log of decisions that cut unnecessary client-side weight while preserving polish, responsiveness, and theme consistency.",
       "date": "2026-01-14",
       "publishedAt": "2026-01-14T00:00:00.000Z",
-      "updatedAt": "2026-03-06T06:49:22.375Z",
+      "updatedAt": "2026-03-06T14:55:01.401Z",
       "tags": [
         "Performance",
         "Frontend",
@@ -246,7 +246,7 @@
       ],
       "coverImage": null,
       "youtubeUrl": "https://www.youtube.com/watch?v=9bZkp7q19f0",
-      "mediumUrl": null,
+      "mediumUrl": "https://medium.com/@rahulnsanand/reducing-frontend-bundle-noise-dummy",
       "devtoUrl": null,
       "wordCount": 202,
       "readingTimeMinutes": 1,

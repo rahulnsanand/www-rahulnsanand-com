@@ -1,4 +1,5 @@
 import { AboutSeparator } from "./about-separator";
+import { AboutIntroPanel } from "./about-intro-panel";
 import { AboutProfileSummary } from "./about-profile-summary";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 import { aboutContent } from "@/lib/about";
@@ -27,6 +28,7 @@ export function AboutBody() {
         </div>
 
         <div className="about-content">
+          <AboutIntroPanel />
           {aboutContent.sections.map((section) => (
             <article key={section.id} aria-labelledby={`about-section-${section.id}`}>
               <h2
