@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { FooterAccentProvider, SiteFooterAccent } from "@/components/layout/site-footer-accent";
+import { PageTransition } from "@/components/layout/page-transition";
 
 const themeInitScript = `
   (() => {
@@ -13,6 +14,7 @@ const themeInitScript = `
       document.documentElement.classList.add(theme);
       document.documentElement.style.colorScheme = theme;
     } catch {}
+    document.documentElement.setAttribute("data-theme-ready", "true");
   })();
 `;
 
@@ -34,12 +36,17 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <noscript>
+          <style>{`html:not([data-theme-ready="true"]) body { visibility: visible; }`}</style>
+        </noscript>
       </head>
       <body className="site-body">
         <FooterAccentProvider>
           <div className="site-shell">
             <SiteHeader />
-            <main className="site-main">{children}</main>
+            <main className="site-main">
+              <PageTransition>{children}</PageTransition>
+            </main>
             <footer className="site-footer">
               <SiteFooterAccent />
             </footer>

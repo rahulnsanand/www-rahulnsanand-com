@@ -4,6 +4,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const APP_DIR = path.join(ROOT, "src", "app");
 const BLOG_CONTENT_DIR = path.join(ROOT, "src", "content", "blog");
+const PUBLIC_DIR = path.join(ROOT, "public");
 const OUTPUT_FILE = path.join(APP_DIR, "sitemap.ts");
 const FALLBACK_BASE_URL = "https://www.rahulnsanand.com";
 
@@ -42,13 +43,19 @@ function formatDateIso(date) {
   return date.toISOString();
 }
 
+async function fileStatIfExists(filePath) {
+  try {
+    return await fs.stat(filePath);
+  } catch {
+    return null;
+  }
+}
+
 async function main() {
   const siteUrl = (process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_BASE_URL).replace(/\/$/, "");
   const allFiles = await walkFiles(APP_DIR);
 
-  const pageFiles = allFiles
-    .filter(isPageFile)
-    .filter((file) => !file.replace(/\\/g, "/").includes("/blog/"));
+  const pageFiles = allFiles.filter(isPageFile);
 
   const routeMap = new Map();
   for (const file of pageFiles) {
@@ -76,6 +83,18 @@ async function main() {
     // Blog directory may not exist in early project setup.
   }
 
+  const generatedArtifacts = [
+    { route: "/llms.txt", file: path.join(PUBLIC_DIR, "llms.txt") },
+    { route: "/llms-full.txt", file: path.join(PUBLIC_DIR, "llms-full.txt") },
+    { route: "/seo/content-index.json", file: path.join(PUBLIC_DIR, "seo", "content-index.json") },
+  ];
+
+  for (const artifact of generatedArtifacts) {
+    const stat = await fileStatIfExists(artifact.file);
+    if (!stat) continue;
+    routeMap.set(artifact.route, { lastModified: stat.mtime, sourceFile: artifact.file });
+  }
+
   const allRoutes = [...routeMap.entries()].sort((a, b) => {
     if (a[0] === "/") return -1;
     if (b[0] === "/") return 1;
@@ -83,7 +102,12 @@ async function main() {
   });
 
   const items = allRoutes
-    .map(([route, data]) => `    { url: \`${siteUrl}${route}\`, lastModified: new Date("${formatDateIso(data.lastModified)}") },`)
+    .map(
+      ([route, data]) =>
+        `    { url: \`${siteUrl}${route}\`, lastModified: new Date("${formatDateIso(data.lastModified)}"), changeFrequency: "weekly", priority: ${
+          route === "/" ? "1" : route.startsWith("/blogs/") ? "0.8" : "0.7"
+        } },`,
+    )
     .join("\n");
 
   const content = `import type { MetadataRoute } from "next";
@@ -93,7 +117,7 @@ async function main() {
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-${items || "    { url: `${siteUrl}/`, lastModified: new Date() },"}
+${items || "    { url: `${siteUrl}/`, lastModified: new Date(), changeFrequency: \"weekly\", priority: 1 },"}
   ];
 }
 `;

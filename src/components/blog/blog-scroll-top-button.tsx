@@ -12,6 +12,9 @@ export function BlogScrollTopButton() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) {
+          return;
+        }
         setIsVisible(!entry.isIntersecting);
       },
       {

@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-03-06T08:38:12.581Z",
+  "siteUrl": "https://www.rahulnsanand.com",
+  "about": {
+    "profile": {
+      "name": "Rahul NS Anand",
+      "avatarUrl": "https://github.com/rahulnsanand.png",
+      "primaryLinks": [
+        {
+          "href": "/projects",
+          "label": "View Projects"
+        },
+        {
+          "href": "/blogs",
+          "label": "Read Blogs"
+        },
+        {
+          "href": "/contact",
+          "label": "Contact Rahul"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "experience",
+        "heading": "Experience",
+        "groups": [
+          {
+            "id": "product-engineering",
+            "items": [
+              {
+                "id": "senior-software-engineer",
+                "title": "Senior Software Engineer",
+                "role": "Product Engineering",
+                "period": "2023 - Present",
+                "bullets": [
+                  "Own end-to-end feature delivery across web and platform layers.",
+                  "Drive architecture decisions with maintainability and clarity as constraints.",
+                  "Mentor engineers through design reviews and execution planning."
+                ]
+              },
+              {
+                "id": "software-engineer",
+                "title": "Software Engineer",
+                "role": "Frontend + DX",
+                "period": "2020 - 2023",
+                "bullets": [
+                  "Built reusable UI systems and introduced typed API boundaries.",
+                  "Reduced bundle and route load costs through targeted performance work."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "projects",
+        "heading": "Projects",
+        "groups": [
+          {
+            "id": "selected-projects",
+            "heading": "Selected Work",
+            "items": [
+              {
+                "id": "developer-portfolio-platform",
+                "title": "Developer Portfolio Platform",
+                "role": "Personal Product",
+                "period": "2025 - Present",
+                "bullets": [
+                  "Crafting a narrative-first site with intentional interaction design.",
+                  "Balancing expressive visuals with lightweight, accessible implementation."
+                ]
+              },
+              {
+                "id": "workflow-automation-toolkit",
+                "title": "Workflow Automation Toolkit",
+                "role": "Internal",
+                "period": "2024",
+                "bullets": [
+                  "Shipped automation scripts that cut repetitive ops tasks by over 50%."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "education",
+        "heading": "Education",
+        "groups": [
+          {
+            "id": "formal-education",
+            "items": [
+              {
+                "id": "computer-science",
+                "title": "Computer Science",
+                "role": "Engineering Foundation",
+                "period": "2016 - 2020",
+                "bullets": [
+                  "Focused on systems, software design, and practical product development."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "text": "Rahul NS Anand. View Projects (/projects). Read Blogs (/blogs). Contact Rahul (/contact). Experience: Senior Software Engineer - Product Engineering (2023 - Present). Own end-to-end feature delivery across web and platform layers. Drive architecture decisions with maintainability and clarity as constraints. Mentor engineers through design reviews and execution planning. Software Engineer - Frontend + DX (2020 - 2023). Built reusable UI systems and introduced typed API boundaries. Reduced bundle and route load costs through targeted performance work. Projects: Developer Portfolio Platform - Personal Product (2025 - Present). Crafting a narrative-first site with intentional interaction design. Balancing expressive visuals with lightweight, accessible implementation. Workflow Automation Toolkit - Internal (2024). Shipped automation scripts that cut repetitive ops tasks by over 50%. Education: Computer Science - Engineering Foundation (2016 - 2020). Focused on systems, software design, and practical product development."
+  }
+}

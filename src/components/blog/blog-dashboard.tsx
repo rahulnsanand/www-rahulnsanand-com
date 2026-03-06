@@ -2,10 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Fuse from "fuse.js";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MagnifyingGlass } from "@phosphor-icons/react";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
+import { FadeInImage } from "@/components/ui/fade-in-image";
 import { type BlogPost } from "@/lib/blog";
 import { formatBlogDate, getBlogMediaImage } from "@/lib/blog-shared";
 
@@ -16,9 +16,11 @@ type BlogDashboardProps = {
 function BlogMedia({
   post,
   className,
+  priority = false,
 }: {
   post: Pick<BlogPost, "title" | "coverImage" | "youtubeUrl">;
   className: string;
+  priority?: boolean;
 }) {
   const imageSrc = getBlogMediaImage(post);
   const alt = imageSrc ? `Cover image for ${post.title}` : "";
@@ -32,23 +34,24 @@ function BlogMedia({
   }
 
   return (
-    <div className={`${className} blog-media`}>
-      <Image
-        src={imageSrc}
-        alt={alt}
-        fill
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className="blog-media-image"
-      />
-    </div>
+    <FadeInImage
+      src={imageSrc}
+      alt={alt}
+      fill
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      frameClassName={`${className} blog-media`}
+      imageClassName="blog-media-image"
+      placeholderClassName="blog-media-placeholder"
+      priority={priority}
+    />
   );
 }
 
-function BlogCard({ post }: { post: BlogPost }) {
+function BlogCard({ post, priority = false }: { post: BlogPost; priority?: boolean }) {
   return (
     <Link href={`/blogs/${post.slug}`} className="blog-card-shell" aria-label={`Read blog: ${post.title}`}>
       <article className="blog-card blog-card--recent">
-        <BlogMedia post={post} className="blog-card-media" />
+        <BlogMedia post={post} className="blog-card-media" priority={priority} />
         <p className="blog-card-meta">
           <span>{formatBlogDate(post.date)}</span>
           <span aria-hidden="true">-</span>
@@ -162,9 +165,9 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
             </p>
           ) : (
             <ol className="blogs-recent-grid">
-              {searchResults.map((post) => (
+              {searchResults.map((post, index) => (
                 <li key={post.slug} className="blogs-card-item">
-                  <BlogCard post={post} />
+                  <BlogCard post={post} priority={index === 0} />
                 </li>
               ))}
             </ol>
@@ -180,9 +183,9 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
             </div>
 
             <ol className="blogs-recent-grid">
-              {recentPosts.map((post) => (
+              {recentPosts.map((post, index) => (
                 <li key={post.slug} className="blogs-card-item">
-                  <BlogCard post={post} />
+                  <BlogCard post={post} priority={index === 0} />
                 </li>
               ))}
             </ol>

@@ -1,10 +1,12 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { FadeInIframe } from "@/components/ui/fade-in-iframe";
+import { FadeInImage } from "@/components/ui/fade-in-image";
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import { notFound } from "next/navigation";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 import { BlogMarkdown } from "@/components/blog/blog-markdown";
+import { BlogShareButton } from "@/components/blog/blog-share-button";
 import { BlogScrollTopButton } from "@/components/blog/blog-scroll-top-button";
 import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog";
 import { formatBlogDate, getBlogMediaImage, parseYouTubeVideoId } from "@/lib/blog-shared";
@@ -71,6 +73,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const mediaImage = getBlogMediaImage(post);
   const youtubeVideoId = post.youtubeUrl ? parseYouTubeVideoId(post.youtubeUrl) : null;
+  const postUrl = `https://www.rahulnsanand.com/blogs/${post.slug}`;
   const blogPostingSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -85,7 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://www.rahulnsanand.com/blogs/${post.slug}`,
+      "@id": postUrl,
     },
     keywords: post.tags.join(", "),
     wordCount: post.wordCount,
@@ -108,22 +111,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <section className="blog-post-video" aria-label={post.youtubeUrl ? "Companion video" : "Cover image"}>
               <div className="blog-post-video-thumb">
                 {youtubeVideoId ? (
-                  <iframe
+                  <FadeInIframe
                     src={`https://www.youtube.com/embed/${youtubeVideoId}?rel=0`}
                     title={`Companion video for ${post.title}`}
-                    className="blog-post-video-embed"
+                    frameClassName="blog-post-video-embed-frame"
+                    iframeClassName="blog-post-video-embed"
+                    placeholderClassName="blog-post-video-placeholder"
                     loading="lazy"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   />
                 ) : mediaImage ? (
-                  <Image
+                  <FadeInImage
                     src={mediaImage}
                     alt="Cover image for blog post"
                     fill
                     sizes="(max-width: 768px) 100vw, 780px"
-                    className="blog-post-video-image"
+                    frameClassName="blog-post-video-image-frame"
+                    imageClassName="blog-post-video-image"
+                    placeholderClassName="blog-post-video-placeholder"
                   />
                 ) : null}
               </div>
@@ -159,10 +166,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </li>
               ))}
             </ul>
+            <div className="blog-post-actions" role="group" aria-label="Post actions">
+              <BlogShareButton title={post.title} url={postUrl} />
+              <BlogScrollTopButton />
+            </div>
           </footer>
-        </div>
-        <div className="blog-post-side-rail">
-          <BlogScrollTopButton />
         </div>
       </div>
     </article>

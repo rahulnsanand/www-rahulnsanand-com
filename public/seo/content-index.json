@@ -1,0 +1,269 @@
+{
+  "generatedAt": "2026-03-06T08:38:12.581Z",
+  "site": {
+    "url": "https://www.rahulnsanand.com",
+    "name": "Rahul NS Anand",
+    "llms": {
+      "concise": "https://www.rahulnsanand.com/llms.txt",
+      "full": "https://www.rahulnsanand.com/llms-full.txt"
+    }
+  },
+  "stats": {
+    "blogCount": 6,
+    "totalBlogWords": 1549,
+    "tags": [
+      "AI Engineering",
+      "Career Growth",
+      "Content Strategy",
+      "Design Systems",
+      "Developer Experience",
+      "Engineering Communication",
+      "Frontend",
+      "Frontend Architecture",
+      "Performance",
+      "Portfolio",
+      "Product Development",
+      "Product Engineering",
+      "Product Thinking",
+      "Reliability",
+      "SEO",
+      "UX Writing",
+      "Web Vitals",
+      "Writing"
+    ]
+  },
+  "about": {
+    "profile": {
+      "name": "Rahul NS Anand",
+      "avatarUrl": "https://github.com/rahulnsanand.png",
+      "primaryLinks": [
+        {
+          "href": "/projects",
+          "label": "View Projects"
+        },
+        {
+          "href": "/blogs",
+          "label": "Read Blogs"
+        },
+        {
+          "href": "/contact",
+          "label": "Contact Rahul"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "experience",
+        "heading": "Experience",
+        "groups": [
+          {
+            "id": "product-engineering",
+            "items": [
+              {
+                "id": "senior-software-engineer",
+                "title": "Senior Software Engineer",
+                "role": "Product Engineering",
+                "period": "2023 - Present",
+                "bullets": [
+                  "Own end-to-end feature delivery across web and platform layers.",
+                  "Drive architecture decisions with maintainability and clarity as constraints.",
+                  "Mentor engineers through design reviews and execution planning."
+                ]
+              },
+              {
+                "id": "software-engineer",
+                "title": "Software Engineer",
+                "role": "Frontend + DX",
+                "period": "2020 - 2023",
+                "bullets": [
+                  "Built reusable UI systems and introduced typed API boundaries.",
+                  "Reduced bundle and route load costs through targeted performance work."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "projects",
+        "heading": "Projects",
+        "groups": [
+          {
+            "id": "selected-projects",
+            "heading": "Selected Work",
+            "items": [
+              {
+                "id": "developer-portfolio-platform",
+                "title": "Developer Portfolio Platform",
+                "role": "Personal Product",
+                "period": "2025 - Present",
+                "bullets": [
+                  "Crafting a narrative-first site with intentional interaction design.",
+                  "Balancing expressive visuals with lightweight, accessible implementation."
+                ]
+              },
+              {
+                "id": "workflow-automation-toolkit",
+                "title": "Workflow Automation Toolkit",
+                "role": "Internal",
+                "period": "2024",
+                "bullets": [
+                  "Shipped automation scripts that cut repetitive ops tasks by over 50%."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "education",
+        "heading": "Education",
+        "groups": [
+          {
+            "id": "formal-education",
+            "items": [
+              {
+                "id": "computer-science",
+                "title": "Computer Science",
+                "role": "Engineering Foundation",
+                "period": "2016 - 2020",
+                "bullets": [
+                  "Focused on systems, software design, and practical product development."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "text": "Rahul NS Anand. View Projects (/projects). Read Blogs (/blogs). Contact Rahul (/contact). Experience: Senior Software Engineer - Product Engineering (2023 - Present). Own end-to-end feature delivery across web and platform layers. Drive architecture decisions with maintainability and clarity as constraints. Mentor engineers through design reviews and execution planning. Software Engineer - Frontend + DX (2020 - 2023). Built reusable UI systems and introduced typed API boundaries. Reduced bundle and route load costs through targeted performance work. Projects: Developer Portfolio Platform - Personal Product (2025 - Present). Crafting a narrative-first site with intentional interaction design. Balancing expressive visuals with lightweight, accessible implementation. Workflow Automation Toolkit - Internal (2024). Shipped automation scripts that cut repetitive ops tasks by over 50%. Education: Computer Science - Engineering Foundation (2016 - 2020). Focused on systems, software design, and practical product development."
+  },
+  "blogs": [
+    {
+      "slug": "designing-a-quiet-developer-portfolio",
+      "url": "https://www.rahulnsanand.com/blogs/designing-a-quiet-developer-portfolio",
+      "title": "Designing a Quiet Developer Portfolio That Still Feels Premium",
+      "description": "How I designed a minimal portfolio UI with stronger hierarchy, calmer motion, and better readability without losing personality.",
+      "date": "2026-03-02",
+      "publishedAt": "2026-03-02T00:00:00.000Z",
+      "updatedAt": "2026-03-06T06:49:16.681Z",
+      "tags": [
+        "Design Systems",
+        "Frontend Architecture",
+        "UX Writing"
+      ],
+      "coverImage": "/blog-covers/default.svg",
+      "youtubeUrl": null,
+      "wordCount": 381,
+      "readingTimeMinutes": 2,
+      "excerpt": "Why this design direction Most developer portfolios are loud by default. They have high-contrast gradients, too many animations, and five CTAs fighting for attention. That style can work, but it rarely survives long-term maintenance. I wanted this portfolio to feel intentional and premium while staying calm. The target interaction was simple: a recruiter or engineering manager",
+      "content": "## Why this design direction\n\nMost developer portfolios are loud by default. They have high-contrast gradients, too many animations, and five CTAs fighting for attention. That style can work, but it rarely survives long-term maintenance.\n\nI wanted this portfolio to feel intentional and premium while staying calm. The target interaction was simple: a recruiter or engineering manager should land on the home page and understand the signal within ten seconds.\n\n## The practical constraints\n\n- The site should remain fast even on low-end mobile devices.\n- The design has to work in both light and dark mode.\n- Every decorative element must have a semantic fallback.\n- The same visual language should scale across About, Projects, Blogs, and Contact.\n\nA premium feel is mostly structure. Good rhythm, spacing, and typography do more than novelty.\n\n## How I structured the page hierarchy\n\nI used one strong headline, one supporting paragraph, and one primary CTA on each major page. Any additional links are demoted visually.\n\nThat gives a cleaner scan order:\n\n1. Establish context\n2. Explain value\n3. Offer one clear next action\n\nThis is also a better accessibility strategy because keyboard users and screen-reader users get a predictable structure.\n\n## Motion as feedback, not decoration\n\nI treated animations as confirmation layers:\n\n- Hover states communicate interactivity.\n- Theme transitions preserve continuity.\n- Subtle entrance effects add polish but never block reading.\n\nWhen motion is reduced by user preference, the experience remains complete and coherent.\n\n## Typography decisions\n\nInstead of introducing multiple font families, I used one modern sans stack and leaned on weight, spacing, and line-height to create hierarchy.\n\n- Headline: short, high-contrast, tighter tracking\n- Body copy: softer color, wider leading\n- Meta text: uppercase and restrained\n\nThis keeps the page feeling engineered, not ornamental.\n\n## What changed after usability checks\n\nDuring review, I noticed users skipped dense sections if paragraphs became too long. I reduced line length, split paragraphs more aggressively, and used section headers with clearer intent.\n\nI also replaced vague CTA copy like \"Learn more\" with action-specific labels that set expectations.\n\n## Final takeaway\n\nA quiet interface can still feel expensive if it is precise. Most quality comes from consistency, predictable interaction patterns, and respectful use of space, not visual noise.\n\nThe goal was not to design a page that looks impressive in a screenshot. The goal was to design a system that remains credible as content grows.",
+      "text": "Why this design direction Most developer portfolios are loud by default. They have high-contrast gradients, too many animations, and five CTAs fighting for attention. That style can work, but it rarely survives long-term maintenance. I wanted this portfolio to feel intentional and premium while staying calm. The target interaction was simple: a recruiter or engineering manager should land on the home page and understand the signal within ten seconds. The practical constraints The site should remain fast even on low-end mobile devices. The design has to work in both light and dark mode. Every decorative element must have a semantic fallback. The same visual language should scale across About, Projects, Blogs, and Contact. A premium feel is mostly structure. Good rhythm, spacing, and typography do more than novelty. How I structured the page hierarchy I used one strong headline, one supporting paragraph, and one primary CTA on each major page. Any additional links are demoted visually. That gives a cleaner scan order: Establish context Explain value Offer one clear next action This is also a better accessibility strategy because keyboard users and screen-reader users get a predictable structure. Motion as feedback, not decoration I treated animations as confirmation layers: Hover states communicate interactivity. Theme transitions preserve continuity. Subtle entrance effects add polish but never block reading. When motion is reduced by user preference, the experience remains complete and coherent. Typography decisions Instead of introducing multiple font families, I used one modern sans stack and leaned on weight, spacing, and line-height to create hierarchy. Headline: short, high-contrast, tighter tracking Body copy: softer color, wider leading Meta text: uppercase and restrained This keeps the page feeling engineered, not ornamental. What changed after usability checks During review, I noticed users skipped dense sections if paragraphs became too long. I reduced line length, split paragraphs more aggressively, and used section headers with clearer intent. I also replaced vague CTA copy like \"Learn more\" with action-specific labels that set expectations. Final takeaway A quiet interface can still feel expensive if it is precise. Most quality comes from consistency, predictable interaction patterns, and respectful use of space, not visual noise. The goal was not to design a page that looks impressive in a screenshot. The goal was to design a system that remains credible as content grows."
+    },
+    {
+      "slug": "what-changed-when-i-treated-content-like-a-product",
+      "url": "https://www.rahulnsanand.com/blogs/what-changed-when-i-treated-content-like-a-product",
+      "title": "What Changed When I Treated Content Like a Product Surface",
+      "description": "A practical breakdown of how I reworked my writing workflow so blog posts improve discoverability, maintainability, and reader trust.",
+      "date": "2026-02-25",
+      "publishedAt": "2026-02-25T00:00:00.000Z",
+      "updatedAt": "2026-03-06T06:49:25.437Z",
+      "tags": [
+        "Content Strategy",
+        "Product Thinking",
+        "SEO"
+      ],
+      "coverImage": "/blog-covers/default.svg",
+      "youtubeUrl": null,
+      "wordCount": 299,
+      "readingTimeMinutes": 2,
+      "excerpt": "The original problem I used to write blog posts as isolated documents. Each article was decent on its own, but the overall experience felt disconnected. There was no clear content model, no predictable update pattern, and no reliable way to evolve posts without breaking structure. That approach fails at scale. Content as a system I shifted",
+      "content": "## The original problem\n\nI used to write blog posts as isolated documents. Each article was decent on its own, but the overall experience felt disconnected. There was no clear content model, no predictable update pattern, and no reliable way to evolve posts without breaking structure.\n\nThat approach fails at scale.\n\n## Content as a system\n\nI shifted to a model where each post behaves like a product artifact:\n\n- It has typed metadata.\n- It fits a predictable route strategy.\n- It exposes enough context for previews and indexing.\n- It supports future updates without changing rendering logic.\n\nThis made blog development feel similar to component development.\n\n## Metadata quality became a forcing function\n\nBy requiring `title`, `description`, `date`, and `tags` for each post, weak drafts were easier to detect. If I could not write a clear description, I usually had not clarified the argument.\n\nMetadata constraints improved both editorial quality and SEO outcomes.\n\n## Writing flow before and after\n\nBefore:\n\n- Start with a blank document\n- Write stream-of-consciousness\n- Publish once\n- Rarely revisit\n\nAfter:\n\n- Start with a problem statement\n- Draft structure first\n- Publish with stable metadata\n- Revisit based on new evidence or reader feedback\n\nThis workflow changed the consistency of my tone and the practical value of each post.\n\n## Why this matters for engineers\n\nEngineering blogs often fail because they optimize for novelty over clarity. But teams hiring senior engineers care about tradeoffs, reliability, and execution quality.\n\nIf a blog post demonstrates disciplined reasoning, it acts as a public design review artifact. That has compounding value.\n\n## The maintenance rule I now follow\n\nEvery post should answer one hard question clearly and remain useful six months later. If it cannot survive that test, it is likely too shallow or too tied to short-term hype.\n\nThis rule keeps the blog useful for readers and keeps the codebase cleaner for me.",
+      "text": "The original problem I used to write blog posts as isolated documents. Each article was decent on its own, but the overall experience felt disconnected. There was no clear content model, no predictable update pattern, and no reliable way to evolve posts without breaking structure. That approach fails at scale. Content as a system I shifted to a model where each post behaves like a product artifact: It has typed metadata. It fits a predictable route strategy. It exposes enough context for previews and indexing. It supports future updates without changing rendering logic. This made blog development feel similar to component development. Metadata quality became a forcing function By requiring , , , and for each post, weak drafts were easier to detect. If I could not write a clear description, I usually had not clarified the argument. Metadata constraints improved both editorial quality and SEO outcomes. Writing flow before and after Before: Start with a blank document Write stream-of-consciousness Publish once Rarely revisit After: Start with a problem statement Draft structure first Publish with stable metadata Revisit based on new evidence or reader feedback This workflow changed the consistency of my tone and the practical value of each post. Why this matters for engineers Engineering blogs often fail because they optimize for novelty over clarity. But teams hiring senior engineers care about tradeoffs, reliability, and execution quality. If a blog post demonstrates disciplined reasoning, it acts as a public design review artifact. That has compounding value. The maintenance rule I now follow Every post should answer one hard question clearly and remain useful six months later. If it cannot survive that test, it is likely too shallow or too tied to short-term hype. This rule keeps the blog useful for readers and keeps the codebase cleaner for me."
+    },
+    {
+      "slug": "building-reliable-ai-features-without-overengineering",
+      "url": "https://www.rahulnsanand.com/blogs/building-reliable-ai-features-without-overengineering",
+      "title": "Building Reliable AI Features Without Overengineering the Stack",
+      "description": "Patterns I use to ship AI-backed product features with confidence by constraining prompts, validating outputs, and designing graceful failure modes.",
+      "date": "2026-02-12",
+      "publishedAt": "2026-02-12T00:00:00.000Z",
+      "updatedAt": "2026-03-06T06:49:11.430Z",
+      "tags": [
+        "AI Engineering",
+        "Reliability",
+        "Product Development"
+      ],
+      "coverImage": null,
+      "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "wordCount": 260,
+      "readingTimeMinutes": 2,
+      "excerpt": "Why this topic matters AI features fail in production for predictable reasons: ambiguous prompts, unvalidated outputs, hidden assumptions, and no fallback behavior. Most of these failures are not model problems. They are system design problems. Start with bounded outcomes When a feature accepts free-form user input and returns open-ended text, quality is unstable. I prefer task",
+      "content": "## Why this topic matters\n\nAI features fail in production for predictable reasons: ambiguous prompts, unvalidated outputs, hidden assumptions, and no fallback behavior.\n\nMost of these failures are not model problems. They are system design problems.\n\n## Start with bounded outcomes\n\nWhen a feature accepts free-form user input and returns open-ended text, quality is unstable. I prefer task definitions with explicit boundaries:\n\n- What shape should the output follow?\n- What is considered invalid output?\n- What user-facing behavior should happen on failure?\n\nThis framing improves reliability more than model switching.\n\n## A simple reliability stack\n\nI use a small stack that scales:\n\n1. Prompt design with clear constraints\n2. Typed response contract\n3. Server-side validation and retries\n4. Deterministic fallback response\n5. Observability for failed generations\n\nNone of this is flashy, but all of it is shippable.\n\n## The hidden value of deterministic fallback\n\nIf generation fails, users still need forward progress. A fallback that returns a concise, useful baseline response is better than an apologetic error card.\n\nFailure handling should preserve trust and momentum.\n\n## Guardrails I avoid\n\nI avoid adding complex guardrail frameworks too early. They introduce operational overhead before the product has enough usage data.\n\nInstead, I start with targeted checks:\n\n- output length bounds\n- required fields present\n- profanity and policy checks where needed\n- confidence thresholds for automation actions\n\nWhen usage scales, I extend controls incrementally.\n\n## Outcome after adopting this approach\n\nEngineering velocity improved because the team had a shared failure model. Product quality improved because user-facing behavior became predictable.\n\nReliable AI systems are built through constraints and feedback loops, not by hoping the latest model version solves architecture gaps.",
+      "text": "Why this topic matters AI features fail in production for predictable reasons: ambiguous prompts, unvalidated outputs, hidden assumptions, and no fallback behavior. Most of these failures are not model problems. They are system design problems. Start with bounded outcomes When a feature accepts free-form user input and returns open-ended text, quality is unstable. I prefer task definitions with explicit boundaries: What shape should the output follow? What is considered invalid output? What user-facing behavior should happen on failure? This framing improves reliability more than model switching. A simple reliability stack I use a small stack that scales: Prompt design with clear constraints Typed response contract Server-side validation and retries Deterministic fallback response Observability for failed generations None of this is flashy, but all of it is shippable. The hidden value of deterministic fallback If generation fails, users still need forward progress. A fallback that returns a concise, useful baseline response is better than an apologetic error card. Failure handling should preserve trust and momentum. Guardrails I avoid I avoid adding complex guardrail frameworks too early. They introduce operational overhead before the product has enough usage data. Instead, I start with targeted checks: output length bounds required fields present profanity and policy checks where needed confidence thresholds for automation actions When usage scales, I extend controls incrementally. Outcome after adopting this approach Engineering velocity improved because the team had a shared failure model. Product quality improved because user-facing behavior became predictable. Reliable AI systems are built through constraints and feedback loops, not by hoping the latest model version solves architecture gaps."
+    },
+    {
+      "slug": "from-side-project-to-credible-product-signal",
+      "url": "https://www.rahulnsanand.com/blogs/from-side-project-to-credible-product-signal",
+      "title": "From Side Project to Credible Product Signal in Hiring Conversations",
+      "description": "How to position personal projects so they communicate architecture depth, product judgment, and execution quality to technical interviewers.",
+      "date": "2026-01-28",
+      "publishedAt": "2026-01-28T00:00:00.000Z",
+      "updatedAt": "2026-03-06T06:49:19.392Z",
+      "tags": [
+        "Career Growth",
+        "Product Engineering",
+        "Portfolio"
+      ],
+      "coverImage": "/blog-covers/default.svg",
+      "youtubeUrl": null,
+      "wordCount": 214,
+      "readingTimeMinutes": 1,
+      "excerpt": "The issue with most side projects Many projects show effort but not engineering maturity. They often demonstrate implementation, yet skip tradeoffs, constraints, and long-term thinking. Hiring teams look for signal, not just screenshots. Three things that improve signal quality Show constraints explicitly A project becomes credible when you describe real constraints: budget limits performance targets device",
+      "content": "## The issue with most side projects\n\nMany projects show effort but not engineering maturity. They often demonstrate implementation, yet skip tradeoffs, constraints, and long-term thinking.\n\nHiring teams look for signal, not just screenshots.\n\n## Three things that improve signal quality\n\n### 1. Show constraints explicitly\n\nA project becomes credible when you describe real constraints:\n\n- budget limits\n- performance targets\n- device compatibility\n- maintenance costs\n\nThis shows that decisions were intentional, not accidental.\n\n### 2. Explain architecture at the right level\n\nAvoid overloading readers with diagrams that explain everything. Focus on the few decisions that drove outcomes.\n\nFor example:\n\n- Why server rendering instead of full client rendering\n- Why static generation for content routes\n- Why a strict metadata model for blog entries\n\nClear architecture narratives make interviews easier.\n\n### 3. Document the tradeoffs you accepted\n\nEvery meaningful system has compromises. If you can explain what you chose not to build and why, your project reads like senior-level work.\n\n## A useful project story template\n\nI structure project writeups in this order:\n\n1. Problem and context\n2. Constraints\n3. Chosen approach\n4. Tradeoffs\n5. Results and next iteration\n\nThis format is simple, but it translates well in portfolio pages and technical interviews.\n\n## Final note\n\nA side project is not judged by size. It is judged by clarity of thought and quality of decisions under constraints.\n\nThat is the signal worth optimizing for.",
+      "text": "The issue with most side projects Many projects show effort but not engineering maturity. They often demonstrate implementation, yet skip tradeoffs, constraints, and long-term thinking. Hiring teams look for signal, not just screenshots. Three things that improve signal quality Show constraints explicitly A project becomes credible when you describe real constraints: budget limits performance targets device compatibility maintenance costs This shows that decisions were intentional, not accidental. Explain architecture at the right level Avoid overloading readers with diagrams that explain everything. Focus on the few decisions that drove outcomes. For example: Why server rendering instead of full client rendering Why static generation for content routes Why a strict metadata model for blog entries Clear architecture narratives make interviews easier. Document the tradeoffs you accepted Every meaningful system has compromises. If you can explain what you chose not to build and why, your project reads like senior-level work. A useful project story template I structure project writeups in this order: Problem and context Constraints Chosen approach Tradeoffs Results and next iteration This format is simple, but it translates well in portfolio pages and technical interviews. Final note A side project is not judged by size. It is judged by clarity of thought and quality of decisions under constraints. That is the signal worth optimizing for."
+    },
+    {
+      "slug": "lessons-from-reducing-frontend-bundle-noise",
+      "url": "https://www.rahulnsanand.com/blogs/lessons-from-reducing-frontend-bundle-noise",
+      "title": "Lessons From Reducing Frontend Bundle Noise in a Personal Site",
+      "description": "A practical log of decisions that cut unnecessary client-side weight while preserving polish, responsiveness, and theme consistency.",
+      "date": "2026-01-14",
+      "publishedAt": "2026-01-14T00:00:00.000Z",
+      "updatedAt": "2026-03-06T06:49:22.375Z",
+      "tags": [
+        "Performance",
+        "Frontend",
+        "Web Vitals"
+      ],
+      "coverImage": null,
+      "youtubeUrl": "https://www.youtube.com/watch?v=9bZkp7q19f0",
+      "wordCount": 202,
+      "readingTimeMinutes": 1,
+      "excerpt": "Performance work starts with scope discipline Bundle size optimization is often treated as a late-stage task. In practice, the biggest gains come from early scope decisions. If a page can render on the server, keep it server-first. What I measured first Before changing code, I listed high-risk sources of bloat: client-only wrappers around static sections icon",
+      "content": "## Performance work starts with scope discipline\n\nBundle size optimization is often treated as a late-stage task. In practice, the biggest gains come from early scope decisions.\n\nIf a page can render on the server, keep it server-first.\n\n## What I measured first\n\nBefore changing code, I listed high-risk sources of bloat:\n\n- client-only wrappers around static sections\n- icon imports without tree-shaken paths\n- duplicated utilities across routes\n- animation libraries loaded globally\n\nThis created a focused checklist rather than random tweaks.\n\n## The changes that had the most impact\n\n- Moved page content back to server components when interactivity was not required.\n- Kept client components narrow and localized to controls.\n- Reused shared layout styles instead of introducing route-specific visual abstractions.\n- Limited motion to moments with clear interaction value.\n\nNone of these changes reduced visual quality. They reduced cost.\n\n## What I did not optimize yet\n\nI intentionally skipped speculative optimizations until usage patterns are clear. Premature complexity makes small projects harder to maintain.\n\nGood performance engineering is not maximum optimization. It is cost-aware prioritization.\n\n## Why this matters beyond scorecards\n\nLower client overhead improves reliability on slower networks and older devices. That directly affects usability and accessibility, especially for first-time visitors.\n\nPerformance is product quality, not just a Lighthouse number.",
+      "text": "Performance work starts with scope discipline Bundle size optimization is often treated as a late-stage task. In practice, the biggest gains come from early scope decisions. If a page can render on the server, keep it server-first. What I measured first Before changing code, I listed high-risk sources of bloat: client-only wrappers around static sections icon imports without tree-shaken paths duplicated utilities across routes animation libraries loaded globally This created a focused checklist rather than random tweaks. The changes that had the most impact Moved page content back to server components when interactivity was not required. Kept client components narrow and localized to controls. Reused shared layout styles instead of introducing route-specific visual abstractions. Limited motion to moments with clear interaction value. None of these changes reduced visual quality. They reduced cost. What I did not optimize yet I intentionally skipped speculative optimizations until usage patterns are clear. Premature complexity makes small projects harder to maintain. Good performance engineering is not maximum optimization. It is cost-aware prioritization. Why this matters beyond scorecards Lower client overhead improves reliability on slower networks and older devices. That directly affects usability and accessibility, especially for first-time visitors. Performance is product quality, not just a Lighthouse number."
+    },
+    {
+      "slug": "writing-technical-posts-that-engineers-actually-finish",
+      "url": "https://www.rahulnsanand.com/blogs/writing-technical-posts-that-engineers-actually-finish",
+      "title": "Writing Technical Posts That Engineers Actually Finish Reading",
+      "description": "How I structure engineering blog posts so readers get useful insight fast, without sacrificing depth or technical credibility.",
+      "date": "2025-12-30",
+      "publishedAt": "2025-12-30T00:00:00.000Z",
+      "updatedAt": "2026-03-06T06:49:30.241Z",
+      "tags": [
+        "Writing",
+        "Engineering Communication",
+        "Developer Experience"
+      ],
+      "coverImage": "/blog-covers/default.svg",
+      "youtubeUrl": null,
+      "wordCount": 193,
+      "readingTimeMinutes": 1,
+      "excerpt": "The drop-off problem Many technical posts are accurate but hard to finish. They bury the core argument under setup, context, and tangents. I started tracking where readers stopped. The pattern was obvious: long openings and unclear section intent caused early drop-off. The structure I now use Each post follows a predictable sequence: State the problem in",
+      "content": "## The drop-off problem\n\nMany technical posts are accurate but hard to finish. They bury the core argument under setup, context, and tangents.\n\nI started tracking where readers stopped. The pattern was obvious: long openings and unclear section intent caused early drop-off.\n\n## The structure I now use\n\nEach post follows a predictable sequence:\n\n1. State the problem in one short section\n2. Explain constraints\n3. Present the approach\n4. Show tradeoffs\n5. End with one practical takeaway\n\nReaders can scan quickly and still understand the full argument.\n\n## Clarity patterns that improved completion\n\n- Short paragraphs with one idea each\n- Section headings that communicate outcome, not topic\n- Bullet lists for decision criteria\n- Minimal jargon unless it unlocks precision\n\nThis improved readability without reducing technical depth.\n\n## The editorial test\n\nBefore publishing, I ask:\n\n- Can a reader understand the key point after the first two sections?\n- Is there at least one reusable mental model?\n- Did I include real tradeoffs, not generic advice?\n\nIf the answer is no, the draft is not ready.\n\n## Closing thought\n\nGood technical writing is product design. It reduces cognitive load, respects reader time, and helps people make better decisions.\n\nIf a post cannot guide action, it is documentation noise.",
+      "text": "The drop-off problem Many technical posts are accurate but hard to finish. They bury the core argument under setup, context, and tangents. I started tracking where readers stopped. The pattern was obvious: long openings and unclear section intent caused early drop-off. The structure I now use Each post follows a predictable sequence: State the problem in one short section Explain constraints Present the approach Show tradeoffs End with one practical takeaway Readers can scan quickly and still understand the full argument. Clarity patterns that improved completion Short paragraphs with one idea each Section headings that communicate outcome, not topic Bullet lists for decision criteria Minimal jargon unless it unlocks precision This improved readability without reducing technical depth. The editorial test Before publishing, I ask: Can a reader understand the key point after the first two sections? Is there at least one reusable mental model? Did I include real tradeoffs, not generic advice? If the answer is no, the draft is not ready. Closing thought Good technical writing is product design. It reduces cognitive load, respects reader time, and helps people make better decisions. If a post cannot guide action, it is documentation noise."
+    }
+  ]
+}
