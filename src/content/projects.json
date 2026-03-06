@@ -1,5 +1,5 @@
 {
-  "githubOwners": ["rahulnsanand", "lyfie"],
+  "githubOwners": ["rahulnsanand", "lyfie-org"],
   "highlightedProjects": [
     {
       "repo": "rahulnsanand/www-rahulnsanand-com",
@@ -18,11 +18,11 @@
       "demoGifUrl": ""
     },
     {
-      "repo": "lyfie/luthor",
+      "repo": "lyfie-org/luthor",
       "demoGifUrl": ""
     },
     {
-      "repo": "lyfie/papyra",
+      "repo": "lyfie-org/papyra",
       "demoGifUrl": ""
     }
   ],

@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
-import { ContentPage } from "@/components/content/content-page";
+import { ContactPageBody } from "@/components/contact/contact-page";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact Rahul NS Anand",
+  description:
+    "Contact Rahul NS Anand for collaborations, product engineering opportunities, and technical discussions.",
+  alternates: {
+    canonical: "https://www.rahulnsanand.com/contact",
+  },
+  openGraph: {
+    title: "Contact | Rahul NS Anand",
+    description:
+      "Contact Rahul NS Anand for collaborations, product engineering opportunities, and technical discussions.",
+    url: "https://www.rahulnsanand.com/contact",
+    type: "website",
+  },
 };
 
 export default function ContactPage() {
-  return (
-    <ContentPage
-      title="ping rahulnsanand.com"
-      accentText="ping rahulnsanand.com"
-      copy="Reach out for collaborations, product engineering work, or discussions around AI and design-led software."
-    />
-  );
+  return <ContactPageBody />;
 }
