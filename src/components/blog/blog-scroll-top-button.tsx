@@ -38,11 +38,11 @@ export function BlogScrollTopButton() {
       type="button"
       className={`blog-scroll-top-button${isVisible ? " blog-scroll-top-button--visible" : ""}`}
       onClick={handleScrollToTop}
-      aria-label="Scroll to top"
-      title="Scroll to top"
+      aria-label="scroll to top"
+      title="scroll to top"
     >
       <ArrowUp size={18} aria-hidden="true" />
-      <span>Scroll to top</span>
+      <span>scroll to top</span>
     </button>
   );
 }

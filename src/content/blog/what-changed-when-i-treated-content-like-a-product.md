@@ -7,6 +7,7 @@ tags:
   - Product Thinking
   - SEO
 coverImage: "/blog-covers/default.svg"
+devtoUrl: "https://dev.to/rahulnsanand/content-like-a-product-surface-dummy"
 ---
 ## The original problem
 

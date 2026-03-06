@@ -96,7 +96,6 @@ export function BlogShareButton({ title, url }: BlogShareButtonProps) {
       ) : (
         <ShareNetwork size={18} aria-hidden="true" />
       )}
-      <span>{buttonLabel}</span>
     </button>
   );
 }

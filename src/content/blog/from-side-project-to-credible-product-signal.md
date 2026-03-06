@@ -7,6 +7,8 @@ tags:
   - Product Engineering
   - Portfolio
 coverImage: "/blog-covers/default.svg"
+mediumUrl: "https://medium.com/@rahulnsanand/side-project-to-product-signal-dummy"
+devtoUrl: "https://dev.to/rahulnsanand/side-project-to-credible-product-signal-dummy"
 ---
 ## The issue with most side projects
 

@@ -7,6 +7,7 @@ tags:
   - Frontend Architecture
   - UX Writing
 coverImage: "/blog-covers/default.svg"
+mediumUrl: "https://medium.com/@rahulnsanand/designing-a-quiet-developer-portfolio-dummy"
 ---
 ## Why this design direction
 
