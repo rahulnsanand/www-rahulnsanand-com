@@ -3,17 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "build": "next build",
     "sync:content": "node scripts/generate-blog-content.mjs && node scripts/generate-robots.mjs && node scripts/generate-llms-txt.mjs && node scripts/generate-sitemap.mjs",
     "predev": "pnpm run sync:content",
     "dev": "next dev",
     "prebuild": "pnpm run sync:content",
-    "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.17.1",
     "@phosphor-icons/react": "^2.1.10",
     "fuse.js": "^7.1.0",
     "motion": "^12.35.0",
@@ -34,6 +39,7 @@
     "eslint-config-prettier": "^10.1.8",
     "postcss": "^8.5.8",
     "prettier": "^3.8.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.71.0"
   }
 }
