@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
         hostname: "github.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/**",
+      },
     ],
   },
 };

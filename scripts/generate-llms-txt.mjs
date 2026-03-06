@@ -74,7 +74,7 @@ function ensureTrailingPeriod(text) {
 
 function extractSlugFromPath(filePath) {
   const normalized = filePath.replace(/\\/g, "/");
-  const appMatch = normalized.match(/\/src\/app\/blog\/(.+)\/page\.(js|jsx|ts|tsx|md|mdx)$/i);
+  const appMatch = normalized.match(/\/src\/app\/blogs\/(.+)\/page\.(js|jsx|ts|tsx|md|mdx)$/i);
   if (appMatch) {
     const raw = appMatch[1];
     if (raw.includes("[")) return null;
@@ -108,7 +108,7 @@ async function main() {
 
   const blogFilesFromApp = appFiles
     .filter(isPageFile)
-    .filter((file) => file.replace(/\\/g, "/").includes("/blog/"));
+    .filter((file) => file.replace(/\\/g, "/").includes("/blogs/"));
 
   const blogFilesFromContent = (await exists(BLOG_CONTENT_DIR))
     ? (await walkFiles(BLOG_CONTENT_DIR)).filter((file) => /\.(md|mdx)$/i.test(file))
@@ -122,7 +122,7 @@ async function main() {
 
     const raw = await fs.readFile(file, "utf8");
     const excerpt = ensureTrailingPeriod(firstWords(normalizeText(raw), 48));
-    const urlPath = `/blog/${slug}`;
+    const urlPath = `/blogs/${slug}`;
 
     if (!blogMap.has(urlPath) || (excerpt && excerpt.length > (blogMap.get(urlPath)?.excerpt.length || 0))) {
       blogMap.set(urlPath, { excerpt, source: path.relative(ROOT, file) });

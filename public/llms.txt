@@ -9,14 +9,25 @@ Site: https://www.rahulnsanand.com
 - https://www.rahulnsanand.com/about
   "next"; "./about-body"; metadata: Metadata = { title: "About", description: "About Rahul NS Anand - experience, projects, engineering focus, and the product principles behind his work.", alternates: , openGraph: , }; AboutPage().
 - https://www.rahulnsanand.com/blogs
-  "next"; "@/components/content/content-page"; metadata: Metadata = ; BlogsPage().
+  "next"; "@/components/blog/blog-dashboard"; "@/lib/blog"; metadata: Metadata = { title: "Blogs", description: "Engineering notes by Rahul NS Anand, featuring the latest three posts and an archive of earlier writing.", alternates: , openGraph: , }; async BlogsPage().
 - https://www.rahulnsanand.com/contact
   "next"; "@/components/content/content-page"; metadata: Metadata = ; ContactPage().
 - https://www.rahulnsanand.com/projects
   "next"; "@/components/content/content-page"; metadata: Metadata = ; ProjectsPage().
 
 ## Blogs (Excerpts)
-- No blog content discovered.
+- https://www.rahulnsanand.com/blogs/building-reliable-ai-features-without-overengineering
+  Why this topic matters AI features fail in production for predictable reasons: ambiguous prompts, unvalidated outputs, hidden assumptions, and no fallback behavior. Most of these failures are not model problems. They are system design problems. Start with bounded outcomes When a feature accepts free-form user input and returns.
+- https://www.rahulnsanand.com/blogs/designing-a-quiet-developer-portfolio
+  Why this design direction Most developer portfolios are loud by . They have high-contrast gradients, too many animations, and five CTAs fighting for attention. That style can work, but it rarely survives long-term maintenance. I wanted this portfolio to feel intentional and premium while staying calm. The target.
+- https://www.rahulnsanand.com/blogs/from-side-project-to-credible-product-signal
+  The issue with most side projects Many projects show effort but not engineering maturity. They often demonstrate implementation, yet skip tradeoffs, constraints, and long-term thinking. Hiring teams look for signal, not just screenshots. Three things that improve signal quality 1. Show constraints explicitly A project becomes credible when.
+- https://www.rahulnsanand.com/blogs/lessons-from-reducing-frontend-bundle-noise
+  Performance work starts with scope discipline Bundle size optimization is often treated as a late-stage task. In practice, the biggest gains come early scope decisions. If a page can render on the server, keep it server-first. What I measured first Before changing code, I listed high-risk sources of.
+- https://www.rahulnsanand.com/blogs/what-changed-when-i-treated-content-like-a-product
+  The original problem I used to write blog posts as isolated documents. Each article was decent on its own, but the overall experience felt disconnected. There was no clear content model, no predictable update pattern, and no reliable way to evolve posts without breaking structure. That approach fails.
+- https://www.rahulnsanand.com/blogs/writing-technical-posts-that-engineers-actually-finish
+  The drop-off problem Many technical posts are accurate but hard to finish. They bury the core argument under setup, context, and tangents. I started tracking where readers stopped. The pattern was obvious: long openings and unclear section intent caused early drop-off. The structure I now use Each post.
 
 ## Notes
 - This file is regenerated on each build.

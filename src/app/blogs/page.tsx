@@ -1,17 +1,25 @@
-import type { Metadata } from "next";
-import { ContentPage } from "@/components/content/content-page";
+﻿import type { Metadata } from "next";
+import { BlogDashboard } from "@/components/blog/blog-dashboard";
+import { getAllBlogPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blogs",
-  description: "Blogs by Rahul NS Anand",
+  description:
+    "Engineering notes by Rahul NS Anand, featuring the latest three posts and an archive of earlier writing.",
+  alternates: {
+    canonical: "https://www.rahulnsanand.com/blogs",
+  },
+  openGraph: {
+    title: "Blogs | Rahul NS Anand",
+    description:
+      "Engineering notes by Rahul NS Anand, featuring the latest three posts and an archive of earlier writing.",
+    url: "https://www.rahulnsanand.com/blogs",
+    type: "website",
+  },
 };
 
-export default function BlogsPage() {
-  return (
-    <ContentPage
-      title={'System.out.println("ideas")'}
-      accentText={'System.out.println("ideas")'}
-      copy="Writing on engineering, systems design, and practical AI product development."
-    />
-  );
+export default async function BlogsPage() {
+  const posts = await getAllBlogPosts();
+  return <BlogDashboard posts={posts} />;
 }
+

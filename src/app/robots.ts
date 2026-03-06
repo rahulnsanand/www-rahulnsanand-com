@@ -5,7 +5,7 @@ import type { MetadataRoute } from "next";
  * Non-blog page text snapshot:
  * /: "@/components/home/homepage"; Home()
  * /about: "next"; "./about-body"; metadata: Metadata = { title: "About", description: "About Rahul NS Anand - experience, projects, engineering focus, and the product principles behind his
- * /blogs: "next"; "@/components/content/content-page"; metadata: Metadata = ; BlogsPage()
+ * /blogs: "next"; "@/components/blog/blog-dashboard"; "@/lib/blog"; metadata: Metadata = { title: "Blogs", description: "Engineering notes by Rahul NS Anand, featuring the latest three posts and an archive
  * /contact: "next"; "@/components/content/content-page"; metadata: Metadata = ; ContactPage()
  * /projects: "next"; "@/components/content/content-page"; metadata: Metadata = ; ProjectsPage()
  */

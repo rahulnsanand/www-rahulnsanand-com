@@ -3,6 +3,7 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const APP_DIR = path.join(ROOT, "src", "app");
+const BLOG_CONTENT_DIR = path.join(ROOT, "src", "content", "blog");
 const OUTPUT_FILE = path.join(APP_DIR, "sitemap.ts");
 const FALLBACK_BASE_URL = "https://www.rahulnsanand.com";
 
@@ -61,13 +62,27 @@ async function main() {
     }
   }
 
-  const routes = [...routeMap.entries()].sort((a, b) => {
+  try {
+    const blogEntries = await fs.readdir(BLOG_CONTENT_DIR, { withFileTypes: true });
+    for (const blogEntry of blogEntries) {
+      if (!blogEntry.isFile() || !blogEntry.name.endsWith(".md")) continue;
+
+      const slug = blogEntry.name.replace(/\.md$/i, "");
+      const route = `/blogs/${slug}`;
+      const stat = await fs.stat(path.join(BLOG_CONTENT_DIR, blogEntry.name));
+      routeMap.set(route, { lastModified: stat.mtime, sourceFile: path.join(BLOG_CONTENT_DIR, blogEntry.name) });
+    }
+  } catch {
+    // Blog directory may not exist in early project setup.
+  }
+
+  const allRoutes = [...routeMap.entries()].sort((a, b) => {
     if (a[0] === "/") return -1;
     if (b[0] === "/") return 1;
     return a[0].localeCompare(b[0]);
   });
 
-  const items = routes
+  const items = allRoutes
     .map(([route, data]) => `    { url: \`${siteUrl}${route}\`, lastModified: new Date("${formatDateIso(data.lastModified)}") },`)
     .join("\n");
 
@@ -84,7 +99,7 @@ ${items || "    { url: `${siteUrl}/`, lastModified: new Date() },"}
 `;
 
   await fs.writeFile(OUTPUT_FILE, content, "utf8");
-  console.log(`Updated ${path.relative(ROOT, OUTPUT_FILE)} with ${routes.length} route(s).`);
+  console.log(`Updated ${path.relative(ROOT, OUTPUT_FILE)} with ${allRoutes.length} route(s).`);
 }
 
 main().catch((error) => {

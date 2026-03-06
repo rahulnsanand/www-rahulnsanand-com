@@ -7,7 +7,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-05T11:33:50.390Z") },
     { url: `https://www.rahulnsanand.com/about`, lastModified: new Date("2026-03-05T14:01:58.707Z") },
-    { url: `https://www.rahulnsanand.com/blogs`, lastModified: new Date("2026-03-05T12:48:14.088Z") },
+    { url: `https://www.rahulnsanand.com/blogs`, lastModified: new Date("2026-03-06T06:49:43.251Z") },
+    { url: `https://www.rahulnsanand.com/blogs/building-reliable-ai-features-without-overengineering`, lastModified: new Date("2026-03-06T06:49:11.430Z") },
+    { url: `https://www.rahulnsanand.com/blogs/designing-a-quiet-developer-portfolio`, lastModified: new Date("2026-03-06T06:49:16.681Z") },
+    { url: `https://www.rahulnsanand.com/blogs/from-side-project-to-credible-product-signal`, lastModified: new Date("2026-03-06T06:49:19.392Z") },
+    { url: `https://www.rahulnsanand.com/blogs/lessons-from-reducing-frontend-bundle-noise`, lastModified: new Date("2026-03-06T06:49:22.375Z") },
+    { url: `https://www.rahulnsanand.com/blogs/what-changed-when-i-treated-content-like-a-product`, lastModified: new Date("2026-03-06T06:49:25.437Z") },
+    { url: `https://www.rahulnsanand.com/blogs/writing-technical-posts-that-engineers-actually-finish`, lastModified: new Date("2026-03-06T06:49:30.241Z") },
     { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-05T12:45:13.876Z") },
     { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-05T12:45:13.876Z") },
   ];
