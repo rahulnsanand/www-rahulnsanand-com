@@ -15,9 +15,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `https://www.rahulnsanand.com/blogs/what-changed-when-i-treated-content-like-a-product`, lastModified: new Date("2026-03-06T14:54:54.589Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/writing-technical-posts-that-engineers-actually-finish`, lastModified: new Date("2026-03-06T06:49:30.241Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-06T18:38:39.310Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-03-06T19:59:11.844Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-03-06T19:59:11.844Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-03-06T20:10:41.916Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-03-06T20:10:41.916Z"), changeFrequency: "weekly", priority: 0.7 },
     { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-06T18:38:39.311Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-03-06T19:59:11.844Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-03-06T20:10:41.916Z"), changeFrequency: "weekly", priority: 0.7 },
   ];
 }
