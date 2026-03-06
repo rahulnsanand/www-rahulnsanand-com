@@ -296,26 +296,26 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
           })}
         </ol>
 
-        <button
-          type="button"
-          className="projects-highlight-control-button projects-highlight-control-button--prev"
-          onClick={goToPrevious}
-          aria-label="Show previous highlighted project"
-        >
-          <ArrowLeft size={16} aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          className="projects-highlight-control-button projects-highlight-control-button--next"
-          onClick={goToNext}
-          aria-label="Show next highlighted project"
-        >
-          <ArrowRight size={16} aria-hidden="true" />
-        </button>
         <p className="projects-highlight-progress projects-highlight-progress--inside" aria-live="polite">
           {`Project ${activeProjectIndex + 1} of ${total}`}
         </p>
       </div>
+      <button
+        type="button"
+        className="projects-highlight-control-button projects-highlight-control-button--prev"
+        onClick={goToPrevious}
+        aria-label="Show previous highlighted project"
+      >
+        <ArrowLeft size={16} aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        className="projects-highlight-control-button projects-highlight-control-button--next"
+        onClick={goToNext}
+        aria-label="Show next highlighted project"
+      >
+        <ArrowRight size={16} aria-hidden="true" />
+      </button>
     </div>
   );
 }
