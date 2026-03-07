@@ -109,94 +109,95 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
   return (
     <section className="contact-page relative" aria-label="Contact Rahul NS Anand">
       <FooterAccentText text="connect()" />
-
-      <header className="contact-header">
-        <p className="contact-kicker">Contact</p>
-        <h1 className="contact-title">Let&apos;s build something useful.</h1>
-        <p className="contact-copy">
-          I&apos;m open to thoughtful product collaborations, engineering opportunities, and conversations around AI,
-          frontend systems, and design-led software.
-        </p>
-      </header>
-
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="companyWebsite"
-          className="contact-honeypot"
-          tabIndex={-1}
-          autoComplete="off"
-          aria-hidden="true"
-        />
-        <input type="hidden" name="formStartedAt" value={formStartedAt} />
-
-        <div className="contact-field">
-          <label htmlFor="senderEmail" className="contact-label">
-            Sender email
-          </label>
-          <input
-            id="senderEmail"
-            name="senderEmail"
-            type="email"
-            className="contact-input"
-            required
-            placeholder="you@company.com"
-            autoComplete="email"
-            maxLength={320}
-          />
-        </div>
-
-        <div className="contact-field">
-          <label htmlFor="message" className="contact-label">
-            Message to send
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            className="contact-textarea"
-            rows={7}
-            required
-            placeholder="Share a little context about what you want to discuss."
-            minLength={MESSAGE_MIN_LENGTH}
-            maxLength={MESSAGE_MAX_LENGTH}
-          />
-        </div>
-
-        <div className="contact-actions">
-          <button
-            type="submit"
-            className="contact-submit u-theme-fade-target u-focus-ring-target"
-            disabled={submitState === "sending"}
-            aria-busy={submitState === "sending"}
-          >
-            {submitState === "sending" ? "Sending..." : "Send message"}
-          </button>
-          <p
-            className={`contact-status${submitState === "error" ? " contact-status--error" : ""}`}
-            aria-live="polite"
-          >
-            {statusMessage || "Delivered directly to my inbox."}
+      <div className="contact-stack relative z-10">
+        <header className="contact-header">
+          <p className="contact-kicker">Contact</p>
+          <h1 className="contact-title">Let&apos;s build something useful.</h1>
+          <p className="contact-copy">
+            I&apos;m open to thoughtful product collaborations, engineering opportunities, and conversations around AI,
+            frontend systems, and design-led software.
           </p>
-        </div>
-      </form>
+        </header>
 
-      <div className="contact-socials" aria-label="Social links">
-        <p className="contact-socials-title">Or reach out here:</p>
-        <ul className="contact-socials-list">
-          {socialLinks.map((link) => (
-            <li key={link.href} className="contact-socials-item">
-              <a
-                href={link.href}
-                className="contact-social-link u-theme-fade-target u-focus-ring-target"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {link.label}
-                <ArrowUpRight size={14} weight="duotone" aria-hidden="true" />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="companyWebsite"
+            className="contact-honeypot"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+          <input type="hidden" name="formStartedAt" value={formStartedAt} />
+
+          <div className="contact-field">
+            <label htmlFor="senderEmail" className="contact-label">
+              Sender email
+            </label>
+            <input
+              id="senderEmail"
+              name="senderEmail"
+              type="email"
+              className="contact-input"
+              required
+              placeholder="you@company.com"
+              autoComplete="email"
+              maxLength={320}
+            />
+          </div>
+
+          <div className="contact-field">
+            <label htmlFor="message" className="contact-label">
+              Message to send
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              className="contact-textarea"
+              rows={7}
+              required
+              placeholder="Share a little context about what you want to discuss."
+              minLength={MESSAGE_MIN_LENGTH}
+              maxLength={MESSAGE_MAX_LENGTH}
+            />
+          </div>
+
+          <div className="contact-actions">
+            <button
+              type="submit"
+              className="contact-submit u-theme-fade-target u-focus-ring-target"
+              disabled={submitState === "sending"}
+              aria-busy={submitState === "sending"}
+            >
+              {submitState === "sending" ? "Sending..." : "Send message"}
+            </button>
+            <p
+              className={`contact-status${submitState === "error" ? " contact-status--error" : ""}`}
+              aria-live="polite"
+            >
+              {statusMessage || "Delivered directly to my inbox."}
+            </p>
+          </div>
+        </form>
+
+        <div className="contact-socials" aria-label="Social links">
+          <p className="contact-socials-title">Or reach out here:</p>
+          <ul className="contact-socials-list">
+            {socialLinks.map((link) => (
+              <li key={link.href} className="contact-socials-item">
+                <a
+                  href={link.href}
+                  className="contact-social-link u-theme-fade-target u-focus-ring-target"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {link.label}
+                  <ArrowUpRight size={14} weight="duotone" aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
