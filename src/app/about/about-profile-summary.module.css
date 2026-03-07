@@ -264,7 +264,7 @@
   );
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
 
   :global(.about-profile) {
     width: 300px;
