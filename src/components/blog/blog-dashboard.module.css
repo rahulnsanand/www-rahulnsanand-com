@@ -20,6 +20,8 @@
 
 :global(.blogs-page) {
   position: relative;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 :global(.blogs-page-sr-title) {
@@ -93,6 +95,8 @@
   color: rgb(var(--text));
   font-size: 0.95rem;
   line-height: 1.4;
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 :global(.blogs-search-field::placeholder) {

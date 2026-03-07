@@ -17,6 +17,8 @@
 
 :global(.projects-page) {
   position: relative;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 :global(.projects-header) {
