@@ -156,3 +156,15 @@
     align-self: start;
   }
 }
+
+:global(html.desktop-requested-mobile .about-layout) {
+  grid-template-columns: 300px 48px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+:global(html.desktop-requested-mobile .about-sidebar) {
+  position: sticky;
+  top: 5rem;
+  align-self: start;
+}

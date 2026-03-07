@@ -23,6 +23,11 @@
   }
 }
 
+:global(html.desktop-requested-mobile .about-separator-wrap) {
+  display: block;
+  align-self: stretch;
+}
+
 :global(.about-separator-draw) {
   filter: drop-shadow(0 0 10px rgb(var(--brand) / 0.95));
   stroke-dasharray: 1;

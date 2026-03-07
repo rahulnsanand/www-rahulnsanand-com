@@ -270,3 +270,7 @@
     width: 300px;
   }
 }
+
+:global(html.desktop-requested-mobile .about-profile) {
+  width: 300px;
+}
