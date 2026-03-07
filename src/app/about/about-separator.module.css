@@ -15,7 +15,7 @@
   transform: translateX(-50%);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
 
   :global(.about-separator-wrap) {
     display: block;
