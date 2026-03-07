@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
 import "./root-layout.module.css";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -21,6 +21,20 @@ const themeInitScript = `
       const lowMemory = deviceMemory !== null && deviceMemory <= 2;
       const veryLowCpu = cpuCores !== null && cpuCores <= 2;
       const constrainedMobile = isMobile && deviceMemory !== null && cpuCores !== null && deviceMemory <= 4 && cpuCores <= 4;
+      const hasTouchInput = (typeof navigator.maxTouchPoints === "number" && navigator.maxTouchPoints > 0) || "ontouchstart" in window;
+      const shortestScreenSide = Math.min(window.screen.width || 0, window.screen.height || 0);
+      const likelyDesktopRequestOnMobile = hasTouchInput && shortestScreenSide > 0 && shortestScreenSide <= 1024 && !isMobile;
+      const viewportContent = likelyDesktopRequestOnMobile
+        ? "width=1280, initial-scale=1, viewport-fit=cover"
+        : "width=device-width, initial-scale=1, viewport-fit=cover";
+      let viewportMeta = document.querySelector('meta[name="viewport"]');
+      if (!viewportMeta) {
+        viewportMeta = document.createElement("meta");
+        viewportMeta.setAttribute("name", "viewport");
+        document.head.appendChild(viewportMeta);
+      }
+      viewportMeta.setAttribute("content", viewportContent);
+      document.documentElement.classList.toggle("desktop-requested-mobile", likelyDesktopRequestOnMobile);
       const saveData = Boolean(navigator.connection && navigator.connection.saveData);
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const perfReasons = [];
@@ -55,6 +69,12 @@ export const metadata: Metadata = {
   },
   description:
     "Rahul NS Anand — Software Engineer 2. Open-source contributor. Building AI + personal data tools (Lyfie, Luthor). Blogs, projects, and profiles.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
