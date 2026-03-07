@@ -15,15 +15,26 @@ const themeInitScript = `
       const theme = stored === "light" || stored === "dark" ? stored : (prefersDark ? "dark" : "light");
       const deviceMemory = typeof navigator.deviceMemory === "number" ? navigator.deviceMemory : null;
       const cpuCores = typeof navigator.hardwareConcurrency === "number" ? navigator.hardwareConcurrency : null;
+      const userAgent = navigator.userAgent || "";
+      const uaDataMobile =
+        navigator.userAgentData && typeof navigator.userAgentData.mobile === "boolean"
+          ? navigator.userAgentData.mobile
+          : null;
       const isMobile =
-        Boolean(navigator.userAgentData && navigator.userAgentData.mobile) ||
-        /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+        uaDataMobile === true ||
+        /Android|iPhone|iPad|iPod|Mobile/i.test(userAgent);
       const lowMemory = deviceMemory !== null && deviceMemory <= 2;
       const veryLowCpu = cpuCores !== null && cpuCores <= 2;
       const constrainedMobile = isMobile && deviceMemory !== null && cpuCores !== null && deviceMemory <= 4 && cpuCores <= 4;
       const hasTouchInput = (typeof navigator.maxTouchPoints === "number" && navigator.maxTouchPoints > 0) || "ontouchstart" in window;
       const shortestScreenSide = Math.min(window.screen.width || 0, window.screen.height || 0);
-      const likelyDesktopRequestOnMobile = hasTouchInput && shortestScreenSide > 0 && shortestScreenSide <= 1024 && !isMobile;
+      const isSmallTouchScreen = hasTouchInput && shortestScreenSide > 0 && shortestScreenSide <= 1024;
+      const hasMobileHardwareSignal = /Android|iPhone|iPad|iPod|Mobile/i.test(userAgent);
+      const hasDesktopUserAgentSignal = /Macintosh|Windows NT|X11|Linux x86_64|CrOS/i.test(userAgent);
+      const likelyDesktopRequestOnMobile =
+        isSmallTouchScreen &&
+        hasMobileHardwareSignal &&
+        (hasDesktopUserAgentSignal || uaDataMobile === false);
       const viewportContent = likelyDesktopRequestOnMobile
         ? "width=1280, initial-scale=1, viewport-fit=cover"
         : "width=device-width, initial-scale=1, viewport-fit=cover";

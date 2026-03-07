@@ -1,7 +1,7 @@
 "use client";
 
 import "./highlighted-projects-carousel.module.css";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
@@ -11,7 +11,7 @@ import {
   ArrowRight,
   GithubLogo,
   GlobeHemisphereWest,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import { type HighlightProject } from "@/lib/projects";
 
 type HighlightedProjectsCarouselProps = {
@@ -20,7 +20,7 @@ type HighlightedProjectsCarouselProps = {
 
 const AUTOPLAY_DELAY_MS = 4600;
 const AUTOPLAY_PROGRESS_PATH =
-  "M2 8 C20 5, 36 11, 54 8 C72 5, 88 11, 106 8 C120 6.5, 133 9.5, 146 8";
+  "M4 8 C15.5 5.6, 26.5 10.4, 38 8 C49.5 5.9, 60.5 10.1, 72 8 C83.5 6, 94.5 10, 106 8 C117 6.4, 128.5 9.6, 144 8";
 const HAND_DRAWN_DOT_PATHS = [
   "M9.3 2.1 C6 1.6, 2.4 3.4, 2 7 C1.6 11.1, 4.7 15, 9.2 15.2 C13.3 15.4, 16.5 12.3, 15.9 8.1 C15.5 5.1, 13.8 2.7, 9.3 2.1 Z",
   "M8.2 1.9 C4.9 2, 2 4.4, 2.5 8.1 C2.9 11.5, 4.8 14.9, 8.5 15.1 C12.5 15.3, 16.4 12.7, 15.5 8.8 C14.7 5.2, 12.8 1.8, 8.2 1.9 Z",
@@ -41,12 +41,12 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
       stopOnInteraction: false,
     }),
   );
-  const autoplayProgressStrokeRef = useRef<SVGPathElement | null>(null);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-  const [allowMotion, setAllowMotion] = useState(false);
+  const [allowAutoplay, setAllowAutoplay] = useState(false);
   const [isAutoplayTimerRunning, setIsAutoplayTimerRunning] = useState(false);
+  const [progressCycle, setProgressCycle] = useState(0);
+  const [progressDurationMs, setProgressDurationMs] = useState(AUTOPLAY_DELAY_MS);
 
   const plugins = useMemo(() => {
     if (total < 2) {
@@ -65,50 +65,37 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
     plugins,
   );
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) {
-      return;
-    }
-
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  const onInit = useCallback(() => {
-    if (!emblaApi) {
-      return;
-    }
-
-    setScrollSnaps(emblaApi.scrollSnapList());
-    onSelect();
-  }, [emblaApi, onSelect]);
-
   useEffect(() => {
     if (!emblaApi) {
       return;
     }
 
-    onInit();
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onInit);
+    const syncSelectedIndex = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+
+    syncSelectedIndex();
+    emblaApi.on("select", syncSelectedIndex);
+    emblaApi.on("reInit", syncSelectedIndex);
 
     return () => {
-      emblaApi.off("select", onSelect);
-      emblaApi.off("reInit", onInit);
+      emblaApi.off("select", syncSelectedIndex);
+      emblaApi.off("reInit", syncSelectedIndex);
     };
-  }, [emblaApi, onInit, onSelect]);
+  }, [emblaApi]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updateAllowMotion = () => {
+    const updateAllowAutoplay = () => {
       const isPerfLite = document.documentElement.classList.contains("perf-lite");
-      setAllowMotion(!mediaQuery.matches && !isPerfLite);
+      setAllowAutoplay(!mediaQuery.matches && !isPerfLite);
     };
 
-    updateAllowMotion();
-    mediaQuery.addEventListener("change", updateAllowMotion);
+    updateAllowAutoplay();
+    mediaQuery.addEventListener("change", updateAllowAutoplay);
 
     return () => {
-      mediaQuery.removeEventListener("change", updateAllowMotion);
+      mediaQuery.removeEventListener("change", updateAllowAutoplay);
     };
   }, []);
 
@@ -117,13 +104,13 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
       return;
     }
 
-    if (allowMotion && total > 1) {
+    if (allowAutoplay && total > 1) {
       autoplayPluginRef.current.play();
       return;
     }
 
     autoplayPluginRef.current.stop();
-  }, [allowMotion, emblaApi, total]);
+  }, [allowAutoplay, emblaApi, total]);
 
   useEffect(() => {
     if (!emblaApi || total < 2) {
@@ -131,63 +118,32 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
     }
 
     const autoplay = autoplayPluginRef.current;
-    let animationFrameId = 0;
-
-    const setProgress = (value: number) => {
-      const progressStroke = autoplayProgressStrokeRef.current;
-      if (!progressStroke) {
-        return;
-      }
-
-      const safeProgress = Math.max(0, Math.min(1, value));
-      progressStroke.style.strokeDashoffset = `${1 - safeProgress}`;
-    };
-
-    const stopProgressLoop = () => {
-      if (animationFrameId !== 0) {
-        window.cancelAnimationFrame(animationFrameId);
-        animationFrameId = 0;
-      }
-    };
-
-    const updateProgress = () => {
-      const timeUntilNext = autoplay.timeUntilNext();
-      if (timeUntilNext === null) {
-        setProgress(0);
-        return;
-      }
-
-      setProgress(1 - timeUntilNext / AUTOPLAY_DELAY_MS);
-      animationFrameId = window.requestAnimationFrame(updateProgress);
-    };
 
     const onTimerSet = () => {
+      const timeUntilNext = autoplay.timeUntilNext();
+      setProgressDurationMs(Math.max(1, Math.round(timeUntilNext ?? AUTOPLAY_DELAY_MS)));
+      setProgressCycle((current) => current + 1);
       setIsAutoplayTimerRunning(true);
-      stopProgressLoop();
-      updateProgress();
     };
 
     const onTimerStopped = () => {
       setIsAutoplayTimerRunning(false);
-      stopProgressLoop();
     };
 
     emblaApi.on("autoplay:timerset", onTimerSet);
     emblaApi.on("autoplay:timerstopped", onTimerStopped);
 
-    if (allowMotion && autoplay.isPlaying()) {
+    if (allowAutoplay && autoplay.isPlaying()) {
       onTimerSet();
     } else {
-      setProgress(0);
       onTimerStopped();
     }
 
     return () => {
-      stopProgressLoop();
       emblaApi.off("autoplay:timerset", onTimerSet);
       emblaApi.off("autoplay:timerstopped", onTimerStopped);
     };
-  }, [allowMotion, emblaApi, total]);
+  }, [allowAutoplay, emblaApi, total]);
 
   if (total === 0) {
     return (
@@ -251,10 +207,6 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
         <ol className="projects-highlight-track">
           {projects.map((project, index) => {
             const isCenterCard = index === selectedIndex;
-            const mediaSource =
-              isCenterCard && allowMotion && project.demoGifUrl
-                ? project.demoGifUrl
-                : project.previewImageUrl;
 
             return (
               <li
@@ -274,7 +226,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
                   />
                   <div className="project-highlight-media-wrap">
                     <Image
-                      src={mediaSource}
+                      src={project.previewImageUrl}
                       alt={`Preview for ${project.displayTitle}`}
                       fill
                       sizes="(max-width: 640px) 92vw, (max-width: 1024px) 82vw, 76vw"
@@ -355,10 +307,14 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
                   pathLength={1}
                 />
                 <path
-                  ref={autoplayProgressStrokeRef}
+                  key={progressCycle}
                   d={AUTOPLAY_PROGRESS_PATH}
                   className="projects-highlight-autoplay-progress"
                   pathLength={1}
+                  style={{
+                    animationDuration: `${progressDurationMs}ms`,
+                    animationPlayState: isAutoplayTimerRunning ? "running" : "paused",
+                  }}
                 />
               </svg>
             </div>
@@ -373,9 +329,9 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
               <ArrowLeft size={16} aria-hidden="true" />
             </button>
             <div className="projects-highlight-dots" aria-label="Select highlighted project">
-              {scrollSnaps.map((_, index) => (
+              {projects.map((project, index) => (
                 <button
-                  key={index}
+                  key={project.id}
                   type="button"
                   className={`projects-highlight-dot u-theme-fade-target u-focus-ring-target${
                     index === selectedIndex ? " projects-highlight-dot--active" : ""

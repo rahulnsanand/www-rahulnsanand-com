@@ -63,7 +63,7 @@
   :global(.blog-scroll-top-button) {
     right: 0.75rem;
     top: auto;
-    bottom: 1rem;
+    bottom: calc(0.9rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
