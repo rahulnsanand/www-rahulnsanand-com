@@ -1,3 +1,4 @@
+import "./homepage.module.css";
 import {
   ArrowUpRight,
   Code,
@@ -45,12 +46,12 @@ export function Homepage() {
             </svg>
           </span>
         </h1>
-        <p className="home-copy">
+        <p className="home-copy u-theme-fade-target">
           Software Engineer 2 building AI and personal data tools with a focus
           on thoughtful design and reliable systems.
         </p>
         <div className="home-cta" aria-label="Primary navigation">
-          <Link href="/about" className="home-cta-link">
+          <Link href="/about" className="home-cta-link u-theme-fade-target u-focus-ring-target">
             see more about me{" "}
             <ArrowUpRight size={16} weight="duotone" aria-hidden="true" />
           </Link>
@@ -60,7 +61,7 @@ export function Homepage() {
             <a
               key={portal.href}
               href={portal.href}
-              className="home-portal-link"
+              className="home-portal-link u-theme-fade-target u-focus-ring-target"
               target="_blank"
               rel="noreferrer noopener"
               aria-label={portal.label}

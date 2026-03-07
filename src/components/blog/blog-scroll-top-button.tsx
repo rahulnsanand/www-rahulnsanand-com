@@ -1,5 +1,6 @@
 "use client";
 
+import "./blog-scroll-top-button.module.css";
 import { useEffect, useState } from "react";
 import { ArrowUp } from "@phosphor-icons/react";
 import {
@@ -44,7 +45,9 @@ export function BlogScrollTopButton() {
   return (
     <button
       type="button"
-      className={`blog-scroll-top-button${isVisible ? " blog-scroll-top-button--visible" : ""}`}
+      className={`blog-scroll-top-button u-theme-fade-target u-focus-ring-target${
+        isVisible ? " blog-scroll-top-button--visible" : ""
+      }`}
       onClick={handleScrollToTop}
       aria-label="scroll to top"
       title="scroll to top"

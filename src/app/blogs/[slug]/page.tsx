@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+import "./blog-post-page.module.css";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FadeInIframe } from "@/components/ui/fade-in-iframe";
 import { FadeInImage } from "@/components/ui/fade-in-image";
@@ -101,7 +102,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <FooterAccentText text="read()" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingSchema) }} />
 
-      <Link href="/blogs" className="blog-post-back-link">
+      <Link href="/blogs" className="blog-post-back-link u-theme-fade-target u-focus-ring-target">
         <ArrowLeft size={14} weight="duotone" aria-hidden="true" />
         <span>Back to blogs</span>
       </Link>
@@ -150,7 +151,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <span>{`${post.readingTimeMinutes} min read`}</span>
                 <span aria-hidden="true">-</span>
                 <span className="blog-post-meta-author">
-                  <Link href="/about" className="blog-post-meta-author-name">
+                  <Link href="/about" className="blog-post-meta-author-name u-theme-fade-target u-focus-ring-target">
                     Rahul Anand
                   </Link>
                 </span>
@@ -160,7 +161,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.mediumUrl ? (
                   <a
                     href={post.mediumUrl}
-                    className="blog-post-action-icon-link"
+                    className="blog-post-action-icon-link u-theme-fade-target u-focus-ring-target"
                     aria-label="Read this post on Medium"
                     title="Read on Medium"
                     target="_blank"
@@ -172,7 +173,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.devtoUrl ? (
                   <a
                     href={post.devtoUrl}
-                    className="blog-post-action-icon-link"
+                    className="blog-post-action-icon-link u-theme-fade-target u-focus-ring-target"
                     aria-label="Read this post on Dev.to"
                     title="Read on Dev.to"
                     target="_blank"
@@ -204,3 +205,4 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     </article>
   );
 }
+

@@ -1,5 +1,6 @@
 "use client";
 
+import "./contact-page.module.css";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
@@ -178,7 +179,7 @@ export function ContactPageBody() {
         <div className="contact-actions">
           <button
             type="submit"
-            className="contact-submit"
+            className="contact-submit u-theme-fade-target u-focus-ring-target"
             disabled={submitState === "sending"}
             aria-busy={submitState === "sending"}
           >
@@ -198,7 +199,12 @@ export function ContactPageBody() {
         <ul className="contact-socials-list">
           {socialLinks.map((link) => (
             <li key={link.href} className="contact-socials-item">
-              <a href={link.href} className="contact-social-link" target="_blank" rel="noreferrer noopener">
+              <a
+                href={link.href}
+                className="contact-social-link u-theme-fade-target u-focus-ring-target"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 {link.label}
                 <ArrowUpRight size={14} weight="duotone" aria-hidden="true" />
               </a>

@@ -1,3 +1,4 @@
+import "./theme-logo.module.css";
 import { FadeInImage } from "@/components/ui/fade-in-image";
 const LOGO_WIDTH = 54;
 const LOGO_HEIGHT = 32;

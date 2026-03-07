@@ -1,5 +1,6 @@
 "use client";
 
+import "./blog-share-button.module.css";
 import { useEffect, useRef, useState } from "react";
 import { Check, ShareNetwork, Warning } from "@phosphor-icons/react";
 
@@ -84,7 +85,7 @@ export function BlogShareButton({ title, url }: BlogShareButtonProps) {
   return (
     <button
       type="button"
-      className={`blog-share-button${statusClass}`}
+      className={`blog-share-button u-theme-fade-target u-focus-ring-target${statusClass}`}
       onClick={handleShare}
       aria-label={buttonLabel}
       title="Share this post"

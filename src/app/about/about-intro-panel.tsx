@@ -1,3 +1,4 @@
+import "./about-intro-panel.module.css";
 import {
   Code,
   DevToLogo,
@@ -33,7 +34,7 @@ export function AboutIntroPanel() {
             <a
               key={social.href}
               href={social.href}
-              className="about-intro-social-link"
+              className="about-intro-social-link u-theme-fade-target u-focus-ring-target"
               target="_blank"
               rel="noreferrer noopener"
               aria-label={social.label}
@@ -45,7 +46,7 @@ export function AboutIntroPanel() {
 
         <Link
           href="/contact"
-          className="about-intro-contact"
+          className="about-intro-contact u-theme-fade-target u-focus-ring-target"
           aria-label="Contact page"
         >
           <EnvelopeSimple size={17} weight="duotone" aria-hidden="true" />

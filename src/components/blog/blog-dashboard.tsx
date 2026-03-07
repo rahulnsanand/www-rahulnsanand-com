@@ -1,5 +1,6 @@
 "use client";
 
+import "./blog-dashboard.module.css";
 import { useDeferredValue, useMemo, useState } from "react";
 import Fuse from "fuse.js";
 import Link from "next/link";
@@ -49,7 +50,11 @@ function BlogMedia({
 
 function BlogCard({ post, priority = false }: { post: BlogPostSummary; priority?: boolean }) {
   return (
-    <Link href={`/blogs/${post.slug}`} className="blog-card-shell" aria-label={`Read blog: ${post.title}`}>
+    <Link
+      href={`/blogs/${post.slug}`}
+      className="blog-card-shell u-theme-fade-target u-focus-ring-target"
+      aria-label={`Read blog: ${post.title}`}
+    >
       <article className="blog-card blog-card--recent">
         <BlogMedia post={post} className="blog-card-media" priority={priority} />
         <p className="blog-card-meta">
@@ -59,10 +64,10 @@ function BlogCard({ post, priority = false }: { post: BlogPostSummary; priority?
         </p>
         <p className="blog-card-author">Rahul Anand</p>
         <h3 className="blog-card-title">
-          <span className="blog-card-link">{post.title}</span>
+          <span className="blog-card-link u-theme-fade-target">{post.title}</span>
         </h3>
         <p className="blog-card-description">{post.description}</p>
-        <p className="blog-card-read-more" aria-hidden="true">
+        <p className="blog-card-read-more u-theme-fade-target" aria-hidden="true">
           <span>Read full blog</span>
           <ArrowUpRight size={16} weight="duotone" aria-hidden="true" />
         </p>
@@ -73,12 +78,16 @@ function BlogCard({ post, priority = false }: { post: BlogPostSummary; priority?
 
 function BlogRow({ post }: { post: BlogPostSummary }) {
   return (
-    <Link href={`/blogs/${post.slug}`} className="blog-row-shell" aria-label={`Read blog: ${post.title}`}>
+    <Link
+      href={`/blogs/${post.slug}`}
+      className="blog-row-shell u-theme-fade-target u-focus-ring-target"
+      aria-label={`Read blog: ${post.title}`}
+    >
       <article className="blog-row">
         <BlogMedia post={post} className="blog-row-media" />
         <div className="blog-row-main">
           <h3 className="blog-row-title">
-            <span className="blog-row-link">{post.title}</span>
+            <span className="blog-row-link u-theme-fade-target">{post.title}</span>
           </h3>
           <p className="blog-row-description">{post.description}</p>
         </div>
@@ -141,7 +150,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
             <input
               id="blogs-search"
               type="search"
-              className="blogs-search-field"
+              className="blogs-search-field u-theme-fade-target"
               aria-label="Search blog posts"
               placeholder="Search blogs..."
               value={query}
@@ -211,7 +220,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
               <div className="blogs-load-more-wrap">
                 <button
                   type="button"
-                  className="blogs-load-more-button"
+                  className="blogs-load-more-button u-theme-fade-target u-focus-ring-target"
                   onClick={() => setVisiblePreviousCount((count) => count + PREVIOUS_BATCH_SIZE)}
                 >
                   Load more blogs
