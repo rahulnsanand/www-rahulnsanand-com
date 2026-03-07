@@ -40,3 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 .docs
 next-env.d.ts
+.tmp-*
