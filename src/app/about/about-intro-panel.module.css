@@ -1,0 +1,100 @@
+
+
+:global(.about-intro-social-link),
+:global(.about-intro-contact) {
+  transition:
+    color var(--theme-fade-duration) var(--theme-fade-easing),
+    border-color var(--theme-fade-duration) var(--theme-fade-easing),
+    background-color var(--theme-fade-duration) var(--theme-fade-easing),
+    opacity var(--theme-fade-duration) var(--theme-fade-easing),
+    transform 220ms ease;
+}
+
+:global(.about-intro-panel) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+:global(.about-intro-name) {
+  margin: 0;
+  font-size: var(--page-title-size);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: var(--page-title-tracking);
+  color: rgb(var(--text));
+}
+
+:global(.about-intro-role) {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgb(var(--brand) / 0.8);
+}
+
+:global(.about-intro-actions) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+:global(.about-intro-socials) {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+:global(.about-intro-social-link) {
+  display: inline-flex;
+  height: 2.1rem;
+  width: 2.1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--line));
+  color: rgb(var(--brand));
+  background-color: rgb(var(--bg) / 0.74);
+  text-decoration: none;
+}
+
+:global(.about-intro-social-link:hover) {
+  border-color: rgb(var(--muted) / 0.5);
+  background-color: rgb(var(--bg) / 0.9);
+  transform: translateY(-1px);
+}
+
+:global(.about-intro-contact) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.1rem;
+  width: 2.1rem;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--line));
+  text-decoration: none;
+  color: rgb(var(--brand));
+  background-color: rgb(var(--bg) / 0.74);
+}
+
+:global(.about-intro-contact:hover) {
+  border-color: rgb(var(--muted) / 0.5);
+  background-color: rgb(var(--bg) / 0.9);
+  transform: translateY(-1px);
+}
+
+:global(.about-intro-social-link:focus-visible),
+:global(.about-intro-contact:focus-visible) {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgb(var(--bg)),
+    0 0 0 4px rgb(var(--brand));
+}
+
+@media (min-width: 640px) {
+
+  :global(.about-intro-name) {
+    font-size: clamp(2.2rem, 3.5vw, 2.9rem);
+  }
+}

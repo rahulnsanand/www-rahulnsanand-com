@@ -1,32 +1,19 @@
 "use client";
 
+import "./contact-page.module.css";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
-
-const socialLinks = [
-  {
-    href: "https://www.linkedin.com/in/rahulnsanand",
-    label: "LinkedIn",
-  },
-  {
-    href: "https://github.com/rahulnsanand",
-    label: "GitHub",
-  },
-  {
-    href: "https://medium.com/@rahulnsanand",
-    label: "Medium",
-  },
-  {
-    href: "https://www.youtube.com/@rahulnsanand",
-    label: "YouTube",
-  },
-] as const;
+import type { AboutSocialLink } from "@/lib/about";
 
 const MESSAGE_MIN_LENGTH = 8;
 const MESSAGE_MAX_LENGTH = 5000;
 const REQUEST_TIMEOUT_MS = 12_000;
+
+type ContactPageBodyProps = {
+  socialLinks: AboutSocialLink[];
+};
 
 function collectClientMetadata() {
   if (typeof window === "undefined") {
@@ -54,7 +41,7 @@ function collectClientMetadata() {
   };
 }
 
-export function ContactPageBody() {
+export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
   const [submitState, setSubmitState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
   const [formStartedAt, setFormStartedAt] = useState(() => Date.now().toString());
@@ -178,7 +165,7 @@ export function ContactPageBody() {
         <div className="contact-actions">
           <button
             type="submit"
-            className="contact-submit"
+            className="contact-submit u-theme-fade-target u-focus-ring-target"
             disabled={submitState === "sending"}
             aria-busy={submitState === "sending"}
           >
@@ -198,7 +185,12 @@ export function ContactPageBody() {
         <ul className="contact-socials-list">
           {socialLinks.map((link) => (
             <li key={link.href} className="contact-socials-item">
-              <a href={link.href} className="contact-social-link" target="_blank" rel="noreferrer noopener">
+              <a
+                href={link.href}
+                className="contact-social-link u-theme-fade-target u-focus-ring-target"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 {link.label}
                 <ArrowUpRight size={14} weight="duotone" aria-hidden="true" />
               </a>

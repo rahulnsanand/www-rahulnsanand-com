@@ -1,5 +1,6 @@
 "use client";
 
+import "./media-fade.module.css";
 import { useState, type IframeHTMLAttributes } from "react";
 
 type FadeInIframeProps = Omit<IframeHTMLAttributes<HTMLIFrameElement>, "className" | "onLoad"> & {

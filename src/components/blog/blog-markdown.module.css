@@ -1,0 +1,177 @@
+
+
+:global(.blog-inline-link) {
+  transition:
+    color var(--theme-fade-duration) var(--theme-fade-easing),
+    border-color var(--theme-fade-duration) var(--theme-fade-easing),
+    background-color var(--theme-fade-duration) var(--theme-fade-easing),
+    opacity var(--theme-fade-duration) var(--theme-fade-easing),
+    transform 220ms ease;
+}
+
+:global(.blog-markdown-h2),
+:global(.blog-markdown-h3),
+:global(.blog-markdown-paragraph),
+:global(.blog-markdown-list),
+:global(.blog-markdown-ordered-list),
+:global(.blog-markdown-quote),
+:global(.blog-markdown-code) {
+  transition:
+    color var(--theme-fade-duration) var(--theme-fade-easing),
+    border-color var(--theme-fade-duration) var(--theme-fade-easing),
+    background-color var(--theme-fade-duration) var(--theme-fade-easing),
+    opacity var(--theme-fade-duration) var(--theme-fade-easing),
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease;
+}
+
+:global(.blog-markdown) {
+  margin-top: 1.5rem;
+  padding-inline: clamp(0.35rem, 2.2vw, 1.25rem);
+}
+
+:global(.blog-markdown-h2) {
+  margin-top: 1.7rem;
+  margin-bottom: 0;
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+:global(.blog-markdown-h3) {
+  margin-top: 1.45rem;
+  margin-bottom: 0;
+  font-size: 1.13rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+:global(.blog-markdown-paragraph) {
+  margin-top: 0.9rem;
+  margin-bottom: 0;
+  color: rgb(var(--text) / 0.9);
+  font-size: 1rem;
+  line-height: 1.82;
+}
+
+:global(.blog-markdown-list),
+:global(.blog-markdown-ordered-list) {
+  margin-top: 0.85rem;
+  margin-bottom: 0;
+  padding-left: 1.38rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.36rem;
+  color: rgb(var(--text) / 0.9);
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+:global(.blog-markdown-list-item::marker) {
+  color: rgb(var(--brand) / 0.8);
+}
+
+:global(.blog-markdown-quote) {
+  margin-top: 0.95rem;
+  margin-bottom: 0;
+  border-left: 3px solid rgb(var(--brand) / 0.72);
+  padding-left: 0.9rem;
+  color: rgb(var(--muted));
+  font-style: italic;
+}
+
+:global(.blog-markdown-quote p) {
+  margin: 0;
+  line-height: 1.72;
+}
+
+:global(.blog-markdown-code-wrap) {
+  margin: 0.95rem 0 0;
+}
+
+:global(.blog-markdown-code-language) {
+  margin-bottom: 0.3rem;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(var(--muted));
+}
+
+:global(.blog-markdown-code) {
+  margin: 0;
+  padding: 0.85rem 0.9rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgb(var(--line) / 0.62);
+  background: rgb(var(--bg) / 0.52);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.86rem;
+  line-height: 1.58;
+  overflow-x: auto;
+}
+
+:global(.blog-inline-code) {
+  border: 1px solid rgb(var(--line) / 0.7);
+  border-radius: 0.38rem;
+  padding: 0.05rem 0.32rem;
+  background: rgb(var(--bg) / 0.74);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.88em;
+}
+
+:global(.blog-inline-strong) {
+  font-weight: 600;
+  color: rgb(var(--text));
+}
+
+:global(.blog-inline-link) {
+  color: rgb(var(--brand));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+:global(.blog-inline-link:hover) {
+  color: rgb(var(--text));
+}
+
+:global(.blog-inline-link:focus-visible) {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgb(var(--bg)),
+    0 0 0 4px rgb(var(--brand));
+}
+
+@media (min-width: 640px) {
+
+  :global(.blog-markdown-h2) {
+    font-size: 1.72rem;
+  }
+
+  :global(.blog-markdown-h3) {
+    font-size: 1.24rem;
+  }
+
+  :global(.blog-markdown-paragraph),
+  :global(.blog-markdown-list),
+  :global(.blog-markdown-ordered-list) {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 640px) {
+
+  :global(.blog-markdown-h2) {
+    font-size: 1.26rem;
+  }
+
+  :global(.blog-markdown-h3) {
+    font-size: 1.04rem;
+  }
+
+  :global(.blog-markdown-paragraph),
+  :global(.blog-markdown-list),
+  :global(.blog-markdown-ordered-list) {
+    font-size: 0.96rem;
+    line-height: 1.68;
+  }
+}

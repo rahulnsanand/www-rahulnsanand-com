@@ -1,5 +1,6 @@
 "use client";
 
+import "./site-header.module.css";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
@@ -55,7 +56,7 @@ function NavLinks({
           <li key={item.href}>
             <Link
               href={item.href}
-              className={`site-nav-link${isActive ? " site-nav-link--active" : ""}`}
+              className={`site-nav-link u-theme-fade-target u-focus-ring-target${isActive ? " site-nav-link--active" : ""}`}
               aria-current={isActive ? "page" : undefined}
               onClick={(event) => onNavClick(event, item.href)}
             >
@@ -91,7 +92,7 @@ function HeaderNav({ onNavClick, currentPath }: { onNavClick: NavClickHandler; c
     <nav className={`site-nav${isMenuOpen ? " site-nav--menu-open" : ""}`} aria-label="Primary navigation">
       <Link
         href="/"
-        className="site-logo-link"
+        className="site-logo-link u-theme-fade-target u-focus-ring-target"
         aria-label="Rahul NS Anand home"
         onClick={(event) => handleNavClick(event, "/")}
       >
@@ -102,7 +103,7 @@ function HeaderNav({ onNavClick, currentPath }: { onNavClick: NavClickHandler; c
         <ThemeToggle />
         <button
           type="button"
-          className="site-nav-menu-toggle"
+          className="site-nav-menu-toggle u-theme-fade-target u-focus-ring-target"
           aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isMenuOpen}
           aria-controls="primary-nav-links"

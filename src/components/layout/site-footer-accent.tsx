@@ -1,5 +1,6 @@
 "use client";
 
+import "./site-footer-accent.module.css";
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 type FooterAccentContextValue = {

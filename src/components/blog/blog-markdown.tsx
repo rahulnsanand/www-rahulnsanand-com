@@ -1,3 +1,4 @@
+import "./blog-markdown.module.css";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -201,7 +202,7 @@ function renderInlineMarkdown(input: string): ReactNode[] {
       }
 
       const isExternal = /^https?:\/\//i.test(href);
-      const className = "blog-inline-link";
+      const className = "blog-inline-link u-theme-fade-target u-focus-ring-target";
 
       if (isExternal) {
         return (

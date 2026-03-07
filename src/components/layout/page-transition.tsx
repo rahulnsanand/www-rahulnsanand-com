@@ -1,3 +1,4 @@
+import "./page-transition.module.css";
 import type { ReactNode } from "react";
 
 type PageTransitionProps = {

@@ -1,3 +1,4 @@
+import "./about-body.module.css";
 import { AboutSeparator } from "./about-separator";
 import { AboutIntroPanel } from "./about-intro-panel";
 import { AboutProfileSummary } from "./about-profile-summary";

@@ -1,3 +1,4 @@
+import "./about-profile-summary.module.css";
 import { GlobeHemisphereWest } from "@phosphor-icons/react/dist/ssr";
 import { TbBrandAzure, TbBrandCSharp, TbBrandCss3 } from "react-icons/tb";
 import {

@@ -1,5 +1,6 @@
 "use client";
 
+import "./highlighted-projects-carousel.module.css";
 import { useEffect, useMemo, useRef, useState, type TransitionEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -115,7 +116,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
       <article className="project-highlight project-highlight--solo">
         <Link
           href={project.cardClickUrl}
-          className="project-highlight-overlay-link"
+          className="project-highlight-overlay-link u-focus-ring-target"
           target="_blank"
           rel="noreferrer noopener"
           aria-label={`Open ${project.displayTitle} on ${project.cardClickTarget === "website" ? "website" : "GitHub"}`}
@@ -138,7 +139,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
           <div className="project-highlight-links">
             <Link
               href={project.htmlUrl}
-              className={`project-highlight-link project-highlight-link--icon project-highlight-link--github${
+              className={`project-highlight-link project-highlight-link--icon project-highlight-link--github u-theme-fade-target u-focus-ring-target${
                 project.cardClickTarget === "github" ? " project-highlight-link--active-target" : ""
               }`}
               target="_blank"
@@ -151,7 +152,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
             {project.homepage ? (
               <Link
                 href={project.homepage}
-                className={`project-highlight-link project-highlight-link--icon project-highlight-link--website${
+                className={`project-highlight-link project-highlight-link--icon project-highlight-link--website u-theme-fade-target u-focus-ring-target${
                   project.cardClickTarget === "website" ? " project-highlight-link--active-target" : ""
                 }`}
                 target="_blank"
@@ -236,7 +237,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
                 <article className="project-highlight">
                   <Link
                     href={project.cardClickUrl}
-                    className="project-highlight-overlay-link"
+                    className="project-highlight-overlay-link u-focus-ring-target"
                     target="_blank"
                     rel="noreferrer noopener"
                     aria-label={`Open ${project.displayTitle} on ${project.cardClickTarget === "website" ? "website" : "GitHub"}`}
@@ -260,7 +261,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
                     <div className="project-highlight-links">
                       <Link
                         href={project.htmlUrl}
-                        className={`project-highlight-link project-highlight-link--icon project-highlight-link--github${
+                        className={`project-highlight-link project-highlight-link--icon project-highlight-link--github u-theme-fade-target u-focus-ring-target${
                           project.cardClickTarget === "github" ? " project-highlight-link--active-target" : ""
                         }`}
                         target="_blank"
@@ -273,7 +274,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
                       {project.homepage ? (
                         <Link
                           href={project.homepage}
-                          className={`project-highlight-link project-highlight-link--icon project-highlight-link--website${
+                          className={`project-highlight-link project-highlight-link--icon project-highlight-link--website u-theme-fade-target u-focus-ring-target${
                             project.cardClickTarget === "website" ? " project-highlight-link--active-target" : ""
                           }`}
                           target="_blank"
@@ -298,7 +299,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
       </div>
       <button
         type="button"
-        className="projects-highlight-control-button projects-highlight-control-button--prev"
+        className="projects-highlight-control-button projects-highlight-control-button--prev u-theme-fade-target u-focus-ring-target"
         onClick={goToPrevious}
         aria-label="Show previous highlighted project"
       >
@@ -306,7 +307,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
       </button>
       <button
         type="button"
-        className="projects-highlight-control-button projects-highlight-control-button--next"
+        className="projects-highlight-control-button projects-highlight-control-button--next u-theme-fade-target u-focus-ring-target"
         onClick={goToNext}
         aria-label="Show next highlighted project"
       >

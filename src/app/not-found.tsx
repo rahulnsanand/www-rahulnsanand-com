@@ -1,3 +1,4 @@
+import "./not-found.module.css";
 import Link from "next/link";
 import { ArrowLeft, Compass, House, WarningCircle } from "@phosphor-icons/react/dist/ssr";
 
@@ -41,7 +42,7 @@ export default function NotFound() {
             <Link
               key={item.href}
               href={item.href}
-              className="nf-link"
+              className="nf-link u-theme-fade-target u-focus-ring-target"
             >
               <item.icon size={16} weight="duotone" aria-hidden="true" />
               <span>{item.label}</span>

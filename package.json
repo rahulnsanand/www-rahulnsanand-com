@@ -9,9 +9,13 @@
     "prebuild": "pnpm run sync:content",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . && pnpm run lint:theme-cascade",
+    "lint": "node -r ./scripts/eslint-balanced-match-compat.cjs ./node_modules/eslint/bin/eslint.js . && pnpm run lint:theme-cascade",
     "lint:theme-cascade": "node scripts/lint-theme-state-conflicts.mjs",
+    "audit:styles": "node scripts/audit-style-ownership.mjs",
     "typecheck": "next typegen && tsc --noEmit",
+    "test:visual:update": "playwright test --config=playwright.visual.config.ts --update-snapshots",
+    "test:visual": "playwright test --config=playwright.visual.config.ts",
+    "validate:css-migration": "pnpm lint && pnpm run audit:styles && pnpm typecheck && pnpm build && pnpm test:visual",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -25,6 +29,7 @@
     "react-icons": "^5.6.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.1",
     "@types/node": "^20",
     "@types/nodemailer": "^7.0.11",
     "@types/react": "^19",
@@ -36,5 +41,10 @@
     "postcss": "^8.5.8",
     "prettier": "^3.8.1",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "balanced-match": "1.0.2"
+    }
   }
 }

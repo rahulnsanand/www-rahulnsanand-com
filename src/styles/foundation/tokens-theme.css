@@ -1,0 +1,46 @@
+:root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Segoe UI", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --bg: 245 245 243;
+  --text: 43 43 43;
+  --muted: 102 102 108;
+  --line: 210 210 214;
+  --brand: 42 121 195;
+  --theme-fade-duration: 240ms;
+  --theme-fade-easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --site-nav-inline-gap: 0.82rem;
+  --site-main-top-gap: 2.5rem;
+  --site-main-top-gap-mobile: 1.65rem;
+  --page-top-gap: 0.5rem;
+  --page-bottom-gap: 3rem;
+  --page-title-size: clamp(1.9rem, 3.3vw, 2.65rem);
+  --page-title-tracking: -0.03em;
+  --page-lead-size: clamp(1rem, 1.3vw, 1.08rem);
+  --page-lead-line-height: 1.75;
+}
+
+html.light {
+  --bg: 245 245 243;
+  --text: 43 43 43;
+  --muted: 102 102 108;
+  --line: 210 210 214;
+  --brand: 42 121 195;
+}
+
+html.dark {
+  --bg: 16 16 18;
+  --text: 236 236 240;
+  --muted: 148 148 155;
+  --line: 74 74 82;
+  --brand: 42 121 195;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light):not(.dark) {
+    --bg: 16 16 18;
+    --text: 236 236 240;
+    --muted: 148 148 155;
+    --line: 74 74 82;
+    --brand: 42 121 195;
+  }
+}

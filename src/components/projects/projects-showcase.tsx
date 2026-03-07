@@ -1,3 +1,4 @@
+import "./projects-showcase.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { GithubLogo, GlobeHemisphereWest } from "@phosphor-icons/react/dist/ssr";
@@ -42,10 +43,10 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
           <ol className="projects-grid" aria-label="Other GitHub repositories">
             {otherProjects.map((project) => (
               <li key={project.id} className="projects-grid-item">
-                <article className="project-card">
+                <article className="project-card u-theme-fade-target">
                   <Link
                     href={project.cardClickUrl}
-                    className="project-card-overlay-link"
+                    className="project-card-overlay-link u-focus-ring-target"
                     target="_blank"
                     rel="noreferrer noopener"
                     aria-label={`Open ${project.displayTitle} on ${project.cardClickTarget === "website" ? "website" : "GitHub"}`}
@@ -68,7 +69,7 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
                   <div className="project-card-links">
                     <Link
                       href={project.htmlUrl}
-                      className={`project-card-link project-card-link--icon project-card-link--github${
+                      className={`project-card-link project-card-link--icon project-card-link--github u-theme-fade-target u-focus-ring-target${
                         project.cardClickTarget === "github" ? " project-card-link--active-target" : ""
                       }`}
                       target="_blank"
@@ -81,7 +82,7 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
                     {project.homepage ? (
                       <Link
                         href={project.homepage}
-                        className={`project-card-link project-card-link--icon project-card-link--website${
+                        className={`project-card-link project-card-link--icon project-card-link--website u-theme-fade-target u-focus-ring-target${
                           project.cardClickTarget === "website" ? " project-card-link--active-target" : ""
                         }`}
                         target="_blank"

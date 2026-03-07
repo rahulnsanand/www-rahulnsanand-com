@@ -1,5 +1,6 @@
 "use client";
 
+import "./theme-toggle.module.css";
 import { Moon, Sun } from "@phosphor-icons/react";
 import { useSyncExternalStore } from "react";
 
@@ -79,7 +80,7 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      className="theme-toggle"
+      className="theme-toggle u-theme-fade-target u-focus-ring-target"
       onClick={handleToggle}
       aria-label={`Switch to ${nextModeLabel} mode`}
       title="Toggle theme"

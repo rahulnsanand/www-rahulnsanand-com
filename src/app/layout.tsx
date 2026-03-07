@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import "./root-layout.module.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { FooterAccentProvider, SiteFooterAccent } from "@/components/layout/site-footer-accent";
 import { PageTransition } from "@/components/layout/page-transition";

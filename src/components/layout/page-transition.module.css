@@ -1,0 +1,7 @@
+
+
+:global(.page-transition-root) {
+  min-height: inherit;
+  width: 100%;
+  isolation: isolate;
+}

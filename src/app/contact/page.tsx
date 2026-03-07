@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactPageBody } from "@/components/contact/contact-page";
+import { aboutContent } from "@/lib/about";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -18,5 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactPageBody />;
+  return <ContactPageBody socialLinks={aboutContent.profile.socialLinks} />;
 }

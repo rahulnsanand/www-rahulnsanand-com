@@ -1,0 +1,87 @@
+
+
+:global(.blog-scroll-top-button) {
+  transition:
+    color var(--theme-fade-duration) var(--theme-fade-easing),
+    border-color var(--theme-fade-duration) var(--theme-fade-easing),
+    background-color var(--theme-fade-duration) var(--theme-fade-easing),
+    opacity var(--theme-fade-duration) var(--theme-fade-easing),
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease;
+}
+
+:global(.blog-scroll-top-button) {
+  position: fixed;
+  margin: 0;
+  right: max(0.75rem, calc((100vw - 1040px) / 2 - 8rem));
+  top: clamp(4.2rem, 52vh, calc(100vh - 3.5rem));
+  min-height: 2.3rem;
+  padding-inline: 0.74rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, 8px, 0);
+  z-index: 34;
+}
+
+:global(.blog-scroll-top-button) {
+  z-index: 34;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.34rem;
+  border: 1px solid rgb(var(--line) / 0.72);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgb(var(--brand) / 0.1), rgb(var(--brand) / 0.04)),
+    rgb(var(--bg) / 0.58);
+  color: rgb(var(--brand));
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.48rem 0.78rem;
+  cursor: pointer;
+}
+
+:global(.blog-scroll-top-button:hover) {
+  color: rgb(var(--text));
+  border-color: rgb(var(--muted) / 0.52);
+  background:
+    linear-gradient(180deg, rgb(var(--brand) / 0.14), rgb(var(--brand) / 0.08)),
+    rgb(var(--bg) / 0.7);
+  transform: translateY(-1px);
+}
+
+:global(.blog-scroll-top-button--visible) {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (max-width: 1099px) {
+  :global(.blog-scroll-top-button) {
+    right: 0.75rem;
+    top: auto;
+    bottom: 1rem;
+  }
+}
+
+:global(.blog-scroll-top-button:focus-visible) {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgb(var(--bg)),
+    0 0 0 4px rgb(var(--brand));
+}
+
+:global(html.perf-lite .blog-scroll-top-button) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  :global(.blog-scroll-top-button) {
+    transition: none;
+    transform: none;
+  }
+}

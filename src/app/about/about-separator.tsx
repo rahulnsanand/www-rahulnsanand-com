@@ -1,5 +1,6 @@
 "use client";
 
+import "./about-separator.module.css";
 import { motion, useReducedMotion } from "motion/react";
 
 const VIEWBOX_HEIGHT = 1080;

@@ -1,7 +1,16 @@
 {
   "profile": {
     "name": "Rahul NS Anand",
+    "headline": "Software Engineer | Problem Solver",
     "avatarUrl": "https://github.com/rahulnsanand.png",
+    "socialLinks": [
+      { "icon": "github", "href": "https://github.com/rahulnsanand", "label": "GitHub" },
+      { "icon": "youtube", "href": "https://www.youtube.com/@rahulnsanand", "label": "YouTube" },
+      { "icon": "linkedin", "href": "https://www.linkedin.com/in/rahulnsanand", "label": "LinkedIn" },
+      { "icon": "medium", "href": "https://medium.com/@rahulnsanand", "label": "Medium" },
+      { "icon": "devto", "href": "https://dev.to/rahulnsanand", "label": "Dev.to" },
+      { "icon": "leetcode", "href": "https://leetcode.com/rahulnsanand", "label": "LeetCode" }
+    ],
     "primaryLinks": [
       { "href": "/projects", "label": "View Projects" },
       { "href": "/blogs", "label": "Read Blogs" },
@@ -10,14 +19,11 @@
   },
   "sections": [
     {
-      "id": "experience",
       "heading": "Work Experience",
       "groups": [
         {
-          "id": "product-engineering",
           "items": [
             {
-              "id": "senior-software-engineer",
               "title": "Senior Software Engineer",
               "role": "Product Engineering",
               "period": "2023 - Present",
@@ -28,7 +34,6 @@
               ]
             },
             {
-              "id": "software-engineer",
               "title": "Software Engineer",
               "role": "Frontend + DX",
               "period": "2020 - 2023",
@@ -42,15 +47,12 @@
       ]
     },
     {
-      "id": "projects",
       "heading": "Projects",
       "groups": [
         {
-          "id": "selected-projects",
           "heading": "Selected Work",
           "items": [
             {
-              "id": "developer-portfolio-platform",
               "title": "Developer Portfolio Platform",
               "role": "Personal Product",
               "period": "2025 - Present",
@@ -60,7 +62,6 @@
               ]
             },
             {
-              "id": "workflow-automation-toolkit",
               "title": "Workflow Automation Toolkit",
               "role": "Internal",
               "period": "2024",
@@ -73,14 +74,11 @@
       ]
     },
     {
-      "id": "education",
       "heading": "Education",
       "groups": [
         {
-          "id": "formal-education",
           "items": [
             {
-              "id": "computer-science",
               "title": "Computer Science",
               "role": "Engineering Foundation",
               "period": "2016 - 2020",

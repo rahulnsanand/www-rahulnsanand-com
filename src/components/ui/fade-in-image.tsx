@@ -1,5 +1,6 @@
 "use client";
 
+import "./media-fade.module.css";
 import { useState } from "react";
 import Image, { type ImageProps } from "next/image";
 
