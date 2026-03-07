@@ -23,7 +23,7 @@ export function AboutBody() {
             baseStroke="rgb(var(--brand) / 0.2)"
             baseWidth={1.4}
             activeStroke="rgb(var(--brand) / 0.94)"
-            activeWidth={2.05}
+            activeWidth={5.33}
             orbRadius={4.2}
           />
         </div>
