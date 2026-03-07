@@ -55,7 +55,7 @@
   :global(.site-footer-meta) {
     left: 0.75rem;
     right: 0.75rem;
-    bottom: 0.2rem;
+    bottom: 2.5rem;
     max-width: none;
     text-align: center;
     font-size: clamp(0.52rem, 2.35vw, 0.66rem);

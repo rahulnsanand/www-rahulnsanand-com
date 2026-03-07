@@ -12,7 +12,7 @@
   --site-main-top-gap: 2.5rem;
   --site-main-top-gap-mobile: 1.65rem;
   --page-top-gap: 0.5rem;
-  --page-bottom-gap: 3rem;
+  --page-bottom-gap: 8rem;
   --page-title-size: clamp(1.9rem, 3.3vw, 2.65rem);
   --page-title-tracking: -0.03em;
   --page-lead-size: clamp(1rem, 1.3vw, 1.08rem);
