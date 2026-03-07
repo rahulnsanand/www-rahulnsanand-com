@@ -12,6 +12,8 @@
 :global(.nf-page) {
   position: relative;
   display: flex;
+  padding-top: var(--page-top-gap);
+  padding-bottom: var(--page-bottom-gap);
   min-height: 70vh;
   align-items: center;
 }

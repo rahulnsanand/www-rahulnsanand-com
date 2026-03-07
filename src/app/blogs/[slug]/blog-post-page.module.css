@@ -286,7 +286,7 @@
 @media (max-width: 640px) {
 
   :global(.blog-post-page) {
-    padding-bottom: 3.7rem;
+    padding-bottom: var(--page-bottom-gap);
   }
 
   :global(.blog-post-layout) {

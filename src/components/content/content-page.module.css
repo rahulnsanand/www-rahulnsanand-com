@@ -10,11 +10,12 @@
 }
 
 :global(.content-page) {
+  position: relative;
   display: flex;
-  min-height: 55vh;
+  padding-top: var(--page-top-gap);
+  padding-bottom: var(--page-bottom-gap);
   max-width: 760px;
   flex-direction: column;
-  justify-content: center;
   gap: 1rem;
 }
 

@@ -1,9 +1,9 @@
-import "./about-body.module.css";
-import { AboutSeparator } from "./about-separator";
-import { AboutIntroPanel } from "./about-intro-panel";
-import { AboutProfileSummary } from "./about-profile-summary";
-import { FooterAccentText } from "@/components/layout/site-footer-accent";
-import { aboutContent } from "@/lib/about";
+import "./about-body.module.css"
+import { AboutSeparator } from "./about-separator"
+import { AboutIntroPanel } from "./about-intro-panel"
+import { AboutProfileSummary } from "./about-profile-summary"
+import { FooterAccentText } from "@/components/layout/site-footer-accent"
+import { aboutContent } from "@/lib/about"
 
 export function AboutBody() {
   return (
@@ -32,10 +32,7 @@ export function AboutBody() {
           <AboutIntroPanel />
           {aboutContent.sections.map((section) => (
             <article key={section.id} aria-labelledby={`about-section-${section.id}`}>
-              <h2
-                id={`about-section-${section.id}`}
-                className="about-section-title"
-              >
+              <h2 id={`about-section-${section.id}`} className="about-section-title">
                 {section.heading}
               </h2>
 
@@ -43,31 +40,27 @@ export function AboutBody() {
                 {section.groups.map((group) => (
                   <div key={group.id}>
                     <ol className="about-items">
-                      {group.items.map((item) => (
-                        <li key={item.id} className="about-item">
-                          <div className="about-item-header">
-                            <div className="about-item-main">
-                              <h4 className="about-item-title">
-                                {item.title}
-                              </h4>
-                              <p className="about-item-role">
-                                {item.role}
-                              </p>
+                      {group.items.map((item) => {
+                        return (
+                          <li key={item.id} className="about-item">
+                            <div className="about-item-header">
+                              <div className="about-item-main">
+                                <h4 className="about-item-title">{item.title}</h4>
+                                <p className="about-item-role">{item.role}</p>
+                              </div>
+                              <p className="about-item-period">{item.period}</p>
                             </div>
-                            <p className="about-item-period">
-                              {item.period}
-                            </p>
-                          </div>
 
-                          <ul className="about-item-bullets">
-                            {item.bullets.map((line) => (
-                              <li key={line} className="about-item-bullet">
-                                {line}
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      ))}
+                            <ul className="about-item-bullets">
+                              {item.bullets.map((line) => (
+                                <li key={line} className="about-item-bullet">
+                                  {line}
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        )
+                      })}
                     </ol>
                   </div>
                 ))}
@@ -77,5 +70,5 @@ export function AboutBody() {
         </div>
       </div>
     </section>
-  );
+  )
 }

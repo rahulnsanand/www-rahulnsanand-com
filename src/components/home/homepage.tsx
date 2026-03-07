@@ -50,8 +50,7 @@ export function Homepage() {
           </span>
         </h1>
         <p className="home-copy u-theme-fade-target">
-          Software Engineer 2 building AI and personal data tools with a focus
-          on thoughtful design and reliable systems.
+          I build products that feel simple and run like tanks: by day I ship .NET + React systems for global banking and FINCrime teams, and by night I build Lyfie.org and open-source tools people actually use, from zero-lock-in notes and AI-ready editors to local-first automation, always with clean UX, sharp architecture, and boring reliability.
         </p>
         <div className="home-cta" aria-label="Primary navigation">
           <Link href="/about" className="home-cta-link u-theme-fade-target u-focus-ring-target">
