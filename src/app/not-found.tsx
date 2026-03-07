@@ -1,4 +1,3 @@
-import "./not-found.module.css";
 import Link from "next/link";
 import { ArrowLeft, Compass, House, WarningCircle } from "@phosphor-icons/react/dist/ssr";
 

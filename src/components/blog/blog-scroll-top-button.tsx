@@ -12,25 +12,49 @@ export function BlogScrollTopButton() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const syncWithHeader = () => {
-      setIsVisible(document.documentElement.classList.contains("site-nav-condensed"));
+    const scrollThreshold = 320;
+    let ticking = false;
+
+    const syncWithHeader = (isFloating?: boolean) => {
+      const headerVisible = typeof isFloating === "boolean"
+        ? isFloating
+        : document.documentElement.classList.contains("site-nav-condensed");
+      const hasScrolledEnough = window.scrollY > scrollThreshold;
+
+      setIsVisible(headerVisible || hasScrolledEnough);
     };
 
     const handleFloatingHeaderChange = (event: Event) => {
       const detail = (event as CustomEvent<SiteHeaderFloatingChangeDetail>).detail;
 
       if (detail && typeof detail.isFloating === "boolean") {
-        setIsVisible(detail.isFloating);
+        syncWithHeader(detail.isFloating);
         return;
       }
 
       syncWithHeader();
     };
 
+    const handleScroll = () => {
+      if (ticking) {
+        return;
+      }
+
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        syncWithHeader();
+        ticking = false;
+      });
+    };
+
     syncWithHeader();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     window.addEventListener(SITE_HEADER_FLOATING_CHANGE_EVENT, handleFloatingHeaderChange as EventListener);
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
       window.removeEventListener(SITE_HEADER_FLOATING_CHANGE_EVENT, handleFloatingHeaderChange as EventListener);
     };
   }, []);

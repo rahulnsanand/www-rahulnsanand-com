@@ -2,3 +2,4 @@
 @import "./foundation/base-reset.css";
 @import "./foundation/scrollbar.css";
 @import "./foundation/global-utilities.css";
+@import "./pages/not-found.css";

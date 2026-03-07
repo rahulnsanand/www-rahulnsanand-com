@@ -75,6 +75,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const mediaImage = getBlogMediaImage(post);
   const youtubeVideoId = post.youtubeUrl ? parseYouTubeVideoId(post.youtubeUrl) : null;
+  const youtubePoster = youtubeVideoId ? `https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg` : null;
   const postUrl = `https://www.rahulnsanand.com/blogs/${post.slug}`;
   const blogPostingSchema = {
     "@context": "https://schema.org",
@@ -119,6 +120,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     frameClassName="blog-post-video-embed-frame"
                     iframeClassName="blog-post-video-embed"
                     placeholderClassName="blog-post-video-placeholder"
+                    posterSrc={youtubePoster ?? undefined}
+                    posterSizes="(max-width: 768px) 100vw, 780px"
                     loading="lazy"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -133,6 +136,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     frameClassName="blog-post-video-image-frame"
                     imageClassName="blog-post-video-image"
                     placeholderClassName="blog-post-video-placeholder"
+                    priority
                   />
                 ) : null}
               </div>

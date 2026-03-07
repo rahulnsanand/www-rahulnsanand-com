@@ -209,7 +209,7 @@
 }
 
 :global(.projects-highlight-navigation) {
-  --projects-highlight-side-width: 5rem;
+  --projects-highlight-side-width: 9rem;
   margin-top: 0.42rem;
   display: grid;
   grid-template-columns: var(--projects-highlight-side-width) 1fr var(--projects-highlight-side-width);
@@ -327,12 +327,25 @@
   stroke-width: 4.8;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  filter: drop-shadow(0 0 4px rgb(var(--brand) / 0.36));
-  will-change: stroke-dashoffset;
+  animation-name: projects-highlight-autoplay-progress-draw;
+  animation-duration: 4600ms;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
 }
 
 :global(.projects-highlight-autoplay:not(.projects-highlight-autoplay--active) .projects-highlight-autoplay-progress) {
   opacity: 0.62;
+}
+
+@keyframes projects-highlight-autoplay-progress-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 :global(.projects-highlight-dots) {
@@ -530,7 +543,8 @@
 
 @media (max-width: 640px) {
   :global(.projects-highlight-navigation) {
-    --projects-highlight-side-width: 3.9rem;
+    --projects-highlight-side-width: 0;
+    gap: 0.48rem;
   }
 
   :global(.projects-highlight-viewport) {
@@ -561,7 +575,7 @@
   }
 
   :global(.projects-highlight-autoplay) {
-    height: 0.86rem;
+    display: none;
   }
 
   :global(.projects-highlight-autoplay-shell) {
