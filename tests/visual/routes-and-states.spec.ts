@@ -72,6 +72,96 @@ test("state-projects-carousel-next-prev", async ({ page }) => {
   await expect(page).toHaveScreenshot("state-projects-carousel-next-prev.png", { fullPage: true });
 });
 
+test("state-projects-carousel-dot-progress", async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 900 });
+  await gotoWithTheme(page, "/projects", "light");
+  await page.waitForTimeout(1400);
+  await page.locator(".projects-highlight-viewport").hover();
+  await page.waitForTimeout(120);
+  await expect(page).toHaveScreenshot("state-projects-carousel-dot-progress.png", { fullPage: true });
+});
+
+test("behavior-projects-carousel-hover-pauses-dot-progress", async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 900 });
+  await page.addInitScript(() => {
+    localStorage.setItem("perf-mode", "full");
+  });
+  await gotoWithTheme(page, "/projects", "light");
+  await page.waitForTimeout(700);
+
+  const activeProgress = page.locator(".projects-highlight-dot[aria-current='true'] .projects-highlight-dot-progress");
+  await expect(activeProgress).toHaveCount(1);
+  await expect(activeProgress).toHaveCSS("animation-play-state", "running");
+
+  const beforePause = await activeProgress.evaluate((node) =>
+    Number.parseFloat(getComputedStyle(node).strokeDashoffset || "0"),
+  );
+
+  await page.locator(".projects-highlight-viewport").hover();
+  await expect(activeProgress).toHaveCSS("animation-play-state", "paused");
+  await page.waitForTimeout(750);
+
+  const afterPause = await activeProgress.evaluate((node) =>
+    Number.parseFloat(getComputedStyle(node).strokeDashoffset || "0"),
+  );
+
+  expect(Math.abs(afterPause - beforePause)).toBeLessThan(0.03);
+});
+
+test("behavior-projects-carousel-hover-exit-restarts-dot-progress", async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 900 });
+  await page.addInitScript(() => {
+    localStorage.setItem("perf-mode", "full");
+  });
+  await gotoWithTheme(page, "/projects", "light");
+  await page.waitForTimeout(1600);
+
+  const activeProgress = page.locator(".projects-highlight-dot[aria-current='true'] .projects-highlight-dot-progress");
+  await expect(activeProgress).toHaveCount(1);
+
+  const beforeHover = await activeProgress.evaluate((node) =>
+    Number.parseFloat(getComputedStyle(node).strokeDashoffset || "0"),
+  );
+  expect(beforeHover).toBeLessThan(0.8);
+
+  await page.locator(".projects-highlight-viewport").hover();
+  await expect(activeProgress).toHaveCSS("animation-play-state", "paused");
+  await page.waitForTimeout(350);
+  await page.mouse.move(8, 8);
+  await page.waitForTimeout(140);
+  await expect(activeProgress).toHaveCSS("animation-play-state", "running");
+
+  const afterHoverExit = await activeProgress.evaluate((node) =>
+    Number.parseFloat(getComputedStyle(node).strokeDashoffset || "0"),
+  );
+  expect(afterHoverExit).toBeGreaterThan(0.9);
+});
+
+test("behavior-projects-carousel-autoplay-advances-on-mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.addInitScript(() => {
+    localStorage.setItem("perf-mode", "full");
+  });
+  await gotoWithTheme(page, "/projects", "dark");
+
+  const dotCount = await page.locator(".projects-highlight-dot").count();
+  test.skip(dotCount < 2, "Requires at least 2 highlighted projects.");
+
+  const getActiveDotIndex = async () =>
+    page.evaluate(() => {
+      const dots = Array.from(document.querySelectorAll<HTMLButtonElement>(".projects-highlight-dot"));
+      return dots.findIndex((dot) => dot.getAttribute("aria-current") === "true");
+    });
+
+  const initialIndex = await getActiveDotIndex();
+  await page.waitForTimeout(5600);
+  const laterIndex = await getActiveDotIndex();
+
+  expect(initialIndex).toBeGreaterThanOrEqual(0);
+  expect(laterIndex).toBeGreaterThanOrEqual(0);
+  expect(laterIndex).not.toBe(initialIndex);
+});
+
 test("state-blogs-search-active", async ({ page }) => {
   await page.setViewportSize({ width: 1366, height: 900 });
   await gotoWithTheme(page, "/blogs", "dark");

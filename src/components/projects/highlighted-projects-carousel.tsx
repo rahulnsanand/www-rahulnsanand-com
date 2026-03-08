@@ -19,8 +19,6 @@ type HighlightedProjectsCarouselProps = {
 };
 
 const AUTOPLAY_DELAY_MS = 4600;
-const AUTOPLAY_PROGRESS_PATH =
-  "M4 8 C15.5 5.6, 26.5 10.4, 38 8 C49.5 5.9, 60.5 10.1, 72 8 C83.5 6, 94.5 10, 106 8 C117 6.4, 128.5 9.6, 144 8";
 const HAND_DRAWN_DOT_PATHS = [
   "M9.3 2.1 C6 1.6, 2.4 3.4, 2 7 C1.6 11.1, 4.7 15, 9.2 15.2 C13.3 15.4, 16.5 12.3, 15.9 8.1 C15.5 5.1, 13.8 2.7, 9.3 2.1 Z",
   "M8.2 1.9 C4.9 2, 2 4.4, 2.5 8.1 C2.9 11.5, 4.8 14.9, 8.5 15.1 C12.5 15.3, 16.4 12.7, 15.5 8.8 C14.7 5.2, 12.8 1.8, 8.2 1.9 Z",
@@ -45,8 +43,10 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [allowAutoplay, setAllowAutoplay] = useState(false);
   const [isAutoplayTimerRunning, setIsAutoplayTimerRunning] = useState(false);
-  const [progressCycle, setProgressCycle] = useState(0);
-  const [progressDurationMs, setProgressDurationMs] = useState(AUTOPLAY_DELAY_MS);
+  const [dotProgressCycle, setDotProgressCycle] = useState(0);
+  const selectedIndexRef = useRef(0);
+  const shouldRestartDotProgressRef = useRef(true);
+  const hasDotProgressStartedRef = useRef(false);
 
   const plugins = useMemo(() => {
     if (total < 2) {
@@ -71,7 +71,12 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
     }
 
     const syncSelectedIndex = () => {
-      setSelectedIndex(emblaApi.selectedScrollSnap());
+      const nextSelectedIndex = emblaApi.selectedScrollSnap();
+      if (selectedIndexRef.current !== nextSelectedIndex) {
+        shouldRestartDotProgressRef.current = true;
+      }
+      setSelectedIndex(nextSelectedIndex);
+      selectedIndexRef.current = nextSelectedIndex;
     };
 
     syncSelectedIndex();
@@ -105,6 +110,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
     }
 
     if (allowAutoplay && total > 1) {
+      shouldRestartDotProgressRef.current = true;
       autoplayPluginRef.current.play();
       return;
     }
@@ -121,8 +127,18 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
 
     const onTimerSet = () => {
       const timeUntilNext = autoplay.timeUntilNext();
-      setProgressDurationMs(Math.max(1, Math.round(timeUntilNext ?? AUTOPLAY_DELAY_MS)));
-      setProgressCycle((current) => current + 1);
+      const didAutoplayTimerReset =
+        typeof timeUntilNext === "number" && timeUntilNext >= AUTOPLAY_DELAY_MS * 0.96;
+      if (didAutoplayTimerReset) {
+        shouldRestartDotProgressRef.current = true;
+      }
+
+      if (shouldRestartDotProgressRef.current || !hasDotProgressStartedRef.current) {
+        setDotProgressCycle((current) => current + 1);
+        shouldRestartDotProgressRef.current = false;
+        hasDotProgressStartedRef.current = true;
+      }
+
       setIsAutoplayTimerRunning(true);
     };
 
@@ -160,6 +176,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
 
     emblaApi.scrollPrev();
     if (total > 1) {
+      shouldRestartDotProgressRef.current = true;
       autoplayPluginRef.current.reset();
     }
   };
@@ -171,6 +188,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
 
     emblaApi.scrollNext();
     if (total > 1) {
+      shouldRestartDotProgressRef.current = true;
       autoplayPluginRef.current.reset();
     }
   };
@@ -182,6 +200,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
 
     emblaApi.scrollTo(index);
     if (total > 1) {
+      shouldRestartDotProgressRef.current = true;
       autoplayPluginRef.current.reset();
     }
   };
@@ -293,32 +312,6 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
       </div>
       {total > 1 ? (
         <div className="projects-highlight-navigation">
-          <div
-            className={`projects-highlight-autoplay${
-              isAutoplayTimerRunning ? " projects-highlight-autoplay--active" : ""
-            }`}
-            aria-hidden="true"
-          >
-            <div className="projects-highlight-autoplay-shell">
-              <svg className="projects-highlight-autoplay-svg" viewBox="0 0 148 16" preserveAspectRatio="none">
-                <path
-                  d={AUTOPLAY_PROGRESS_PATH}
-                  className="projects-highlight-autoplay-track"
-                  pathLength={1}
-                />
-                <path
-                  key={progressCycle}
-                  d={AUTOPLAY_PROGRESS_PATH}
-                  className="projects-highlight-autoplay-progress"
-                  pathLength={1}
-                  style={{
-                    animationDuration: `${progressDurationMs}ms`,
-                    animationPlayState: isAutoplayTimerRunning ? "running" : "paused",
-                  }}
-                />
-              </svg>
-            </div>
-          </div>
           <div className="projects-highlight-center-controls">
             <button
               type="button"
@@ -329,31 +322,47 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
               <ArrowLeft size={16} aria-hidden="true" />
             </button>
             <div className="projects-highlight-dots" aria-label="Select highlighted project">
-              {projects.map((project, index) => (
-                <button
-                  key={project.id}
-                  type="button"
-                  className={`projects-highlight-dot u-theme-fade-target u-focus-ring-target${
-                    index === selectedIndex ? " projects-highlight-dot--active" : ""
-                  }`}
-                  onClick={() => {
-                    goToIndex(index);
-                  }}
-                  aria-label={`Go to highlighted project ${index + 1}`}
-                  aria-current={index === selectedIndex ? "true" : undefined}
-                >
-                  <svg className="projects-highlight-dot-svg" viewBox="0 0 18 18" aria-hidden="true">
-                    <path
-                      className="projects-highlight-dot-outline"
-                      d={HAND_DRAWN_DOT_PATHS[index % HAND_DRAWN_DOT_PATHS.length] ?? HAND_DRAWN_DOT_PATHS[0]}
-                    />
-                    <path
-                      className="projects-highlight-dot-fill"
-                      d={HAND_DRAWN_DOT_PATHS[index % HAND_DRAWN_DOT_PATHS.length] ?? HAND_DRAWN_DOT_PATHS[0]}
-                    />
-                  </svg>
-                </button>
-              ))}
+              {projects.map((project, index) => {
+                const isDotActive = index === selectedIndex;
+                const dotPath = HAND_DRAWN_DOT_PATHS[index % HAND_DRAWN_DOT_PATHS.length] ?? HAND_DRAWN_DOT_PATHS[0];
+                const shouldAnimateDotProgress = allowAutoplay && total > 1;
+
+                return (
+                  <button
+                    key={project.id}
+                    type="button"
+                    className={`projects-highlight-dot u-theme-fade-target u-focus-ring-target${
+                      isDotActive ? " projects-highlight-dot--active" : ""
+                    }${isDotActive && shouldAnimateDotProgress ? " projects-highlight-dot--active-progress" : ""}${
+                      isDotActive && !shouldAnimateDotProgress ? " projects-highlight-dot--active-static" : ""
+                    }`}
+                    onClick={() => {
+                      goToIndex(index);
+                    }}
+                    aria-label={`Go to highlighted project ${index + 1}`}
+                    aria-current={isDotActive ? "true" : undefined}
+                  >
+                    <svg className="projects-highlight-dot-svg" viewBox="0 0 18 18" aria-hidden="true">
+                      <path className="projects-highlight-dot-outline" d={dotPath} pathLength={1} />
+                      <path
+                        key={
+                          isDotActive && shouldAnimateDotProgress
+                            ? `${project.id}-${dotProgressCycle}-${selectedIndex}`
+                            : `${project.id}-static`
+                        }
+                        className="projects-highlight-dot-progress"
+                        d={dotPath}
+                        pathLength={1}
+                        style={
+                          isDotActive && shouldAnimateDotProgress
+                            ? { animationPlayState: isAutoplayTimerRunning ? "running" : "paused" }
+                            : undefined
+                        }
+                      />
+                    </svg>
+                  </button>
+                );
+              })}
             </div>
             <button
               type="button"
