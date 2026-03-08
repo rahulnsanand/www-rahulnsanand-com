@@ -67,7 +67,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
 
   useEffect(() => {
     if (!emblaApi) {
-      return;
+      return undefined;
     }
 
     const syncSelectedIndex = () => {
@@ -92,8 +92,7 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const updateAllowAutoplay = () => {
-      const isPerfLite = document.documentElement.classList.contains("perf-lite");
-      setAllowAutoplay(!mediaQuery.matches && !isPerfLite);
+      setAllowAutoplay(!mediaQuery.matches);
     };
 
     updateAllowAutoplay();
@@ -110,12 +109,26 @@ export function HighlightedProjectsCarousel({ projects }: HighlightedProjectsCar
     }
 
     if (allowAutoplay && total > 1) {
+      const autoplay = autoplayPluginRef.current;
       shouldRestartDotProgressRef.current = true;
-      autoplayPluginRef.current.play();
-      return;
+      const frame = window.requestAnimationFrame(() => {
+        autoplay.play();
+      });
+      return () => {
+        window.cancelAnimationFrame(frame);
+      };
+    }
+
+    if (total > 1) {
+      autoplayPluginRef.current.stop();
+      shouldRestartDotProgressRef.current = true;
+      setDotProgressCycle((current) => current + 1);
+      setIsAutoplayTimerRunning(false);
+      return undefined;
     }
 
     autoplayPluginRef.current.stop();
+    return undefined;
   }, [allowAutoplay, emblaApi, total]);
 
   useEffect(() => {
