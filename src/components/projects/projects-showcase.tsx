@@ -1,17 +1,19 @@
-import "./projects-showcase.module.css";
-import Link from "next/link";
-import Image from "next/image";
-import { GithubLogo, GlobeHemisphereWest } from "@phosphor-icons/react/dist/ssr";
-import { FooterAccentText } from "@/components/layout/site-footer-accent";
-import { HighlightedProjectsCarousel } from "@/components/projects/highlighted-projects-carousel";
-import { type GithubProject, type HighlightProject } from "@/lib/projects";
+import "./projects-showcase.module.css"
+import Link from "next/link"
+import { GithubLogo, GlobeHemisphereWest } from "@phosphor-icons/react/dist/ssr"
+import { FooterAccentText } from "@/components/layout/site-footer-accent"
+import { HighlightedProjectsCarousel } from "@/components/projects/highlighted-projects-carousel"
+import { type GithubProject, type HighlightProject } from "@/lib/projects"
 
 type ProjectsShowcaseProps = {
-  highlightedProjects: HighlightProject[];
-  otherProjects: GithubProject[];
-};
+  highlightedProjects: HighlightProject[]
+  otherProjects: GithubProject[]
+}
 
-export function ProjectsShowcase({ highlightedProjects, otherProjects }: ProjectsShowcaseProps) {
+export function ProjectsShowcase({
+  highlightedProjects,
+  otherProjects,
+}: ProjectsShowcaseProps) {
   return (
     <section className="projects-page" aria-label="Projects">
       <FooterAccentText text="src/deployed" />
@@ -21,7 +23,9 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
           <h2 id="projects-highlight-heading" className="projects-section-sr-title">
             Highlighted projects
           </h2>
-          <p className="projects-section-copy projects-section-copy--kicker">Projects that make an impact</p>
+          <p className="projects-section-copy projects-section-copy--kicker">
+            Projects that make an impact
+          </p>
         </div>
 
         <HighlightedProjectsCarousel projects={highlightedProjects} />
@@ -38,12 +42,14 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
         </div>
 
         {otherProjects.length === 0 ? (
-          <p className="projects-empty-state">Unable to load repositories from GitHub right now.</p>
+          <p className="projects-empty-state">
+            Unable to load repositories from GitHub right now.
+          </p>
         ) : (
           <ol className="projects-grid" aria-label="Other GitHub repositories">
             {otherProjects.map((project) => (
               <li key={project.id} className="projects-grid-item">
-                <article className="project-card u-theme-fade-target">
+                <article className="project-card u-theme-fade-target u-frosted-surface u-frosted-surface--hoverable">
                   <Link
                     href={project.cardClickUrl}
                     className="project-card-overlay-link u-focus-ring-target"
@@ -51,26 +57,21 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
                     rel="noreferrer noopener"
                     aria-label={`Open ${project.displayTitle} on ${project.cardClickTarget === "website" ? "website" : "GitHub"}`}
                   />
-                  <div className="project-card-media-wrap">
-                    <Image
-                      src={project.previewImageUrl}
-                      alt={`Preview for ${project.displayTitle}`}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="project-card-media"
-                    />
-                  </div>
 
                   <div className="project-card-main">
                     <h3 className="project-card-title">{project.displayTitle}</h3>
-                    <p className="project-card-description">{project.description ?? "Repository on GitHub."}</p>
+                    <p className="project-card-description">
+                      {project.description ?? "Repository on GitHub."}
+                    </p>
                   </div>
 
                   <div className="project-card-links">
                     <Link
                       href={project.htmlUrl}
                       className={`project-card-link project-card-link--icon project-card-link--github u-theme-fade-target u-focus-ring-target${
-                        project.cardClickTarget === "github" ? " project-card-link--active-target" : ""
+                        project.cardClickTarget === "github"
+                          ? " project-card-link--active-target"
+                          : ""
                       }`}
                       target="_blank"
                       rel="noreferrer noopener"
@@ -83,14 +84,20 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
                       <Link
                         href={project.homepage}
                         className={`project-card-link project-card-link--icon project-card-link--website u-theme-fade-target u-focus-ring-target${
-                          project.cardClickTarget === "website" ? " project-card-link--active-target" : ""
+                          project.cardClickTarget === "website"
+                            ? " project-card-link--active-target"
+                            : ""
                         }`}
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`Open ${project.displayTitle} website`}
                         title="Website"
                       >
-                        <GlobeHemisphereWest size={15} weight="duotone" aria-hidden="true" />
+                        <GlobeHemisphereWest
+                          size={15}
+                          weight="duotone"
+                          aria-hidden="true"
+                        />
                       </Link>
                     ) : null}
                   </div>
@@ -101,5 +108,5 @@ export function ProjectsShowcase({ highlightedProjects, otherProjects }: Project
         )}
       </section>
     </section>
-  );
+  )
 }

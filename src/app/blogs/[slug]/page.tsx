@@ -1,44 +1,44 @@
-import "./blog-post-page.module.css";
-import type { Metadata } from "next";
-import Link from "next/link";
-import { FadeInIframe } from "@/components/ui/fade-in-iframe";
-import { FadeInImage } from "@/components/ui/fade-in-image";
-import { ArrowLeft, DevToLogo, MediumLogo } from "@phosphor-icons/react/dist/ssr";
-import { notFound } from "next/navigation";
-import { FooterAccentText } from "@/components/layout/site-footer-accent";
-import { BlogMarkdown } from "@/components/blog/blog-markdown";
-import { BlogShareButton } from "@/components/blog/blog-share-button";
-import { BlogScrollTopButton } from "@/components/blog/blog-scroll-top-button";
-import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog";
-import { formatBlogDate, getBlogMediaImage, parseYouTubeVideoId } from "@/lib/blog-shared";
-import { serializeJsonLd } from "@/lib/json-ld";
+import "./blog-post-page.module.css"
+import type { Metadata } from "next"
+import Link from "next/link"
+import { FadeInIframe } from "@/components/ui/fade-in-iframe"
+import { FadeInImage } from "@/components/ui/fade-in-image"
+import { ArrowLeft, DevToLogo, MediumLogo } from "@phosphor-icons/react/dist/ssr"
+import { notFound } from "next/navigation"
+import { FooterAccentText } from "@/components/layout/site-footer-accent"
+import { BlogMarkdown } from "@/components/blog/blog-markdown"
+import { BlogShareButton } from "@/components/blog/blog-share-button"
+import { BlogScrollTopButton } from "@/components/blog/blog-scroll-top-button"
+import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog"
+import { formatBlogDate, getBlogMediaImage, parseYouTubeVideoId } from "@/lib/blog-shared"
+import { serializeJsonLd } from "@/lib/json-ld"
 
 type BlogPostPageProps = {
-  params: Promise<{ slug: string }>;
-};
+  params: Promise<{ slug: string }>
+}
 
 export async function generateStaticParams() {
-  const posts = await getAllBlogPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  const posts = await getAllBlogPosts()
+  return posts.map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await getBlogPostBySlug(slug);
+  const { slug } = await params
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
     return {
       title: "Blog not found",
-    };
+    }
   }
 
-  const url = `https://www.rahulnsanand.com/blogs/${post.slug}`;
-  const socialImage = getBlogMediaImage(post);
+  const url = `https://www.rahulnsanand.com/blogs/${post.slug}`
+  const socialImage = getBlogMediaImage(post)
   const imageUrl = socialImage
     ? socialImage.startsWith("http")
       ? socialImage
       : `https://www.rahulnsanand.com${socialImage}`
-    : undefined;
+    : undefined
 
   return {
     title: post.title,
@@ -62,21 +62,23 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       description: post.description,
       images: imageUrl ? [imageUrl] : undefined,
     },
-  };
+  }
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
-  const post = await getBlogPostBySlug(slug);
+  const { slug } = await params
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
-    notFound();
+    notFound()
   }
 
-  const mediaImage = getBlogMediaImage(post);
-  const youtubeVideoId = post.youtubeUrl ? parseYouTubeVideoId(post.youtubeUrl) : null;
-  const youtubePoster = youtubeVideoId ? `https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg` : null;
-  const postUrl = `https://www.rahulnsanand.com/blogs/${post.slug}`;
+  const mediaImage = getBlogMediaImage(post)
+  const youtubeVideoId = post.youtubeUrl ? parseYouTubeVideoId(post.youtubeUrl) : null
+  const youtubePoster = youtubeVideoId
+    ? `https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`
+    : null
+  const postUrl = `https://www.rahulnsanand.com/blogs/${post.slug}`
   const blogPostingSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -96,22 +98,31 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     keywords: post.tags.join(", "),
     wordCount: post.wordCount,
     image: mediaImage ?? undefined,
-  };
+  }
 
   return (
     <article className="blog-post-page" aria-labelledby="blog-post-title">
       <FooterAccentText text="read()" />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingSchema) }}
+      />
 
-      <Link href="/blogs" className="blog-post-back-link u-theme-fade-target u-focus-ring-target">
+      <Link
+        href="/blogs"
+        className="blog-post-back-link u-theme-fade-target u-focus-ring-target"
+      >
         <ArrowLeft size={14} weight="duotone" aria-hidden="true" />
         <span>Back to blogs</span>
       </Link>
 
       <div className="blog-post-layout">
-        <div className="blog-post-surface">
+        <div className="blog-post-surface u-frosted-surface">
           {mediaImage || youtubeVideoId ? (
-            <section className="blog-post-video" aria-label={post.youtubeUrl ? "Companion video" : "Cover image"}>
+            <section
+              className="blog-post-video"
+              aria-label={post.youtubeUrl ? "Companion video" : "Cover image"}
+            >
               <div className="blog-post-video-thumb">
                 {youtubeVideoId ? (
                   <FadeInIframe
@@ -155,12 +166,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <span>{`${post.readingTimeMinutes} min read`}</span>
                 <span aria-hidden="true">-</span>
                 <span className="blog-post-meta-author">
-                  <Link href="/about" className="blog-post-meta-author-name u-theme-fade-target u-focus-ring-target">
+                  <Link
+                    href="/about"
+                    className="blog-post-meta-author-name u-theme-fade-target u-focus-ring-target"
+                  >
                     Rahul Anand
                   </Link>
                 </span>
               </div>
-              <div className="blog-post-header-actions" role="group" aria-label="Post sharing actions">
+              <div
+                className="blog-post-header-actions"
+                role="group"
+                aria-label="Post sharing actions"
+              >
                 <BlogShareButton title={post.title} url={postUrl} />
                 {post.mediumUrl ? (
                   <a
@@ -207,6 +225,5 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </aside>
       </div>
     </article>
-  );
+  )
 }
-
