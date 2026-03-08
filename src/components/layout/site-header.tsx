@@ -56,6 +56,7 @@ function NavLinks({
           <li key={item.href}>
             <Link
               href={item.href}
+              prefetch={false}
               className={`site-nav-link u-theme-fade-target u-focus-ring-target${isActive ? " site-nav-link--active" : ""}`}
               aria-current={isActive ? "page" : undefined}
               onClick={(event) => onNavClick(event, item.href)}
@@ -92,6 +93,7 @@ function HeaderNav({ onNavClick, currentPath }: { onNavClick: NavClickHandler; c
     <nav className={`site-nav${isMenuOpen ? " site-nav--menu-open" : ""}`} aria-label="Primary navigation">
       <Link
         href="/"
+        prefetch={false}
         className="site-logo-link u-theme-fade-target u-focus-ring-target"
         aria-label="Rahul NS Anand home"
         onClick={(event) => handleNavClick(event, "/")}

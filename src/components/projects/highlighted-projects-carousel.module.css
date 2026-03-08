@@ -489,10 +489,6 @@
   filter: none;
 }
 
-:global(html.perf-lite .projects-highlight-dot--active-progress .projects-highlight-dot-progress) {
-  animation: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   :global(.project-highlight),
   :global(.projects-highlight-control-button),

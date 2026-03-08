@@ -162,6 +162,34 @@ test("behavior-projects-carousel-autoplay-advances-on-mobile", async ({ page }) 
   expect(laterIndex).not.toBe(initialIndex);
 });
 
+test("behavior-projects-carousel-autoplay-starts-in-perf-lite-mode", async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 900 });
+  await page.addInitScript(() => {
+    localStorage.setItem("perf-mode", "lite");
+  });
+  await gotoWithTheme(page, "/projects", "dark");
+
+  const dotCount = await page.locator(".projects-highlight-dot").count();
+  test.skip(dotCount < 2, "Requires at least 2 highlighted projects.");
+
+  const getActiveDotIndex = async () =>
+    page.evaluate(() => {
+      const dots = Array.from(document.querySelectorAll<HTMLButtonElement>(".projects-highlight-dot"));
+      return dots.findIndex((dot) => dot.getAttribute("aria-current") === "true");
+    });
+
+  const initialIndex = await getActiveDotIndex();
+  await page.waitForTimeout(5600);
+  const laterIndex = await getActiveDotIndex();
+  expect(laterIndex).not.toBe(initialIndex);
+
+  const activeProgress = page.locator(".projects-highlight-dot[aria-current='true'] .projects-highlight-dot-progress");
+  const progressDashoffset = await activeProgress.evaluate((node) =>
+    Number.parseFloat(getComputedStyle(node).strokeDashoffset || "0"),
+  );
+  expect(progressDashoffset).toBeLessThan(0.95);
+});
+
 test("state-blogs-search-active", async ({ page }) => {
   await page.setViewportSize({ width: 1366, height: 900 });
   await gotoWithTheme(page, "/blogs", "dark");
