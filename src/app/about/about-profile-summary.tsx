@@ -1,6 +1,6 @@
-import "./about-profile-summary.module.css";
-import { GlobeHemisphereWest } from "@phosphor-icons/react/dist/ssr";
-import { TbBrandAzure, TbBrandCSharp, TbBrandCss3 } from "react-icons/tb";
+import "./about-profile-summary.module.css"
+import { GlobeHemisphereWest } from "@phosphor-icons/react/dist/ssr"
+import { TbBrandAzure, TbBrandCSharp, TbBrandCss3 } from "react-icons/tb"
 import {
   SiAndroid,
   SiDebian,
@@ -20,10 +20,10 @@ import {
   SiSplunk,
   SiTypescript,
   SiYaml,
-} from "react-icons/si";
-import type { IconType } from "react-icons";
-import { FadeInImage } from "@/components/ui/fade-in-image";
-import { aboutContent } from "@/lib/about";
+} from "react-icons/si"
+import type { IconType } from "react-icons"
+import { FadeInImage } from "@/components/ui/fade-in-image"
+import { aboutContent } from "@/lib/about"
 
 const PowerBiIcon: IconType = ({ className, ...props }) => (
   <svg
@@ -38,7 +38,7 @@ const PowerBiIcon: IconType = ({ className, ...props }) => (
     <rect x="8.5" y="8.6" width="4.1" height="12.4" rx="1.4" />
     <rect x="14" y="6.4" width="4.1" height="14.6" rx="1.4" />
   </svg>
-);
+)
 
 const techGroups = [
   {
@@ -93,14 +93,14 @@ const techGroups = [
       { name: "Dev.to", tone: "devto", icon: SiDevdotto },
     ],
   },
-] as const;
+] as const
 
 export function AboutProfileSummary() {
-  const { profile } = aboutContent;
+  const { profile } = aboutContent
 
   return (
     <div className="about-profile">
-      <div className="about-profile-tech-card">
+      <div className="about-profile-tech-card u-frosted-surface">
         <FadeInImage
           src={profile.avatarUrl}
           alt={`${profile.name} profile photo`}
@@ -137,5 +137,5 @@ export function AboutProfileSummary() {
         </div>
       </div>
     </div>
-  );
+  )
 }

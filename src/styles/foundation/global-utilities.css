@@ -13,3 +13,33 @@
     0 0 0 2px rgb(var(--bg)),
     0 0 0 4px rgb(var(--brand));
 }
+
+.u-frosted-surface {
+  border: 1px solid var(--surface-frost-border);
+  background: var(--surface-frost-bg);
+  box-shadow: var(--surface-frost-shadow);
+  -webkit-backdrop-filter: blur(var(--surface-frost-blur))
+    saturate(var(--surface-frost-saturate));
+  backdrop-filter: blur(var(--surface-frost-blur)) saturate(var(--surface-frost-saturate));
+}
+
+.u-frosted-surface--strong {
+  background: var(--surface-frost-bg-strong);
+}
+
+.u-frosted-surface--hoverable:hover,
+.u-frosted-surface--hoverable:focus-within {
+  border-color: rgb(var(--muted) / 0.5);
+  background: var(--surface-frost-bg-hover);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .u-frosted-surface {
+    background: var(--surface-frost-bg-strong);
+  }
+}
+
+html.perf-lite .u-frosted-surface {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}

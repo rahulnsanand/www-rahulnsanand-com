@@ -1,37 +1,37 @@
-"use client";
+"use client"
 
-import "./blog-dashboard.module.css";
-import { useDeferredValue, useMemo, useState } from "react";
-import Fuse from "fuse.js";
-import Link from "next/link";
-import { ArrowUpRight, MagnifyingGlass } from "@phosphor-icons/react";
-import { FooterAccentText } from "@/components/layout/site-footer-accent";
-import { FadeInImage } from "@/components/ui/fade-in-image";
-import { type BlogPostSummary } from "@/lib/blog";
-import { formatBlogDate, getBlogMediaImage } from "@/lib/blog-shared";
+import "./blog-dashboard.module.css"
+import { useDeferredValue, useMemo, useState } from "react"
+import Fuse from "fuse.js"
+import Link from "next/link"
+import { ArrowUpRight, MagnifyingGlass } from "@phosphor-icons/react"
+import { FooterAccentText } from "@/components/layout/site-footer-accent"
+import { FadeInImage } from "@/components/ui/fade-in-image"
+import { type BlogPostSummary } from "@/lib/blog"
+import { formatBlogDate, getBlogMediaImage } from "@/lib/blog-shared"
 
 type BlogDashboardProps = {
-  posts: BlogPostSummary[];
-};
+  posts: BlogPostSummary[]
+}
 
 function BlogMedia({
   post,
   className,
   priority = false,
 }: {
-  post: Pick<BlogPostSummary, "title" | "coverImage" | "youtubeUrl">;
-  className: string;
-  priority?: boolean;
+  post: Pick<BlogPostSummary, "title" | "coverImage" | "youtubeUrl">
+  className: string
+  priority?: boolean
 }) {
-  const imageSrc = getBlogMediaImage(post);
-  const alt = imageSrc ? `Cover image for ${post.title}` : "";
+  const imageSrc = getBlogMediaImage(post)
+  const alt = imageSrc ? `Cover image for ${post.title}` : ""
 
   if (!imageSrc) {
     return (
       <div className={`${className} blog-media blog-media--fallback`} aria-hidden="true">
         <span>NO PREVIEW</span>
       </div>
-    );
+    )
   }
 
   return (
@@ -45,17 +45,23 @@ function BlogMedia({
       placeholderClassName="blog-media-placeholder"
       priority={priority}
     />
-  );
+  )
 }
 
-function BlogCard({ post, priority = false }: { post: BlogPostSummary; priority?: boolean }) {
+function BlogCard({
+  post,
+  priority = false,
+}: {
+  post: BlogPostSummary
+  priority?: boolean
+}) {
   return (
     <Link
       href={`/blogs/${post.slug}`}
       className="blog-card-shell u-theme-fade-target u-focus-ring-target"
       aria-label={`Read blog: ${post.title}`}
     >
-      <article className="blog-card blog-card--recent">
+      <article className="blog-card blog-card--recent u-frosted-surface u-frosted-surface--hoverable">
         <BlogMedia post={post} className="blog-card-media" priority={priority} />
         <p className="blog-card-meta">
           <span>{formatBlogDate(post.date)}</span>
@@ -73,14 +79,14 @@ function BlogCard({ post, priority = false }: { post: BlogPostSummary; priority?
         </p>
       </article>
     </Link>
-  );
+  )
 }
 
 function BlogRow({ post }: { post: BlogPostSummary }) {
   return (
     <Link
       href={`/blogs/${post.slug}`}
-      className="blog-row-shell u-theme-fade-target u-focus-ring-target"
+      className="blog-row-shell u-theme-fade-target u-focus-ring-target u-frosted-surface u-frosted-surface--hoverable"
       aria-label={`Read blog: ${post.title}`}
     >
       <article className="blog-row">
@@ -100,15 +106,15 @@ function BlogRow({ post }: { post: BlogPostSummary }) {
         </p>
       </article>
     </Link>
-  );
+  )
 }
 
 export function BlogDashboard({ posts }: BlogDashboardProps) {
-  const PREVIOUS_BATCH_SIZE = 5;
-  const [query, setQuery] = useState("");
-  const [visiblePreviousCount, setVisiblePreviousCount] = useState(PREVIOUS_BATCH_SIZE);
-  const deferredQuery = useDeferredValue(query);
-  const normalizedQuery = deferredQuery.trim();
+  const PREVIOUS_BATCH_SIZE = 5
+  const [query, setQuery] = useState("")
+  const [visiblePreviousCount, setVisiblePreviousCount] = useState(PREVIOUS_BATCH_SIZE)
+  const deferredQuery = useDeferredValue(query)
+  const normalizedQuery = deferredQuery.trim()
 
   const fuse = useMemo(
     () =>
@@ -124,18 +130,18 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
           { name: "searchText", weight: 0.3 },
         ],
       }),
-    [posts],
-  );
+    [posts]
+  )
 
   const searchResults = useMemo(() => {
-    if (!normalizedQuery) return posts;
-    return fuse.search(normalizedQuery).map((result) => result.item);
-  }, [fuse, normalizedQuery, posts]);
+    if (!normalizedQuery) return posts
+    return fuse.search(normalizedQuery).map((result) => result.item)
+  }, [fuse, normalizedQuery, posts])
 
-  const recentPosts = normalizedQuery ? searchResults.slice(0, 3) : posts.slice(0, 3);
-  const previousPostsAll = posts.slice(3);
-  const previousPosts = previousPostsAll.slice(0, visiblePreviousCount);
-  const hasMorePreviousPosts = visiblePreviousCount < previousPostsAll.length;
+  const recentPosts = normalizedQuery ? searchResults.slice(0, 3) : posts.slice(0, 3)
+  const previousPostsAll = posts.slice(3)
+  const previousPosts = previousPostsAll.slice(0, visiblePreviousCount)
+  const hasMorePreviousPosts = visiblePreviousCount < previousPostsAll.length
 
   return (
     <section className="blogs-page">
@@ -221,7 +227,9 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
                 <button
                   type="button"
                   className="blogs-load-more-button u-theme-fade-target u-focus-ring-target"
-                  onClick={() => setVisiblePreviousCount((count) => count + PREVIOUS_BATCH_SIZE)}
+                  onClick={() =>
+                    setVisiblePreviousCount((count) => count + PREVIOUS_BATCH_SIZE)
+                  }
                 >
                   Load more blogs
                 </button>
@@ -231,5 +239,5 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
         </>
       )}
     </section>
-  );
+  )
 }

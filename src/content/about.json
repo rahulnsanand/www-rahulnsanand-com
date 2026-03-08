@@ -29,7 +29,7 @@
               "period": "2026 - Present",
               "bullets": [
                 "Founded Lyfie.org to build open-source products that make daily life and workflows simpler, faster, and better.",
-                "Built and shipped a multi-product portfolio from zero: Papyra, Luthor, SantaClaws, and TickTrack.",
+                "Built and shipped a multi-product portfolio from zero: Papyra, Luthor, SantaClaw, and TickTrack.",
                 "Owned product strategy, architecture, UI/UX, engineering, docs, and release execution end-to-end as creator and BDFL.",
                 "Turned complex systems into simple products with fast iteration, strong DX, and real user impact.",
                 "Scaled Lyfie with clear standards, transparent development, and community-first open-source discipline."
@@ -83,7 +83,7 @@
               ]
             },
             {
-              "title": "SantaClaws",
+              "title": "SantaClaw",
               "role": "Local-First Homelab Automation AI Agent",
               "period": "",
               "bullets": [
