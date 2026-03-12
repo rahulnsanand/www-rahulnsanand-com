@@ -19,7 +19,7 @@ export default function NotFound() {
         <div className="nf-glow nf-glow--b" />
         <div className="nf-glow nf-glow--c" />
 
-        <p className="nf-kicker">
+        <p className="nf-kicker u-font-heading">
           Error 404
         </p>
         <h1 id="not-found-title" className="nf-title">
@@ -30,7 +30,7 @@ export default function NotFound() {
           page below.
         </p>
 
-        <div className="nf-pill">
+        <div className="nf-pill u-font-heading">
           <WarningCircle size={16} weight="duotone" />
           <span>NOT_FOUND</span>
           <strong className="nf-pill-code">404</strong>

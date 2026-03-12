@@ -172,7 +172,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
             <h2 id="blogs-results-heading" className="blogs-section-title">
               Search results
             </h2>
-            <p className="blogs-section-copy">{`${searchResults.length} match${searchResults.length === 1 ? "" : "es"}`}</p>
+            <p className="blogs-section-copy u-font-heading">{`${searchResults.length} match${searchResults.length === 1 ? "" : "es"}`}</p>
           </div>
 
           {searchResults.length === 0 ? (

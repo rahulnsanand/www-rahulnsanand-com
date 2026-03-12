@@ -111,7 +111,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
       <FooterAccentText text="connect()" />
       <div className="contact-stack relative z-10">
         <header className="contact-header">
-          <p className="contact-kicker">Contact</p>
+          <p className="contact-kicker u-font-heading">Contact</p>
           <h1 className="contact-title">Let&apos;s build something useful.</h1>
           <p className="contact-copy">
             I&apos;m open to thoughtful product collaborations, engineering opportunities, and conversations around AI,
@@ -181,7 +181,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
         </form>
 
         <div className="contact-socials" aria-label="Social links">
-          <p className="contact-socials-title">Or reach out here:</p>
+          <p className="contact-socials-title u-font-heading">Or reach out here:</p>
           <ul className="contact-socials-list">
             {socialLinks.map((link) => (
               <li key={link.href} className="contact-socials-item">

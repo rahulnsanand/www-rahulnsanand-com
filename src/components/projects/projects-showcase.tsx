@@ -23,7 +23,7 @@ export function ProjectsShowcase({
           <h2 id="projects-highlight-heading" className="projects-section-sr-title">
             Highlighted projects
           </h2>
-          <p className="projects-section-copy projects-section-copy--kicker">
+          <p className="projects-section-copy projects-section-copy--kicker u-font-heading">
             Projects that make an impact
           </p>
         </div>
@@ -36,7 +36,7 @@ export function ProjectsShowcase({
           <h2 id="projects-other-heading" className="projects-section-sr-title">
             Other projects
           </h2>
-          <p className="projects-section-copy projects-section-copy--kicker">
+          <p className="projects-section-copy projects-section-copy--kicker u-font-heading">
             Less glamorous, but part of my journey
           </p>
         </div>
