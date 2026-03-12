@@ -11,10 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `https://www.rahulnsanand.com/blogs/introduction-to-bigdata-for-dummies-module-1-1-31o6`, lastModified: new Date("2026-03-07T19:12:42.997Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/introduction-to-hadoop-for-dummies-module1-2-21bm`, lastModified: new Date("2026-03-07T19:12:46.128Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/introduction-to-hive-for-dummies-module1-3-2pp1`, lastModified: new Date("2026-03-07T19:12:49.339Z"), changeFrequency: "weekly", priority: 0.8 },
+    { url: `https://www.rahulnsanand.com/blogs/luthor-react-editor-stack`, lastModified: new Date("2026-03-12T17:40:59.883Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-07T13:37:22.919Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-03-08T07:53:17.304Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-03-08T07:53:17.304Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-03-12T17:41:03.190Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-03-12T17:41:03.190Z"), changeFrequency: "weekly", priority: 0.7 },
     { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-06T18:38:39.311Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-03-08T07:53:17.304Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-03-12T17:41:03.190Z"), changeFrequency: "weekly", priority: 0.7 },
   ];
 }
