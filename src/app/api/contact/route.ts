@@ -375,7 +375,7 @@ function renderHtmlEmail(params: {
   const metadataRows = renderMetadataRows(params.metadata);
 
   return `
-    <div style="margin:0;padding:24px;background:#eff3f8;font-family:Segoe UI,Helvetica,Arial,sans-serif;color:#1f2937;">
+    <div style="margin:0;padding:24px;background:#eff3f8;font-family:Lato,Georgia,serif;color:#1f2937;">
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #cfd8e3;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(18,38,63,0.08);">
         <tr>
           <td style="padding:18px 24px;border-bottom:1px solid #d6deea;background:linear-gradient(180deg,#edf5ff 0%,#f7fbff 100%);">

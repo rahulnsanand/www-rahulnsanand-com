@@ -4,6 +4,7 @@ import "./root-layout.module.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { FooterAccentProvider, SiteFooterAccent } from "@/components/layout/site-footer-accent";
 import { PageTransition } from "@/components/layout/page-transition";
+import { codeFont, headingFont, textFont } from "@/app/fonts";
 
 const themeInitScript = `
   (() => {
@@ -94,7 +95,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${headingFont.variable} ${textFont.variable} ${codeFont.variable}`}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <noscript>

@@ -12,6 +12,6 @@
   <rect width="1200" height="630" rx="24" fill="url(#bg)"/>
   <rect x="80" y="80" width="1040" height="470" rx="20" fill="#0b1222" stroke="url(#stroke)" stroke-width="2"/>
   <path d="M180 380c90-170 210-230 360-180 140 45 220 25 300-90 55-80 110-115 180-115" stroke="#38bdf8" stroke-opacity=".38" stroke-width="6" stroke-linecap="round"/>
-  <text x="180" y="250" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="700">Project Preview</text>
-  <text x="180" y="315" fill="#94a3b8" font-family="Segoe UI, Arial, sans-serif" font-size="32">Add custom image or demo GIF in src/content/projects.json</text>
+  <text x="180" y="250" fill="#e2e8f0" font-family="Montserrat, Segoe UI, Arial, sans-serif" font-size="58" font-weight="700">Project Preview</text>
+  <text x="180" y="315" fill="#94a3b8" font-family="Lato, Georgia, serif" font-size="32">Add custom image or demo GIF in src/content/projects.json</text>
 </svg>

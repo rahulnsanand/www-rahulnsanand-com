@@ -1,7 +1,12 @@
 :root {
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "SF Pro Text", "Segoe UI", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-heading:
+    var(--font-heading-source), "Montserrat", "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-text:
+    var(--font-text-source), "Lato", "Iowan Old Style", "Georgia", "Times New Roman", serif;
+  --font-code:
+    var(--font-code-source), "JetBrains Mono", "Cascadia Code", "Fira Code", "Consolas", "Menlo",
+    "Monaco", "Courier New", monospace;
+  --font-sans: var(--font-text);
   --bg: 245 245 243;
   --text: 43 43 43;
   --muted: 102 102 108;

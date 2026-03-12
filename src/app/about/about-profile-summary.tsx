@@ -119,7 +119,7 @@ export function AboutProfileSummary() {
         <div className="about-tool-groups" aria-label="Tech tools by category">
           {techGroups.map((group) => (
             <div key={group.category} className="about-tool-group">
-              <p className="about-tool-group-label">{group.category}</p>
+              <p className="about-tool-group-label u-font-heading">{group.category}</p>
               <div className="about-tool-badges">
                 {group.items.map((item) => (
                   <span
