@@ -50,7 +50,10 @@ export function Homepage() {
           </span>
         </h1>
         <p className="home-copy u-theme-fade-target">
-          I build products that feel simple and run like tanks: by day I ship .NET + React systems for global banking and FINCrime teams, and by night I build Lyfie.org and open-source tools people actually use, from zero-lock-in notes and AI-ready editors to local-first automation, always with clean UX, sharp architecture, and boring reliability.
+          TL;DR: I write code, value privacy, and build apps that respect it.
+        </p>
+        <p className="home-copy u-theme-fade-target">
+          I build enterprise platforms for global banking and FINCrime teams as my day job and run Lyfie.org, where I ship open-source software like zero-lock-in notes, AI-friendly editors, and local-first automation with clean UX, sharp architecture, and boring reliability.
         </p>
         <div className="home-cta" aria-label="Primary navigation">
           <Link href="/about" className="home-cta-link u-theme-fade-target u-focus-ring-target">

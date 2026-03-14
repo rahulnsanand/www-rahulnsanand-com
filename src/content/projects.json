@@ -32,42 +32,22 @@
     {
       "repo": "rahulnsanand/www-rahulnsanand-com",
       "title": "www-rahulnsanand-com",
-      "description": "Personal website with blogs, projects, and contact workflows."
+      "description": "My personal website showcasing my work and experience - designed to look like my notebook"
     },
     {
       "repo": "rahulnsanand/SearchIt-Java",
       "title": "SearchIt Java",
-      "description": "Search-related Java implementation and experiments."
-    },
-    {
-      "repo": "rahulnsanand/drowsiness-detection-dlib",
-      "title": "drowsiness-detection-dlib",
-      "description": "Computer vision model for drowsiness detection."
+      "description": " Java project that uses a custom Trie data structure to parse and list all on Zomato"
     },
     {
       "repo": "rahulnsanand/servechat-java",
       "title": "servechat-java",
-      "description": "Chat application implementation in Java."
+      "description": "A high-school project developed to enable chat ability over a common server."
     },
     {
-      "repo": "rahulnsanand/BigData-For-Dummies",
-      "title": "BigData For Dummies",
-      "description": "Learning-oriented content and code for big data concepts."
-    },
-    {
-      "repo": "rahulnsanand/Single-Image-Dehazer---Dark-Channel",
-      "title": "Single Image Dehazer Dark Channel",
-      "description": "Image processing project for dehazing algorithms."
-    },
-    {
-      "repo": "rahulnsanand/servechat-school-version",
-      "title": "servechat-school-version",
-      "description": "School-focused version of the ServeChat application."
-    },
-    {
-      "repo": "rahulnsanand/Java-DataStructures",
-      "title": "Java DataStructures",
-      "description": "Data structures and algorithm implementations in Java."
+      "repo": "rahulnsanand/Zomato-Project",
+      "title": "Zomato Big Data ETL",
+      "description": "Hands on BigData Project building a source to destination ETL pipeline"
     },
     {
       "repo": "rahulnsanand/Face-Recognition",
