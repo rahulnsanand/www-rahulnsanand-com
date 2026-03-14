@@ -114,8 +114,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
           <p className="contact-kicker u-font-heading">Contact</p>
           <h1 className="contact-title">Let&apos;s build something useful.</h1>
           <p className="contact-copy">
-            I&apos;m open to thoughtful product collaborations, engineering opportunities, and conversations around AI,
-            frontend systems, and design-led software.
+            Open to thoughtful collaborations, engineering opportunities, and conversations around Code, Tech, and design-led software.
           </p>
         </header>
 
