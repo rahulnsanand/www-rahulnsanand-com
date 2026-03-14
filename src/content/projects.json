@@ -5,26 +5,26 @@
       "repo": "lyfie-org/santaclaw",
       "title": "SantaClaw",
       "description": "Local-first homelab AI ops agent that monitors infra health and guides safe, human-approved remediation before outages.",
-      "imageUrl": "/projects/project-placeholder.svg"
+      "imageUrl": "/projects/santaclaw.png"
     },
     {
       "repo": "rahulnsanand/TickTrack",
       "title": "TickTrack",
       "description": "Android productivity utility combining counters, parallel and quick timers, and lap stopwatch workflows with portable Drive backups.",
-      "imageUrl": "/projects/project-placeholder.svg"
+      "imageUrl": "/projects/ticktrack.jpg"
     },
     {
       "repo": "lyfie-org/luthor",
       "title": "Luthor",
       "description": "Lexical-based rich text editor ecosystem with preset and headless packages for fast launch and deep customization.",
-      "imageUrl": "/projects/project-placeholder.svg",
+      "imageUrl": "/projects/luthor.png",
       "websiteUrl": "https://luthor.fyi"
     },
     {
       "repo": "lyfie-org/papyra",
       "title": "Papyra",
       "description": "Zero-database, self-hosted notes suite where Markdown stays the source of truth with near-instant sync.",
-      "imageUrl": "/projects/project-placeholder.svg",
+      "imageUrl": "/projects/papyra.png",
       "websiteUrl": "https://papyra.app"
     }
   ],
