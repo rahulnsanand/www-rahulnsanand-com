@@ -36,6 +36,9 @@ const scriptLines: readonly ScriptLine[] = [
   { id: "evolve", text: "evolve", x: 154, y: 430, lineIndex: 2 },
 ];
 
+const mobileScriptDivider = String.fromCharCode(0x25cf);
+const mobileScriptText = ["design", "engineer", "evolve"].join(` ${mobileScriptDivider} `);
+
 function scriptLetterStyle(lineIndex: number, letterIndex: number): CSSProperties {
   const base = 920 + lineIndex * 560;
   const jitterOffsets = [0, 22, 8, 29, 12] as const;
@@ -45,12 +48,44 @@ function scriptLetterStyle(lineIndex: number, letterIndex: number): CSSPropertie
   };
 }
 
+function mobileScriptCharStyle(charIndex: number): CSSProperties {
+  const base = 520;
+  const jitterOffsets = [0, 11, 5, 16, 8] as const;
+  const jitter = jitterOffsets[charIndex % jitterOffsets.length] ?? 0;
+  return {
+    animationDelay: `${base + charIndex * 34 + jitter}ms`,
+  };
+}
+
 export function Homepage() {
   const { profile } = aboutContent;
 
   return (
     <section className="home-page relative">
       <FooterAccentText text="Hello World" />
+      <p className="home-mobile-script" aria-hidden="true">
+        {Array.from(mobileScriptText).map((char, index) => {
+          const isSpace = char === " ";
+          const isDot = char === mobileScriptDivider;
+          const className = [
+            "home-mobile-script-char",
+            isSpace ? "home-mobile-script-space" : "",
+            isDot ? "home-mobile-script-dot" : "",
+          ]
+            .filter(Boolean)
+            .join(" ");
+
+          return (
+            <span
+              key={`mobile-script-char-${index}`}
+              className={className}
+              style={isSpace ? undefined : mobileScriptCharStyle(index)}
+            >
+              {isSpace ? "\u00A0" : char}
+            </span>
+          );
+        })}
+      </p>
       <div className="home-script-bg" aria-hidden="true">
         <svg
           className="home-script-svg"

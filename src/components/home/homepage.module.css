@@ -74,6 +74,28 @@
   animation: home-script-letter-write 430ms cubic-bezier(0.16, 0.82, 0.22, 1) forwards;
 }
 
+:global(.home-mobile-script) {
+  display: none;
+}
+
+:global(.home-mobile-script-char) {
+  display: inline-block;
+  opacity: 0;
+  color: rgb(var(--brand) / 1);
+  animation: home-script-letter-write 430ms cubic-bezier(0.16, 0.82, 0.22, 1) forwards;
+}
+
+:global(.home-mobile-script-space) {
+  width: 0.32em;
+  animation: none;
+  opacity: 1;
+}
+
+:global(.home-mobile-script-dot) {
+  font-size: 0.68em;
+  transform: translateY(-0.08em);
+}
+
 :global(.home-title) {
   font-size: clamp(2.25rem, 8vw, 4.4rem);
   font-weight: 600;
@@ -208,16 +230,33 @@
   }
 
   :global(.home-script-bg) {
-    top: auto;
-    bottom: clamp(7.2rem, 17svh, 10.2rem);
-    right: clamp(-12.8rem, -56vw, -9.8rem);
-    width: clamp(10.2rem, 47vw, 12.8rem);
-    transform: none;
-    opacity: 0.22;
+    display: none;
   }
 
   :global(.home-script-word) {
     font-size: 88px;
+  }
+
+  :global(.home-mobile-script) {
+    position: absolute;
+    top: clamp(0.2rem, 1.4vh, 0.75rem);
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    font-family:
+      var(--font-script-source), "Comic Sans MS", "Comic Neue", "Segoe Print", "Bradley Hand",
+      cursive;
+    font-size: clamp(0.78rem, 2.9vw, 0.94rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: rgb(var(--brand) / 1);
   }
 
   :global(.home-stack) {
@@ -245,9 +284,21 @@
     transform: none;
     filter: none;
   }
+
+  :global(.home-mobile-script-char:not(.home-mobile-script-space)) {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
 
 :global(html.perf-lite .home-script-letter) {
+  animation: home-script-letter-lite 260ms ease-out forwards;
+  filter: none;
+}
+
+:global(html.perf-lite .home-mobile-script-char:not(.home-mobile-script-space)) {
   animation: home-script-letter-lite 260ms ease-out forwards;
   filter: none;
 }
