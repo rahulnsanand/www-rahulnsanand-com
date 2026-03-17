@@ -248,10 +248,7 @@
 }
 
 :global(html.perf-lite .home-script-letter) {
-  animation: none;
-  fill: rgb(var(--brand) / 1);
-  opacity: 1;
-  transform: none;
+  animation: home-script-letter-lite 260ms ease-out forwards;
   filter: none;
 }
 
@@ -280,6 +277,17 @@
   100% {
     opacity: 1;
     filter: blur(0);
+    transform: none;
+  }
+}
+
+@keyframes home-script-letter-lite {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
     transform: none;
   }
 }
