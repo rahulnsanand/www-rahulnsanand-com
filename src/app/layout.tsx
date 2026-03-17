@@ -4,7 +4,7 @@ import "./root-layout.module.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { FooterAccentProvider, SiteFooterAccent } from "@/components/layout/site-footer-accent";
 import { PageTransition } from "@/components/layout/page-transition";
-import { codeFont, headingFont, textFont } from "@/app/fonts";
+import { codeFont, headingFont, scriptFont, textFont } from "@/app/fonts";
 
 const themeInitScript = `
   (() => {
@@ -98,7 +98,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${headingFont.variable} ${textFont.variable} ${codeFont.variable}`}
+      className={`${headingFont.variable} ${textFont.variable} ${codeFont.variable} ${scriptFont.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
