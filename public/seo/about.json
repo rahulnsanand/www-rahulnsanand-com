@@ -31,11 +31,6 @@
           "icon": "devto",
           "href": "https://dev.to/rahulnsanand",
           "label": "Dev.to"
-        },
-        {
-          "icon": "leetcode",
-          "href": "https://leetcode.com/rahulnsanand",
-          "label": "LeetCode"
         }
       ],
       "primaryLinks": [

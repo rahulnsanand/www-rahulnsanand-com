@@ -8,8 +8,7 @@
       { "icon": "youtube", "href": "https://www.youtube.com/@rahulnsanand", "label": "YouTube" },
       { "icon": "linkedin", "href": "https://www.linkedin.com/in/rahulnsanand", "label": "LinkedIn" },
       { "icon": "medium", "href": "https://medium.com/@rahulnsanand", "label": "Medium" },
-      { "icon": "devto", "href": "https://dev.to/rahulnsanand", "label": "Dev.to" },
-      { "icon": "leetcode", "href": "https://leetcode.com/rahulnsanand", "label": "LeetCode" }
+      { "icon": "devto", "href": "https://dev.to/rahulnsanand", "label": "Dev.to" }
     ],
     "primaryLinks": [
       { "href": "/projects", "label": "View Projects" },
