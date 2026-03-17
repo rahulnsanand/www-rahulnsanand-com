@@ -1,4 +1,4 @@
-import { JetBrains_Mono, Lato, Montserrat } from "next/font/google";
+import { Comic_Neue, JetBrains_Mono, Lato, Montserrat } from "next/font/google";
 
 export const headingFont = Montserrat({
   subsets: ["latin"],
@@ -19,4 +19,11 @@ export const codeFont = JetBrains_Mono({
   display: "swap",
   variable: "--font-code-source",
   weight: ["400", "500", "600", "700"],
+});
+
+export const scriptFont = Comic_Neue({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-script-source",
+  weight: ["300", "400", "700"],
 });

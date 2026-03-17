@@ -8,6 +8,7 @@ import {
   MediumLogo,
   YoutubeLogo,
 } from "@phosphor-icons/react/dist/ssr";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 import { aboutContent, type AboutSocialIcon } from "@/lib/about";
@@ -21,12 +22,57 @@ const socialIcons = {
   leetcode: Code,
 } satisfies Record<AboutSocialIcon, typeof GithubLogo>;
 
+type ScriptLine = {
+  id: string;
+  text: string;
+  x: number;
+  y: number;
+  lineIndex: number;
+};
+
+const scriptLines: readonly ScriptLine[] = [
+  { id: "design", text: "design", x: 24, y: 136, lineIndex: 0 },
+  { id: "engineer", text: "engineer", x: 90, y: 286, lineIndex: 1 },
+  { id: "evolve", text: "evolve", x: 154, y: 430, lineIndex: 2 },
+];
+
+function scriptLetterStyle(lineIndex: number, letterIndex: number): CSSProperties {
+  const base = 920 + lineIndex * 560;
+  const jitterOffsets = [0, 22, 8, 29, 12] as const;
+  const jitter = jitterOffsets[letterIndex % jitterOffsets.length] ?? 0;
+  return {
+    animationDelay: `${base + letterIndex * 86 + jitter}ms`,
+  };
+}
+
 export function Homepage() {
   const { profile } = aboutContent;
 
   return (
     <section className="home-page relative">
       <FooterAccentText text="Hello World" />
+      <div className="home-script-bg" aria-hidden="true">
+        <svg
+          className="home-script-svg"
+          viewBox="0 0 760 500"
+          preserveAspectRatio="xMidYMid meet"
+          focusable="false"
+        >
+          {scriptLines.map((line) => (
+            <text key={line.id} className="home-script-word" x={line.x} y={line.y}>
+              {Array.from(line.text).map((letter, letterIndex) => (
+                <tspan
+                  key={`${line.id}-${letterIndex}`}
+                  className="home-script-letter"
+                  style={scriptLetterStyle(line.lineIndex, letterIndex)}
+                >
+                  {letter}
+                </tspan>
+              ))}
+            </text>
+          ))}
+        </svg>
+      </div>
       <div className="home-stack relative z-10">
         <h1 className="home-title">
           I&apos;m{" "}
