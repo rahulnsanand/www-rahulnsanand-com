@@ -70,7 +70,8 @@
 :global(.site-header-floating--visible .site-nav) {
   padding: 0.3rem 0.36rem;
   border-color: rgb(var(--line) / 0.5);
-  background: rgb(var(--bg) / 0.92);
+  background: rgb(var(--bg) / 0.62);
+  backdrop-filter: blur(12px);
   box-shadow:
     0 8px 20px rgb(0 0 0 / 0.12),
     inset 0 1px 0 rgb(255 255 255 / 0.08);
