@@ -31,13 +31,13 @@ type ScriptLine = {
 };
 
 const scriptLines: readonly ScriptLine[] = [
-  { id: "design", text: "design", x: 24, y: 136, lineIndex: 0 },
+  { id: "explore", text: "explore", x: 24, y: 136, lineIndex: 0 },
   { id: "engineer", text: "engineer", x: 90, y: 286, lineIndex: 1 },
   { id: "evolve", text: "evolve", x: 154, y: 430, lineIndex: 2 },
 ];
 
 const mobileScriptDivider = String.fromCharCode(0x25cf);
-const mobileScriptText = ["design", "engineer", "evolve"].join(` ${mobileScriptDivider} `);
+const mobileScriptText = ["explore", "engineer", "evolve"].join(` ${mobileScriptDivider} `);
 
 function scriptLetterStyle(lineIndex: number, letterIndex: number): CSSProperties {
   const base = 920 + lineIndex * 560;
