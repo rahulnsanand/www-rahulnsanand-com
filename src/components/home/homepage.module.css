@@ -97,7 +97,7 @@
 }
 
 :global(.home-title) {
-  font-size: clamp(2.25rem, 8vw, 4.4rem);
+  font-size: clamp(1.5rem, 4.65vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -0.04em;
   text-wrap: balance;
@@ -147,11 +147,15 @@
 
 :global(.home-copy) {
   max-width: min(62ch, 100%);
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-size: clamp(1rem, 1.8vw, 1rem);
   line-height: 1.9;
   text-wrap: balance;
   color: rgb(var(--muted));
   margin: 0;
+}
+
+:global(.home-tldr) {
+  font-size: clamp(1rem, 0.775vw, 0.5rem);
 }
 
 :global(.home-portals) {
