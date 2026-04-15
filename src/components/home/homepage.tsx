@@ -130,7 +130,7 @@ export function Homepage() {
             </svg>
           </span>
         </h1>
-        <p className="home-copy u-theme-fade-target">
+        <p className="home-copy home-tldr u-theme-fade-target">
           TL;DR: I write code, value privacy, and build apps that respect it.
         </p>
         <p className="home-copy u-theme-fade-target">
