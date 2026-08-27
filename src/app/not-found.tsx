@@ -1,52 +1,58 @@
 import Link from "next/link";
-import { ArrowLeft, Compass, House, WarningCircle } from "@phosphor-icons/react/dist/ssr";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Compass,
+  EnvelopeSimple,
+  House,
+  WarningCircle,
+} from "@phosphor-icons/react/dist/ssr";
+import { notFoundContent, type NotFoundLinkIcon } from "@/lib/not-found-content";
 
-const quickLinks = [
-  { href: "/", label: "Back Home", icon: House },
-  { href: "/projects", label: "See Projects", icon: Compass },
-  { href: "/contact", label: "Contact", icon: ArrowLeft },
-] as const;
+const linkIcons = {
+  house: House,
+  compass: Compass,
+  "arrow-left": ArrowLeft,
+  "arrow-up-right": ArrowUpRight,
+  envelope: EnvelopeSimple,
+} satisfies Record<NotFoundLinkIcon, typeof House>;
 
 export default function NotFound() {
   return (
     <section className="nf-page" aria-labelledby="not-found-title">
-      <div className="nf-code-bg">
-        404
-      </div>
+      <div className="nf-code-bg">{notFoundContent.backgroundCode}</div>
 
       <div className="nf-panel">
         <div className="nf-glow nf-glow--a" />
         <div className="nf-glow nf-glow--b" />
         <div className="nf-glow nf-glow--c" />
 
-        <p className="nf-kicker u-font-heading">
-          Error 404
-        </p>
+        <p className="nf-kicker u-font-heading">{notFoundContent.kicker}</p>
         <h1 id="not-found-title" className="nf-title">
-          Page not found
+          {notFoundContent.title}
         </h1>
-        <p className="nf-copy">
-          The path you opened does not exist or may have moved. Jump to a valid
-          page below.
-        </p>
+        <p className="nf-copy">{notFoundContent.copy}</p>
 
         <div className="nf-pill u-font-heading">
           <WarningCircle size={16} weight="duotone" />
-          <span>NOT_FOUND</span>
-          <strong className="nf-pill-code">404</strong>
+          <span>{notFoundContent.pillLabel}</span>
+          <strong className="nf-pill-code">{notFoundContent.pillCode}</strong>
         </div>
 
         <nav className="nf-links" aria-label="Helpful links">
-          {quickLinks.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="nf-link u-theme-fade-target u-focus-ring-target"
-            >
-              <item.icon size={16} weight="duotone" aria-hidden="true" />
-              <span>{item.label}</span>
-            </Link>
-          ))}
+          {notFoundContent.links.map((item) => {
+            const Icon = linkIcons[item.icon] ?? House;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="nf-link u-theme-fade-target u-focus-ring-target"
+              >
+                <Icon size={16} weight="duotone" aria-hidden="true" />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </section>

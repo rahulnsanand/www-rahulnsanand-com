@@ -1,11 +1,12 @@
 {
-  "generatedAt": "2026-04-15T02:58:02.836Z",
+  "generatedAt": "2026-08-27T12:40:32.835Z",
   "siteUrl": "https://www.rahulnsanand.com",
   "about": {
     "profile": {
       "name": "Rahul NS Anand",
       "headline": "just another engineer",
       "avatarUrl": "https://github.com/rahulnsanand.png",
+      "timezone": "Asia/Bangalore",
       "socialLinks": [
         {
           "icon": "github",

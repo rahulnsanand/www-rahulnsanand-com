@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "title": "Blogs",
+    "description": "Engineering notes by Rahul NS Anand, featuring the latest three posts and an archive of earlier writing."
+  },
+  "footerAccent": "publish()",
+  "srTitle": "Blogs",
+  "searchPlaceholder": "Search blogs...",
+  "searchAriaLabel": "Search blog posts",
+  "recentHeading": "Recent blogs",
+  "previousHeading": "Previous blogs",
+  "searchResultsHeading": "Search results",
+  "emptyState": "No posts matched your query. Try searching with a broader keyword.",
+  "loadMoreLabel": "Load more blogs",
+  "readMoreLabel": "Read full blog",
+  "noPreviewLabel": "NO PREVIEW",
+  "authorName": "Rahul Anand",
+  "post": {
+    "footerAccent": "read()",
+    "backLabel": "Back to blogs",
+    "notFoundTitle": "Blog not found"
+  }
+}

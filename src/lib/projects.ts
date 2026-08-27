@@ -53,7 +53,20 @@ type ProjectConfig = {
   cardClickTarget?: unknown;
 };
 
+export type ProjectsPageCopy = {
+  meta: { title: string; description: string };
+  footerAccent: string;
+  highlightedHeading: string;
+  highlightedKicker: string;
+  otherHeading: string;
+  otherKicker: string;
+  emptyState: string;
+  fallbackDescription: string;
+};
+
 const CONFIG_RECORD = projectsConfig as Record<string, unknown>;
+
+export const projectsPageCopy = projectsConfig as unknown as ProjectsPageCopy;
 const PLACEHOLDER_IMAGE_URL = "/projects/project-placeholder.svg";
 const DEFAULT_UPDATED_AT = "2026-03-06T00:00:00.000Z";
 const REPO_REFERENCE_REGEX = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
@@ -149,7 +162,7 @@ function toProjectBase(item: unknown): GithubProject | null {
   if (!repoInfo) return null;
 
   const title = normalizeText(config.title, 160) || toDisplayTitle(repoInfo.name);
-  const description = normalizeText(config.description, 400) || "Open-source project by Rahul NS Anand.";
+  const description = normalizeText(config.description, 400) || projectsPageCopy.fallbackDescription;
   const githubUrl = sanitizeExternalUrl(config.githubUrl) ?? `https://github.com/${repoInfo.fullName}`;
   const websiteUrl = sanitizeExternalUrl(config.websiteUrl);
   const youtubeUrl = sanitizeExternalUrl(config.youtubeUrl);

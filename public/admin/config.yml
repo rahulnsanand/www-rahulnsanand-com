@@ -1,0 +1,408 @@
+# Sveltia CMS configuration.
+# Docs: https://sveltiacms.app/en/docs
+#
+# Nothing secret belongs in this file. The OAuth client ID and secret live only in the hosting
+# environment and are read by /api/oauth/auth and /api/oauth/callback.
+
+backend:
+  name: github
+  repo: rahulnsanand/www-rahulnsanand-com
+  branch: main
+  # The OAuth handshake is served by this site itself, so no third-party auth service is involved.
+  base_url: https://www.rahulnsanand.com
+  auth_endpoint: api/oauth/auth
+  # The repository is public, so a contributor never has to grant access to their private repos.
+  auth_scope: public_repo
+  site_domain: www.rahulnsanand.com
+  commit_messages:
+    create: 'content: create {{collection}} "{{slug}}"'
+    update: 'content: update {{collection}} "{{slug}}"'
+    delete: 'content: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'content: upload "{{path}}"'
+    deleteMedia: 'content: delete "{{path}}"'
+
+site_url: https://www.rahulnsanand.com
+display_url: https://www.rahulnsanand.com
+# Relative so the logo resolves against whichever origin the CMS is served from.
+logo_url: /logo-light.png
+
+# Default upload target. Collections that store images elsewhere override this per field.
+media_folder: public/blog-covers
+public_folder: /blog-covers
+
+collections:
+  - name: blog
+    label: Blog posts
+    label_singular: Blog post
+    description: Markdown posts rendered at /blogs/<file name>.
+    folder: src/content/blog
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    slug: '{{slug}}'
+    preview_path: blogs/{{slug}}
+    summary: '{{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - {
+          name: description,
+          label: Description,
+          widget: text,
+          hint: Shown on cards, in search results and in social previews.,
+        }
+      - {
+          name: date,
+          label: Publish date,
+          widget: datetime,
+          date_format: 'YYYY-MM-DD',
+          time_format: false,
+          picker_utc: true,
+          format: 'YYYY-MM-DD',
+        }
+      - { name: tags, label: Tags, widget: list, default: [], allow_add: true }
+      - {
+          name: coverImage,
+          label: Cover image,
+          widget: image,
+          required: false,
+          media_folder: /public/blog-covers,
+          public_folder: /blog-covers,
+        }
+      - {
+          name: youtubeUrl,
+          label: YouTube URL,
+          widget: string,
+          required: false,
+          hint: Optional companion video. Used as the cover when no cover image is set.,
+        }
+      - { name: mediumUrl, label: Medium URL, widget: string, required: false }
+      - { name: devtoUrl, label: Dev.to URL, widget: string, required: false }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: pages
+    label: Pages
+    description: Every piece of copy on the site, one entry per page.
+    files:
+      - name: site
+        label: Site & navigation
+        file: src/content/site.json
+        description: Name, canonical URL, SEO defaults, header navigation and the footer line.
+        fields:
+          - { name: name, label: Full name, widget: string }
+          - { name: shortName, label: Short name, widget: string }
+          - {
+              name: url,
+              label: Site URL,
+              widget: string,
+              hint: Canonical origin without a trailing slash.,
+            }
+          - { name: defaultTitle, label: Default page title, widget: string }
+          - {
+              name: titleTemplate,
+              label: Title template,
+              widget: string,
+              hint: The literal %s is replaced with the page title.,
+            }
+          - { name: defaultDescription, label: Default meta description, widget: text }
+          - { name: logoAlt, label: Logo alt text, widget: string }
+          - { name: homeAriaLabel, label: Home link aria-label, widget: string }
+          - name: nav
+            label: Header navigation
+            widget: list
+            summary: '{{fields.label}} -> {{fields.href}}'
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: href, label: Path, widget: string }
+          - name: footer
+            label: Footer
+            widget: object
+            fields:
+              - { name: licenseLabel, label: Licence label, widget: string }
+              - { name: domainLabel, label: Domain label, widget: string }
+
+      - name: home
+        label: Home page
+        file: src/content/home.json
+        fields:
+          - name: meta
+            label: SEO
+            widget: object
+            fields:
+              - { name: description, label: Meta description, widget: text }
+          - { name: footerAccent, label: Footer accent text, widget: string }
+          - {
+              name: backgroundWords,
+              label: Handwritten background words,
+              widget: list,
+              allow_add: true,
+              hint: Drawn diagonally behind the intro. Three words fit best.,
+            }
+          - {
+              name: titlePrefix,
+              label: Title prefix,
+              widget: string,
+              hint: Rendered immediately before the highlighted name.,
+            }
+          - { name: name, label: Highlighted name, widget: string }
+          - { name: tldr, label: TL;DR line, widget: text }
+          - { name: intro, label: Intro paragraph, widget: text }
+          - { name: ctaLabel, label: CTA label, widget: string }
+          - { name: ctaHref, label: CTA path, widget: string }
+
+      - name: about
+        label: About page
+        file: src/content/about.json
+        description: Profile, tech stack badges and every experience entry.
+        fields:
+          - name: meta
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: Page title, widget: string }
+              - { name: description, label: Meta description, widget: text }
+          - { name: footerAccent, label: Footer accent text, widget: string }
+          - name: profile
+            label: Profile
+            widget: object
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: headline, label: Headline, widget: string }
+              - { name: avatarUrl, label: Avatar URL, widget: string }
+              - { name: timezone, label: Timezone label, widget: string }
+              - name: socialLinks
+                label: Social links
+                widget: list
+                summary: '{{fields.label}}'
+                fields:
+                  - {
+                      name: icon,
+                      label: Icon,
+                      widget: select,
+                      options: [github, youtube, linkedin, medium, devto, leetcode],
+                    }
+                  - { name: href, label: URL, widget: string }
+                  - { name: label, label: Label, widget: string }
+              - name: primaryLinks
+                label: Primary links
+                widget: list
+                summary: '{{fields.label}}'
+                hint: Used by the generated SEO and LLM indexes.
+                fields:
+                  - { name: href, label: Path, widget: string }
+                  - { name: label, label: Label, widget: string }
+          - name: techGroups
+            label: Tech stack
+            widget: list
+            summary: '{{fields.category}}'
+            fields:
+              - { name: category, label: Category, widget: string }
+              - name: items
+                label: Tools
+                widget: list
+                summary: '{{fields.name}}'
+                fields:
+                  - { name: name, label: Tooltip name, widget: string }
+                  - name: tool
+                    label: Icon and colour
+                    widget: select
+                    options:
+                      - android
+                      - azure
+                      - csharp
+                      - css3
+                      - debian
+                      - devto
+                      - docker
+                      - dotnet
+                      - figma
+                      - firebase
+                      - git
+                      - java
+                      - mariadb
+                      - medium
+                      - nginx
+                      - node
+                      - powerbi
+                      - react
+                      - shell
+                      - splunk
+                      - sql
+                      - typescript
+                      - yaml
+          - name: sections
+            label: Sections
+            widget: list
+            summary: '{{fields.heading}}'
+            hint: Each section is a heading such as Roles or Builds.
+            fields:
+              - { name: heading, label: Section heading, widget: string }
+              - name: groups
+                label: Groups
+                widget: list
+                fields:
+                  - { name: heading, label: Group heading, widget: string, required: false }
+                  - name: items
+                    label: Entries
+                    widget: list
+                    summary: '{{fields.title}} - {{fields.role}}'
+                    fields:
+                      - { name: title, label: Title, widget: string }
+                      - { name: role, label: Role or organisation, widget: string }
+                      - { name: period, label: Period, widget: string, required: false }
+                      - { name: bullets, label: Bullets, widget: list, allow_add: true }
+
+      - name: projects
+        label: Projects page
+        file: src/content/projects.json
+        fields:
+          - name: meta
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: Page title, widget: string }
+              - { name: description, label: Meta description, widget: text }
+          - { name: footerAccent, label: Footer accent text, widget: string }
+          - { name: highlightedHeading, label: Highlighted heading, widget: string }
+          - { name: highlightedKicker, label: Highlighted kicker, widget: string }
+          - { name: otherHeading, label: Other projects heading, widget: string }
+          - { name: otherKicker, label: Other projects kicker, widget: string }
+          - { name: emptyState, label: Empty state copy, widget: string }
+          - { name: fallbackDescription, label: Fallback project description, widget: string }
+          - {
+              name: defaultCardClickTarget,
+              label: Default card click target,
+              widget: select,
+              options: [github, website],
+            }
+          - name: highlightedProjects
+            label: Highlighted projects
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { name: repo, label: Repository (owner/name), widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: description, label: Description, widget: text }
+              - {
+                  name: imageUrl,
+                  label: Preview image,
+                  widget: image,
+                  required: false,
+                  media_folder: /public/projects,
+                  public_folder: /projects,
+                }
+              - { name: websiteUrl, label: Website URL, widget: string, required: false }
+              - { name: youtubeUrl, label: YouTube URL, widget: string, required: false }
+              - { name: blogUrl, label: Blog URL, widget: string, required: false }
+              - { name: demoGifUrl, label: Demo GIF URL, widget: string, required: false }
+              - {
+                  name: cardClickTarget,
+                  label: Card click target,
+                  widget: select,
+                  options: [github, website],
+                  required: false,
+                }
+          - name: otherProjects
+            label: Other projects
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { name: repo, label: Repository (owner/name), widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: description, label: Description, widget: text }
+              - {
+                  name: imageUrl,
+                  label: Preview image,
+                  widget: image,
+                  required: false,
+                  media_folder: /public/projects,
+                  public_folder: /projects,
+                }
+              - { name: websiteUrl, label: Website URL, widget: string, required: false }
+              - {
+                  name: cardClickTarget,
+                  label: Card click target,
+                  widget: select,
+                  options: [github, website],
+                  required: false,
+                }
+
+      - name: blogs_page
+        label: Blogs index page
+        file: src/content/blogs-page.json
+        description: Headings, search and button copy on /blogs plus the shared post page labels.
+        fields:
+          - name: meta
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: Page title, widget: string }
+              - { name: description, label: Meta description, widget: text }
+          - { name: footerAccent, label: Footer accent text, widget: string }
+          - { name: srTitle, label: Screen-reader page title, widget: string }
+          - { name: searchPlaceholder, label: Search placeholder, widget: string }
+          - { name: searchAriaLabel, label: Search aria-label, widget: string }
+          - { name: recentHeading, label: Recent posts heading, widget: string }
+          - { name: previousHeading, label: Previous posts heading, widget: string }
+          - { name: searchResultsHeading, label: Search results heading, widget: string }
+          - { name: emptyState, label: No results copy, widget: text }
+          - { name: loadMoreLabel, label: Load more label, widget: string }
+          - { name: readMoreLabel, label: Read more label, widget: string }
+          - { name: noPreviewLabel, label: Missing cover label, widget: string }
+          - { name: authorName, label: Byline, widget: string }
+          - name: post
+            label: Post page
+            widget: object
+            fields:
+              - { name: footerAccent, label: Footer accent text, widget: string }
+              - { name: backLabel, label: Back link label, widget: string }
+              - { name: notFoundTitle, label: Not-found title, widget: string }
+
+      - name: contact
+        label: Contact page
+        file: src/content/contact.json
+        fields:
+          - name: meta
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: Page title, widget: string }
+              - { name: description, label: Meta description, widget: text }
+          - { name: footerAccent, label: Footer accent text, widget: string }
+          - { name: kicker, label: Kicker, widget: string }
+          - { name: title, label: Title, widget: string }
+          - { name: copy, label: Intro copy, widget: text }
+          - { name: emailLabel, label: Email field label, widget: string }
+          - { name: emailPlaceholder, label: Email placeholder, widget: string }
+          - { name: messageLabel, label: Message field label, widget: string }
+          - { name: messagePlaceholder, label: Message placeholder, widget: text }
+          - { name: submitLabel, label: Submit label, widget: string }
+          - { name: sendingLabel, label: Sending label, widget: string }
+          - { name: idleStatus, label: Idle status line, widget: string }
+          - { name: successStatus, label: Success status line, widget: string }
+          - { name: socialsTitle, label: Socials heading, widget: string }
+
+      - name: not_found
+        label: 404 page
+        file: src/content/not-found.json
+        fields:
+          - { name: backgroundCode, label: Background code, widget: string }
+          - { name: kicker, label: Kicker, widget: string }
+          - { name: title, label: Title, widget: string }
+          - { name: copy, label: Copy, widget: text }
+          - { name: pillLabel, label: Pill label, widget: string }
+          - { name: pillCode, label: Pill code, widget: string }
+          - name: links
+            label: Quick links
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: href, label: Path, widget: string }
+              - {
+                  name: icon,
+                  label: Icon,
+                  widget: select,
+                  options: [house, compass, arrow-left, arrow-up-right, envelope],
+                }

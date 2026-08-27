@@ -1,0 +1,21 @@
+{
+  "name": "Rahul NS Anand",
+  "shortName": "Rahul Anand",
+  "url": "https://www.rahulnsanand.com",
+  "defaultTitle": "Rahul NS Anand",
+  "titleTemplate": "%s | Rahul NS Anand",
+  "defaultDescription": "Rahul NS Anand — Software Engineer 2. Open-source contributor. Building AI + personal data tools (Lyfie, Luthor). Blogs, projects, and profiles.",
+  "logoAlt": "Rahul NS Anand logo",
+  "homeAriaLabel": "Rahul NS Anand home",
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "About", "href": "/about" },
+    { "label": "Projects", "href": "/projects" },
+    { "label": "Blogs", "href": "/blogs" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "footer": {
+    "licenseLabel": "GNU AGPL V3",
+    "domainLabel": "rahulnsanand.com"
+  }
+}

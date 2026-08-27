@@ -7,6 +7,7 @@ import {
   SiDevdotto,
   SiDocker,
   SiDotnet,
+  SiFigma,
   SiFirebase,
   SiGit,
   SiGnubash,
@@ -40,63 +41,39 @@ const PowerBiIcon: IconType = ({ className, ...props }) => (
   </svg>
 )
 
-const techGroups = [
-  {
-    category: "Language",
-    items: [
-      { name: "C Sharp", tone: "csharp", icon: TbBrandCSharp },
-      { name: "Java", tone: "java", icon: SiOpenjdk },
-      { name: "SQL", tone: "sql", icon: SiMysql },
-      { name: "TypeScript", tone: "typescript", icon: SiTypescript },
-      { name: "CSS3", tone: "css3", icon: TbBrandCss3 },
-    ],
-  },
-  {
-    category: "Framework",
-    items: [
-      { name: "React", tone: "react", icon: SiReact },
-      { name: ".NET", tone: "dotnet", icon: SiDotnet },
-    ],
-  },
-  {
-    category: "Cloud",
-    items: [
-      { name: "Microsoft Azure", tone: "azure", icon: TbBrandAzure },
-      { name: "Firebase", tone: "firebase", icon: SiFirebase },
-    ],
-  },
-  {
-    category: "DevOps",
-    items: [
-      { name: "Docker", tone: "docker", icon: SiDocker },
-      { name: "Nginx", tone: "nginx", icon: SiNginx },
-      { name: "Git", tone: "git", icon: SiGit },
-      { name: "Shell Script", tone: "shell", icon: SiGnubash },
-      { name: "YAML", tone: "yaml", icon: SiYaml },
-      { name: "Debian", tone: "debian", icon: SiDebian },
-    ],
-  },
-  {
-    category: "Platform",
-    items: [
-      { name: "Android", tone: "android", icon: SiAndroid },
-      { name: "Node.js", tone: "node", icon: SiNodedotjs },
-      { name: "Power BI", tone: "powerbi", icon: PowerBiIcon },
-      { name: "Splunk", tone: "splunk", icon: SiSplunk },
-      { name: "MariaDB", tone: "mariadb", icon: SiMariadb },
-    ],
-  },
-  {
-    category: "Community",
-    items: [
-      { name: "Medium", tone: "medium", icon: SiMedium },
-      { name: "Dev.to", tone: "devto", icon: SiDevdotto },
-    ],
-  },
-] as const
+/**
+ * Icons available to the `tool` field of `about.json > techGroups`. The key doubles as the
+ * `about-tool-badge--<tool>` colour class, so adding an entry here requires a matching rule in
+ * `about-profile-summary.module.css`.
+ */
+const toolIcons: Record<string, IconType> = {
+  csharp: TbBrandCSharp,
+  java: SiOpenjdk,
+  sql: SiMysql,
+  typescript: SiTypescript,
+  css3: TbBrandCss3,
+  react: SiReact,
+  dotnet: SiDotnet,
+  azure: TbBrandAzure,
+  firebase: SiFirebase,
+  docker: SiDocker,
+  nginx: SiNginx,
+  git: SiGit,
+  shell: SiGnubash,
+  yaml: SiYaml,
+  debian: SiDebian,
+  android: SiAndroid,
+  node: SiNodedotjs,
+  powerbi: PowerBiIcon,
+  splunk: SiSplunk,
+  mariadb: SiMariadb,
+  medium: SiMedium,
+  devto: SiDevdotto,
+  figma: SiFigma,
+}
 
 export function AboutProfileSummary() {
-  const { profile } = aboutContent
+  const { profile, techGroups } = aboutContent
 
   return (
     <div className="about-profile">
@@ -113,7 +90,7 @@ export function AboutProfileSummary() {
         />
         <div className="about-timezone" aria-label={`${profile.name} timezone`}>
           <GlobeHemisphereWest size={16} weight="duotone" aria-hidden="true" />
-          <span>Asia/Bangalore</span>
+          <span>{profile.timezone}</span>
         </div>
 
         <div className="about-tool-groups" aria-label="Tech tools by category">
@@ -121,16 +98,21 @@ export function AboutProfileSummary() {
             <div key={group.category} className="about-tool-group">
               <p className="about-tool-group-label u-font-heading">{group.category}</p>
               <div className="about-tool-badges">
-                {group.items.map((item) => (
-                  <span
-                    key={item.name}
-                    className={`about-tool-badge about-tool-badge--${item.tone}`}
-                    data-tooltip={item.name}
-                    aria-label={`${item.name} in ${group.category}`}
-                  >
-                    <item.icon className="about-tool-icon" aria-hidden="true" />
-                  </span>
-                ))}
+                {group.items.map((item) => {
+                  const Icon = toolIcons[item.tool]
+                  if (!Icon) return null
+
+                  return (
+                    <span
+                      key={`${group.category}-${item.tool}`}
+                      className={`about-tool-badge about-tool-badge--${item.tool}`}
+                      data-tooltip={item.name}
+                      aria-label={`${item.name} in ${group.category}`}
+                    >
+                      <Icon className="about-tool-icon" aria-hidden="true" />
+                    </span>
+                  )
+                })}
               </div>
             </div>
           ))}

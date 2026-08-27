@@ -12,6 +12,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 import { aboutContent, type AboutSocialIcon } from "@/lib/about";
+import { homeContent } from "@/lib/home";
 
 const socialIcons = {
   github: GithubLogo,
@@ -22,22 +23,15 @@ const socialIcons = {
   leetcode: Code,
 } satisfies Record<AboutSocialIcon, typeof GithubLogo>;
 
-type ScriptLine = {
-  id: string;
-  text: string;
-  x: number;
-  y: number;
-  lineIndex: number;
-};
-
-const scriptLines: readonly ScriptLine[] = [
-  { id: "explore", text: "explore", x: 24, y: 136, lineIndex: 0 },
-  { id: "engineer", text: "engineer", x: 90, y: 286, lineIndex: 1 },
-  { id: "evolve", text: "evolve", x: 154, y: 430, lineIndex: 2 },
-];
+// The handwritten background words are laid out on a fixed 760x500 canvas, stepping right and down
+// per line so any number of words configured in `home.json` stays inside the artboard.
+const SCRIPT_ORIGIN_X = 24;
+const SCRIPT_ORIGIN_Y = 136;
+const SCRIPT_STEP_X = 65;
+const SCRIPT_STEP_Y = 147;
 
 const mobileScriptDivider = String.fromCharCode(0x25cf);
-const mobileScriptText = ["explore", "engineer", "evolve"].join(` ${mobileScriptDivider} `);
+const mobileScriptText = homeContent.backgroundWords.join(` ${mobileScriptDivider} `);
 
 function scriptLetterStyle(lineIndex: number, letterIndex: number): CSSProperties {
   const base = 920 + lineIndex * 560;
@@ -62,7 +56,7 @@ export function Homepage() {
 
   return (
     <section className="home-page relative">
-      <FooterAccentText text="Hello World" />
+      <FooterAccentText text={homeContent.footerAccent} />
       <p className="home-mobile-script" aria-hidden="true">
         {Array.from(mobileScriptText).map((char, index) => {
           const isSpace = char === " ";
@@ -93,13 +87,18 @@ export function Homepage() {
           preserveAspectRatio="xMidYMid meet"
           focusable="false"
         >
-          {scriptLines.map((line) => (
-            <text key={line.id} className="home-script-word" x={line.x} y={line.y}>
-              {Array.from(line.text).map((letter, letterIndex) => (
+          {homeContent.backgroundWords.map((word, lineIndex) => (
+            <text
+              key={`${word}-${lineIndex}`}
+              className="home-script-word"
+              x={SCRIPT_ORIGIN_X + lineIndex * SCRIPT_STEP_X}
+              y={SCRIPT_ORIGIN_Y + lineIndex * SCRIPT_STEP_Y}
+            >
+              {Array.from(word).map((letter, letterIndex) => (
                 <tspan
-                  key={`${line.id}-${letterIndex}`}
+                  key={`${word}-${lineIndex}-${letterIndex}`}
                   className="home-script-letter"
-                  style={scriptLetterStyle(line.lineIndex, letterIndex)}
+                  style={scriptLetterStyle(lineIndex, letterIndex)}
                 >
                   {letter}
                 </tspan>
@@ -110,9 +109,9 @@ export function Homepage() {
       </div>
       <div className="home-stack relative z-10">
         <h1 className="home-title">
-          I&apos;m{" "}
+          {homeContent.titlePrefix}{" "}
           <span className="home-name">
-            Rahul Anand
+            {homeContent.name}
             <svg
               className="home-name-underline"
               viewBox="0 0 460 56"
@@ -130,16 +129,14 @@ export function Homepage() {
             </svg>
           </span>
         </h1>
-        <p className="home-copy home-tldr u-theme-fade-target">
-          TL;DR: I write code, value privacy, and build apps that respect it.
-        </p>
-        <p className="home-copy u-theme-fade-target">
-          I build enterprise platforms for global banking and FINCrime teams as my day job and run Lyfie.org, where I ship open-source software like zero-lock-in notes, AI-friendly editors, and local-first automation with clean UX, sharp architecture, and boring reliability.
-        </p>
+        <p className="home-copy home-tldr u-theme-fade-target">{homeContent.tldr}</p>
+        <p className="home-copy u-theme-fade-target">{homeContent.intro}</p>
         <div className="home-cta" aria-label="Primary navigation">
-          <Link href="/about" className="home-cta-link u-theme-fade-target u-focus-ring-target">
-            see more about me{" "}
-            <ArrowUpRight size={16} weight="duotone" aria-hidden="true" />
+          <Link
+            href={homeContent.ctaHref}
+            className="home-cta-link u-theme-fade-target u-focus-ring-target"
+          >
+            {homeContent.ctaLabel} <ArrowUpRight size={16} weight="duotone" aria-hidden="true" />
           </Link>
         </div>
         <div className="home-portals" aria-label="Digital portals">

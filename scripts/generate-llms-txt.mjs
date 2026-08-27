@@ -1,5 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { parseFrontmatter, readString, readStringList } from "./lib/frontmatter.mjs";
+import { resolveSiteUrl } from "./lib/site-url.mjs";
 
 const ROOT = process.cwd();
 const BLOG_CONTENT_DIR = path.join(ROOT, "src", "content", "blog");
@@ -11,67 +13,30 @@ const OUTPUT_LLM_FULL_FILE = path.join(PUBLIC_DIR, "llms-full.txt");
 const OUTPUT_CONTENT_INDEX_FILE = path.join(SEO_DIR, "content-index.json");
 const OUTPUT_BLOG_INDEX_FILE = path.join(SEO_DIR, "blogs.json");
 const OUTPUT_ABOUT_INDEX_FILE = path.join(SEO_DIR, "about.json");
-const FALLBACK_BASE_URL = "https://www.rahulnsanand.com";
 
-function parseFrontmatter(raw) {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
-  if (!match) {
-    throw new Error("Missing or invalid frontmatter block.");
-  }
+function readPostFrontmatter(raw) {
+  const { frontmatter, body } = parseFrontmatter(raw);
 
-  const [, frontmatterRaw, bodyRaw] = match;
-  const frontmatter = {};
-  let activeArrayKey = null;
+  const title = readString(frontmatter, "title");
+  const description = readString(frontmatter, "description");
+  const date = readString(frontmatter, "date");
 
-  for (const line of frontmatterRaw.split(/\r?\n/)) {
-    if (!line.trim()) continue;
-
-    const listItemMatch = line.match(/^\s*-\s+(.+)$/);
-    if (listItemMatch && activeArrayKey === "tags") {
-      const value = listItemMatch[1]?.trim().replace(/^["']|["']$/g, "");
-      if (!value) continue;
-      if (!frontmatter.tags) frontmatter.tags = [];
-      frontmatter.tags.push(value);
-      continue;
-    }
-
-    const keyValueMatch = line.match(/^([a-zA-Z][a-zA-Z0-9_-]*):\s*(.*)$/);
-    if (!keyValueMatch) continue;
-
-    const [, key, rawValue = ""] = keyValueMatch;
-    const value = rawValue.trim();
-    activeArrayKey = null;
-
-    if (key === "tags") {
-      activeArrayKey = "tags";
-      frontmatter.tags = value
-        ? value
-            .split(",")
-            .map((tag) => tag.trim())
-            .filter(Boolean)
-        : [];
-      continue;
-    }
-
-    if (["title", "description", "date", "youtubeUrl", "coverImage", "mediumUrl", "devtoUrl"].includes(key)) {
-      const cleaned = value.replace(/^["']|["']$/g, "");
-      if (cleaned) {
-        frontmatter[key] = cleaned;
-      }
-    }
-  }
-
-  if (!frontmatter.title || !frontmatter.description || !frontmatter.date) {
-    throw new Error("Frontmatter requires title, description, and date.");
-  }
-
-  if (!frontmatter.tags) {
-    frontmatter.tags = [];
+  if (!title || !description || !date) {
+    throw new Error("Front matter requires title, description, and date.");
   }
 
   return {
-    frontmatter,
-    body: (bodyRaw || "").trim(),
+    frontmatter: {
+      title,
+      description,
+      date,
+      tags: readStringList(frontmatter, "tags"),
+      coverImage: readString(frontmatter, "coverImage") ?? null,
+      youtubeUrl: readString(frontmatter, "youtubeUrl") ?? null,
+      mediumUrl: readString(frontmatter, "mediumUrl") ?? null,
+      devtoUrl: readString(frontmatter, "devtoUrl") ?? null,
+    },
+    body: body.trim(),
   };
 }
 
@@ -98,10 +63,6 @@ function firstWords(text, count) {
 
 function getReadingTimeMinutes(wordCount) {
   return Math.max(1, Math.ceil(wordCount / 220));
-}
-
-function normalizeSiteUrl(url) {
-  return (url || FALLBACK_BASE_URL).replace(/\/$/, "");
 }
 
 function toIsoStartOfDay(date) {
@@ -134,7 +95,7 @@ async function readBlogPosts(siteUrl) {
       const slug = entry.name.replace(/\.md$/i, "");
       const raw = await fs.readFile(fullPath, "utf8");
       const stat = await fs.stat(fullPath);
-      const { frontmatter, body } = parseFrontmatter(raw);
+      const { frontmatter, body } = readPostFrontmatter(raw);
       const text = markdownToText(body);
       const wordCount = text.split(/\s+/).filter(Boolean).length;
 
@@ -147,10 +108,10 @@ async function readBlogPosts(siteUrl) {
         publishedAt: toIsoStartOfDay(frontmatter.date),
         updatedAt: stat.mtime.toISOString(),
         tags: frontmatter.tags,
-        coverImage: frontmatter.coverImage || null,
-        youtubeUrl: frontmatter.youtubeUrl || null,
-        mediumUrl: frontmatter.mediumUrl || null,
-        devtoUrl: frontmatter.devtoUrl || null,
+        coverImage: frontmatter.coverImage,
+        youtubeUrl: frontmatter.youtubeUrl,
+        mediumUrl: frontmatter.mediumUrl,
+        devtoUrl: frontmatter.devtoUrl,
         wordCount,
         readingTimeMinutes: getReadingTimeMinutes(wordCount),
         excerpt: firstWords(text, 56),
@@ -165,7 +126,7 @@ async function readBlogPosts(siteUrl) {
 }
 
 async function main() {
-  const siteUrl = normalizeSiteUrl(process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL);
+  const siteUrl = await resolveSiteUrl();
   const generatedAt = new Date().toISOString();
 
   const aboutData = JSON.parse(await fs.readFile(ABOUT_CONTENT_FILE, "utf8"));

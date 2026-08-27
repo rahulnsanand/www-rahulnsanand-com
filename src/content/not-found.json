@@ -1,0 +1,13 @@
+{
+  "backgroundCode": "404",
+  "kicker": "Error 404",
+  "title": "Page not found",
+  "copy": "The path you opened does not exist or may have moved. Jump to a valid page below.",
+  "pillLabel": "NOT_FOUND",
+  "pillCode": "404",
+  "links": [
+    { "label": "Back Home", "href": "/", "icon": "house" },
+    { "label": "See Projects", "href": "/projects", "icon": "compass" },
+    { "label": "Contact", "href": "/contact", "icon": "arrow-left" }
+  ]
+}

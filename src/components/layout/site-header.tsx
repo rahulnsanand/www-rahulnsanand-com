@@ -11,14 +11,9 @@ import {
   SITE_HEADER_FLOATING_CHANGE_EVENT,
   type SiteHeaderFloatingChangeDetail,
 } from "@/lib/site-header-events";
+import { siteContent } from "@/lib/site";
 
-const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blogs", label: "Blogs" },
-  { href: "/contact", label: "Contact" },
-] as const;
+const navItems = siteContent.nav;
 
 function normalizePath(path: string) {
   if (path.length > 1 && path.endsWith("/")) {
@@ -95,7 +90,7 @@ function HeaderNav({ onNavClick, currentPath }: { onNavClick: NavClickHandler; c
         href="/"
         prefetch={false}
         className="site-logo-link u-theme-fade-target u-focus-ring-target"
-        aria-label="Rahul NS Anand home"
+        aria-label={siteContent.homeAriaLabel}
         onClick={(event) => handleNavClick(event, "/")}
       >
         <ThemeLogo />

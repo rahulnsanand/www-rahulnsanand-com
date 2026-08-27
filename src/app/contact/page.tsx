@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
 import { ContactPageBody } from "@/components/contact/contact-page";
 import { aboutContent } from "@/lib/about";
+import { contactContent } from "@/lib/contact-content";
+import { absoluteUrl, formatPageTitle } from "@/lib/site";
+
+const canonical = absoluteUrl("/contact");
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contact Rahul NS Anand for collaborations, product engineering opportunities, and technical discussions.",
+  title: contactContent.meta.title,
+  description: contactContent.meta.description,
   alternates: {
-    canonical: "https://www.rahulnsanand.com/contact",
+    canonical,
   },
   openGraph: {
-    title: "Contact | Rahul NS Anand",
-    description:
-      "Contact Rahul NS Anand for collaborations, product engineering opportunities, and technical discussions.",
-    url: "https://www.rahulnsanand.com/contact",
+    title: formatPageTitle(contactContent.meta.title),
+    description: contactContent.meta.description,
+    url: canonical,
     type: "website",
   },
 };

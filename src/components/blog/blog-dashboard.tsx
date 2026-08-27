@@ -9,6 +9,7 @@ import { FooterAccentText } from "@/components/layout/site-footer-accent"
 import { FadeInImage } from "@/components/ui/fade-in-image"
 import { type BlogPostSummary } from "@/lib/blog"
 import { formatBlogDate, getBlogMediaImage } from "@/lib/blog-shared"
+import { blogsPageContent } from "@/lib/blogs-page"
 
 type BlogDashboardProps = {
   posts: BlogPostSummary[]
@@ -29,7 +30,7 @@ function BlogMedia({
   if (!imageSrc) {
     return (
       <div className={`${className} blog-media blog-media--fallback`} aria-hidden="true">
-        <span>NO PREVIEW</span>
+        <span>{blogsPageContent.noPreviewLabel}</span>
       </div>
     )
   }
@@ -68,13 +69,13 @@ function BlogCard({
           <span aria-hidden="true">-</span>
           <span>{`${post.readingTimeMinutes} min read`}</span>
         </p>
-        <p className="blog-card-author">Rahul Anand</p>
+        <p className="blog-card-author">{blogsPageContent.authorName}</p>
         <h3 className="blog-card-title">
           <span className="blog-card-link u-theme-fade-target">{post.title}</span>
         </h3>
         <p className="blog-card-description">{post.description}</p>
         <p className="blog-card-read-more u-theme-fade-target" aria-hidden="true">
-          <span>Read full blog</span>
+          <span>{blogsPageContent.readMoreLabel}</span>
           <ArrowUpRight size={16} weight="duotone" aria-hidden="true" />
         </p>
       </article>
@@ -102,7 +103,7 @@ function BlogRow({ post }: { post: BlogPostSummary }) {
           <span aria-hidden="true">-</span>
           <span>{`${post.readingTimeMinutes} min`}</span>
           <span aria-hidden="true">-</span>
-          <span>Rahul Anand</span>
+          <span>{blogsPageContent.authorName}</span>
         </p>
       </article>
     </Link>
@@ -145,10 +146,10 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
 
   return (
     <section className="blogs-page">
-      <FooterAccentText text="publish()" />
+      <FooterAccentText text={blogsPageContent.footerAccent} />
 
       <header className="blogs-header">
-        <h1 className="blogs-page-sr-title">Blogs</h1>
+        <h1 className="blogs-page-sr-title">{blogsPageContent.srTitle}</h1>
 
         <div className="blogs-search-wrap">
           <div className="blogs-search-field-wrap">
@@ -157,8 +158,8 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
               id="blogs-search"
               type="search"
               className="blogs-search-field u-theme-fade-target"
-              aria-label="Search blog posts"
-              placeholder="Search blogs..."
+              aria-label={blogsPageContent.searchAriaLabel}
+              placeholder={blogsPageContent.searchPlaceholder}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -170,15 +171,13 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
         <section className="blogs-section" aria-labelledby="blogs-results-heading">
           <div className="blogs-section-head">
             <h2 id="blogs-results-heading" className="blogs-section-title">
-              Search results
+              {blogsPageContent.searchResultsHeading}
             </h2>
             <p className="blogs-section-copy u-font-heading">{`${searchResults.length} match${searchResults.length === 1 ? "" : "es"}`}</p>
           </div>
 
           {searchResults.length === 0 ? (
-            <p className="blogs-empty-state">
-              No posts matched your query. Try searching with a broader keyword.
-            </p>
+            <p className="blogs-empty-state">{blogsPageContent.emptyState}</p>
           ) : (
             <ol className="blogs-recent-grid">
               {searchResults.map((post, index) => (
@@ -194,7 +193,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
           <section className="blogs-section" aria-labelledby="blogs-most-recent-heading">
             <div className="blogs-section-head">
               <h2 id="blogs-most-recent-heading" className="blogs-section-title">
-                Recent blogs
+                {blogsPageContent.recentHeading}
               </h2>
             </div>
 
@@ -210,7 +209,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
           <section className="blogs-section" aria-labelledby="blogs-earlier-heading">
             <div className="blogs-section-head">
               <h2 id="blogs-earlier-heading" className="blogs-section-title">
-                Previous blogs
+                {blogsPageContent.previousHeading}
               </h2>
             </div>
 
@@ -231,7 +230,7 @@ export function BlogDashboard({ posts }: BlogDashboardProps) {
                     setVisiblePreviousCount((count) => count + PREVIOUS_BATCH_SIZE)
                   }
                 >
-                  Load more blogs
+                  {blogsPageContent.loadMoreLabel}
                 </button>
               </div>
             ) : null}

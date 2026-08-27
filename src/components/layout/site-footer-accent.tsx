@@ -2,6 +2,7 @@
 
 import "./site-footer-accent.module.css";
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { siteContent } from "@/lib/site";
 
 type FooterAccentContextValue = {
   text: string;
@@ -52,7 +53,7 @@ export function SiteFooterAccent() {
         </div>
       ) : null}
       <p className="site-footer-meta">
-        {`© ${currentYear} Rahul NS Anand · GNU AGPL V3 · rahulnsanand.com`}
+        {`© ${currentYear} ${siteContent.name} · ${siteContent.footer.licenseLabel} · ${siteContent.footer.domainLabel}`}
       </p>
     </>
   );

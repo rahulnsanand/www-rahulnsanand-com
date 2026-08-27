@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { FooterAccentProvider, SiteFooterAccent } from "@/components/layout/site-footer-accent";
 import { PageTransition } from "@/components/layout/page-transition";
 import { codeFont, headingFont, scriptFont, textFont } from "@/app/fonts";
+import { siteContent, siteUrl } from "@/lib/site";
 
 const themeInitScript = `
   (() => {
@@ -75,12 +76,12 @@ const themeInitScript = `
 `;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Rahul NS Anand",
-    template: "%s | Rahul NS Anand",
+    default: siteContent.defaultTitle,
+    template: siteContent.titleTemplate,
   },
-  description:
-    "Rahul NS Anand — Software Engineer 2. Open-source contributor. Building AI + personal data tools (Lyfie, Luthor). Blogs, projects, and profiles.",
+  description: siteContent.defaultDescription,
 };
 
 export const viewport: Viewport = {
