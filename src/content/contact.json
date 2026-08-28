@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "title": "Contact",
+    "description": "Contact Rahul NS Anand for collaborations, product engineering opportunities, and technical discussions."
+  },
+  "footerAccent": "connect()",
+  "kicker": "Contact",
+  "title": "Let's build something useful.",
+  "copy": "Open to thoughtful collaborations, engineering opportunities, and conversations around Code, Tech, and design-led software.",
+  "emailLabel": "Sender email",
+  "emailPlaceholder": "you@company.com",
+  "messageLabel": "Message to send",
+  "messagePlaceholder": "Share a little context about what you want to discuss.",
+  "submitLabel": "Send message",
+  "sendingLabel": "Sending...",
+  "idleStatus": "Delivered directly to my inbox.",
+  "successStatus": "Message sent. Thanks for reaching out.",
+  "socialsTitle": "Or reach out here:"
+}

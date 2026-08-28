@@ -92,7 +92,12 @@ body {
   height: 100%;
 }
 
-html:not([data-theme-ready="true"]) body {
+/*
+ * Anti-flash guard for the inline theme bootstrap in `src/app/layout.tsx`. The attribute is set and
+ * cleared by that script itself, so a route where the script never runs stays visible instead of
+ * rendering a blank page.
+ */
+html[data-theme-pending] body {
   visibility: hidden;
 }
 

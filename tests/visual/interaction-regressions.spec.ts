@@ -10,7 +10,7 @@ async function gotoWithTheme(page: Page, routePath: string, theme: "light" | "da
     document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add(preferredTheme);
     document.documentElement.style.colorScheme = preferredTheme;
-    document.documentElement.setAttribute("data-theme-ready", "true");
+    document.documentElement.removeAttribute("data-theme-pending");
   }, theme);
 }
 

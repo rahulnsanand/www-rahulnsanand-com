@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { FooterAccentText } from "@/components/layout/site-footer-accent";
 import type { AboutSocialLink } from "@/lib/about";
+import { contactContent } from "@/lib/contact-content";
 
 const MESSAGE_MIN_LENGTH = 8;
 const MESSAGE_MAX_LENGTH = 5000;
@@ -74,7 +75,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
     const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
     try {
       setSubmitState("sending");
-      setStatusMessage("Sending...");
+      setStatusMessage(contactContent.sendingLabel);
 
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -89,7 +90,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
       }
 
       setSubmitState("success");
-      setStatusMessage("Message sent. Thanks for reaching out.");
+      setStatusMessage(contactContent.successStatus);
       form.reset();
       setFormStartedAt(Date.now().toString());
     } catch (error) {
@@ -107,15 +108,13 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
   }
 
   return (
-    <section className="contact-page relative" aria-label="Contact Rahul NS Anand">
-      <FooterAccentText text="connect()" />
+    <section className="contact-page relative" aria-label={contactContent.meta.title}>
+      <FooterAccentText text={contactContent.footerAccent} />
       <div className="contact-stack relative z-10">
         <header className="contact-header">
-          <p className="contact-kicker u-font-heading">Contact</p>
-          <h1 className="contact-title">Let&apos;s build something useful.</h1>
-          <p className="contact-copy">
-            Open to thoughtful collaborations, engineering opportunities, and conversations around Code, Tech, and design-led software.
-          </p>
+          <p className="contact-kicker u-font-heading">{contactContent.kicker}</p>
+          <h1 className="contact-title">{contactContent.title}</h1>
+          <p className="contact-copy">{contactContent.copy}</p>
         </header>
 
         <form className="contact-form" onSubmit={handleSubmit}>
@@ -131,7 +130,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
 
           <div className="contact-field">
             <label htmlFor="senderEmail" className="contact-label">
-              Sender email
+              {contactContent.emailLabel}
             </label>
             <input
               id="senderEmail"
@@ -139,7 +138,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
               type="email"
               className="contact-input"
               required
-              placeholder="you@company.com"
+              placeholder={contactContent.emailPlaceholder}
               autoComplete="email"
               maxLength={320}
             />
@@ -147,7 +146,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
 
           <div className="contact-field">
             <label htmlFor="message" className="contact-label">
-              Message to send
+              {contactContent.messageLabel}
             </label>
             <textarea
               id="message"
@@ -155,7 +154,7 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
               className="contact-textarea"
               rows={7}
               required
-              placeholder="Share a little context about what you want to discuss."
+              placeholder={contactContent.messagePlaceholder}
               minLength={MESSAGE_MIN_LENGTH}
               maxLength={MESSAGE_MAX_LENGTH}
             />
@@ -168,19 +167,19 @@ export function ContactPageBody({ socialLinks }: ContactPageBodyProps) {
               disabled={submitState === "sending"}
               aria-busy={submitState === "sending"}
             >
-              {submitState === "sending" ? "Sending..." : "Send message"}
+              {submitState === "sending" ? contactContent.sendingLabel : contactContent.submitLabel}
             </button>
             <p
               className={`contact-status${submitState === "error" ? " contact-status--error" : ""}`}
               aria-live="polite"
             >
-              {statusMessage || "Delivered directly to my inbox."}
+              {statusMessage || contactContent.idleStatus}
             </p>
           </div>
         </form>
 
         <div className="contact-socials" aria-label="Social links">
-          <p className="contact-socials-title u-font-heading">Or reach out here:</p>
+          <p className="contact-socials-title u-font-heading">{contactContent.socialsTitle}</p>
           <ul className="contact-socials-list">
             {socialLinks.map((link) => (
               <li key={link.href} className="contact-socials-item">

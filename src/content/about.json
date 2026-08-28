@@ -1,21 +1,176 @@
 {
+  "meta": {
+    "title": "About",
+    "description": "About Rahul NS Anand - experience, projects, engineering focus, and the product principles behind his work."
+  },
+  "footerAccent": "public void main()",
   "profile": {
     "name": "Rahul NS Anand",
     "headline": "just another engineer",
     "avatarUrl": "https://github.com/rahulnsanand.png",
+    "timezone": "Asia/Bangalore",
     "socialLinks": [
-      { "icon": "github", "href": "https://github.com/rahulnsanand", "label": "GitHub" },
-      { "icon": "youtube", "href": "https://www.youtube.com/@rahulnsanand", "label": "YouTube" },
-      { "icon": "linkedin", "href": "https://www.linkedin.com/in/rahulnsanand", "label": "LinkedIn" },
-      { "icon": "medium", "href": "https://medium.com/@rahulnsanand", "label": "Medium" },
-      { "icon": "devto", "href": "https://dev.to/rahulnsanand", "label": "Dev.to" }
+      {
+        "icon": "github",
+        "href": "https://github.com/rahulnsanand",
+        "label": "GitHub"
+      },
+      {
+        "icon": "youtube",
+        "href": "https://www.youtube.com/@rahulnsanand",
+        "label": "YouTube"
+      },
+      {
+        "icon": "linkedin",
+        "href": "https://www.linkedin.com/in/rahulnsanand",
+        "label": "LinkedIn"
+      },
+      {
+        "icon": "medium",
+        "href": "https://medium.com/@rahulnsanand",
+        "label": "Medium"
+      },
+      {
+        "icon": "devto",
+        "href": "https://dev.to/rahulnsanand",
+        "label": "Dev.to"
+      }
     ],
     "primaryLinks": [
-      { "href": "/projects", "label": "View Projects" },
-      { "href": "/blogs", "label": "Read Blogs" },
-      { "href": "/contact", "label": "Contact Rahul" }
+      {
+        "href": "/projects",
+        "label": "View Projects"
+      },
+      {
+        "href": "/blogs",
+        "label": "Read Blogs"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact Rahul"
+      }
     ]
   },
+  "techGroups": [
+    {
+      "category": "Language",
+      "items": [
+        {
+          "name": "C Sharp",
+          "tool": "csharp"
+        },
+        {
+          "name": "Java",
+          "tool": "java"
+        },
+        {
+          "name": "SQL",
+          "tool": "sql"
+        },
+        {
+          "name": "TypeScript",
+          "tool": "typescript"
+        },
+        {
+          "name": "CSS3",
+          "tool": "css3"
+        }
+      ]
+    },
+    {
+      "category": "Framework",
+      "items": [
+        {
+          "name": "React",
+          "tool": "react"
+        },
+        {
+          "name": ".NET",
+          "tool": "dotnet"
+        }
+      ]
+    },
+    {
+      "category": "Cloud",
+      "items": [
+        {
+          "name": "Microsoft Azure",
+          "tool": "azure"
+        },
+        {
+          "name": "Firebase",
+          "tool": "firebase"
+        }
+      ]
+    },
+    {
+      "category": "DevOps",
+      "items": [
+        {
+          "name": "Docker",
+          "tool": "docker"
+        },
+        {
+          "name": "Nginx",
+          "tool": "nginx"
+        },
+        {
+          "name": "Git",
+          "tool": "git"
+        },
+        {
+          "name": "Shell Script",
+          "tool": "shell"
+        },
+        {
+          "name": "YAML",
+          "tool": "yaml"
+        },
+        {
+          "name": "Debian",
+          "tool": "debian"
+        }
+      ]
+    },
+    {
+      "category": "Platform",
+      "items": [
+        {
+          "name": "Android",
+          "tool": "android"
+        },
+        {
+          "name": "Node.js",
+          "tool": "node"
+        },
+        {
+          "name": "Power BI",
+          "tool": "powerbi"
+        },
+        {
+          "name": "Splunk",
+          "tool": "splunk"
+        },
+        {
+          "name": "MariaDB",
+          "tool": "mariadb"
+        }
+      ]
+    },
+    {
+      "category": "Community",
+      "items": [
+        {
+          "name": "Medium",
+          "tool": "medium"
+        },
+        {
+          "name": "Dev.to",
+          "tool": "devto"
+        }
+      ]
+    }
+  ],
   "sections": [
     {
       "heading": "Roles",

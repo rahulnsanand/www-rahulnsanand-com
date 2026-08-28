@@ -3,7 +3,7 @@ import Link from "next/link"
 import { GithubLogo, GlobeHemisphereWest } from "@phosphor-icons/react/dist/ssr"
 import { FooterAccentText } from "@/components/layout/site-footer-accent"
 import { HighlightedProjectsCarousel } from "@/components/projects/highlighted-projects-carousel"
-import { type GithubProject, type HighlightProject } from "@/lib/projects"
+import { projectsPageCopy, type GithubProject, type HighlightProject } from "@/lib/projects"
 
 type ProjectsShowcaseProps = {
   highlightedProjects: HighlightProject[]
@@ -16,15 +16,15 @@ export function ProjectsShowcase({
 }: ProjectsShowcaseProps) {
   return (
     <section className="projects-page" aria-label="Projects">
-      <FooterAccentText text="src/deployed" />
+      <FooterAccentText text={projectsPageCopy.footerAccent} />
 
       <section className="projects-section" aria-labelledby="projects-highlight-heading">
         <div className="projects-section-head">
           <h2 id="projects-highlight-heading" className="projects-section-sr-title">
-            Highlighted projects
+            {projectsPageCopy.highlightedHeading}
           </h2>
           <p className="projects-section-copy projects-section-copy--kicker u-font-heading">
-            Projects that make an impact
+            {projectsPageCopy.highlightedKicker}
           </p>
         </div>
 
@@ -34,17 +34,15 @@ export function ProjectsShowcase({
       <section className="projects-section" aria-labelledby="projects-other-heading">
         <div className="projects-section-head">
           <h2 id="projects-other-heading" className="projects-section-sr-title">
-            Other projects
+            {projectsPageCopy.otherHeading}
           </h2>
           <p className="projects-section-copy projects-section-copy--kicker u-font-heading">
-            Less glamorous, but part of my journey
+            {projectsPageCopy.otherKicker}
           </p>
         </div>
 
         {otherProjects.length === 0 ? (
-          <p className="projects-empty-state">
-            Unable to load repositories from GitHub right now.
-          </p>
+          <p className="projects-empty-state">{projectsPageCopy.emptyState}</p>
         ) : (
           <ol className="projects-grid" aria-label="Other GitHub repositories">
             {otherProjects.map((project) => (
@@ -61,7 +59,7 @@ export function ProjectsShowcase({
                   <div className="project-card-main">
                     <h3 className="project-card-title">{project.displayTitle}</h3>
                     <p className="project-card-description">
-                      {project.description ?? "Repository on GitHub."}
+                      {project.description ?? projectsPageCopy.fallbackDescription}
                     </p>
                   </div>
 

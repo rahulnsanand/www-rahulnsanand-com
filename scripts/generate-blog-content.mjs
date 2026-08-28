@@ -1,81 +1,32 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { parseFrontmatter, readString, readStringList } from "./lib/frontmatter.mjs";
 
 const ROOT = process.cwd();
 const BLOG_CONTENT_DIR = path.join(ROOT, "src", "content", "blog");
 const OUTPUT_FILE = path.join(ROOT, "src", "content", "blog-posts.generated.json");
 
-function parseFrontmatter(raw) {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
-  if (!match) {
-    throw new Error("Missing or invalid frontmatter block.");
+const OPTIONAL_STRING_KEYS = ["youtubeUrl", "coverImage", "mediumUrl", "devtoUrl"];
+
+function readPostFrontmatter(raw) {
+  const { frontmatter, body } = parseFrontmatter(raw);
+
+  const title = readString(frontmatter, "title");
+  const description = readString(frontmatter, "description");
+  const date = readString(frontmatter, "date");
+
+  if (!title || !description || !date) {
+    throw new Error("Front matter requires title, description, and date.");
   }
 
-  const frontmatterRaw = match[1];
-  const body = match[2];
-  if (frontmatterRaw === undefined || body === undefined) {
-    throw new Error("Frontmatter capture groups are invalid.");
+  const post = { title, description, date, tags: readStringList(frontmatter, "tags") };
+
+  for (const key of OPTIONAL_STRING_KEYS) {
+    const value = readString(frontmatter, key);
+    if (value) post[key] = value;
   }
 
-  const lines = frontmatterRaw.split(/\r?\n/);
-  const frontmatter = {};
-  let activeArrayKey = null;
-
-  for (const line of lines) {
-    if (!line.trim()) continue;
-
-    const listItemMatch = line.match(/^\s*-\s+(.+)$/);
-    if (listItemMatch && activeArrayKey === "tags") {
-      const listItemValue = listItemMatch[1];
-      if (!listItemValue) continue;
-      if (!Array.isArray(frontmatter.tags)) frontmatter.tags = [];
-      frontmatter.tags.push(listItemValue.trim().replace(/^["']|["']$/g, ""));
-      continue;
-    }
-
-    const keyValueMatch = line.match(/^([a-zA-Z][a-zA-Z0-9_-]*):\s*(.*)$/);
-    if (!keyValueMatch) {
-      throw new Error(`Invalid frontmatter line: "${line}"`);
-    }
-
-    const key = keyValueMatch[1];
-    const value = keyValueMatch[2]?.trim();
-    if (!key || value === undefined) continue;
-    activeArrayKey = null;
-
-    if (key === "tags") {
-      activeArrayKey = "tags";
-      frontmatter.tags = value
-        ? value
-            .split(",")
-            .map((tag) => tag.trim())
-            .filter(Boolean)
-        : [];
-      continue;
-    }
-
-    if (
-      key === "title" ||
-      key === "description" ||
-      key === "date" ||
-      key === "youtubeUrl" ||
-      key === "coverImage" ||
-      key === "mediumUrl" ||
-      key === "devtoUrl"
-    ) {
-      const cleaned = value.replace(/^["']|["']$/g, "");
-      if (cleaned) {
-        frontmatter[key] = cleaned;
-      }
-      continue;
-    }
-  }
-
-  if (!frontmatter.title || !frontmatter.description || !frontmatter.date || !Array.isArray(frontmatter.tags)) {
-    throw new Error("Frontmatter requires title, description, date, and tags.");
-  }
-
-  return { frontmatter, body: body.trim() };
+  return { frontmatter: post, body: body.trim() };
 }
 
 function getReadingTimeMinutes(content) {
@@ -96,7 +47,7 @@ async function main() {
       const fullPath = path.join(BLOG_CONTENT_DIR, entry.name);
       const raw = await fs.readFile(fullPath, "utf8");
       const stat = await fs.stat(fullPath);
-      const { frontmatter, body } = parseFrontmatter(raw);
+      const { frontmatter, body } = readPostFrontmatter(raw);
 
       if (!isValidDate(frontmatter.date)) {
         throw new Error(`Invalid date "${frontmatter.date}" in ${entry.name}.`);

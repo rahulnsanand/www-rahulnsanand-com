@@ -8,7 +8,7 @@ import { aboutContent } from "@/lib/about"
 export function AboutBody() {
   return (
     <section className="about-page">
-      <FooterAccentText text="public void main()" />
+      <FooterAccentText text={aboutContent.footerAccent} />
       <div className="about-layout">
         <aside className="about-sidebar" aria-label="Profile summary">
           <AboutProfileSummary />

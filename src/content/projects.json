@@ -1,4 +1,15 @@
 {
+  "meta": {
+    "title": "Projects",
+    "description": "Highlighted and supporting repositories by Rahul NS Anand, spanning frontend systems, tools, and experiments."
+  },
+  "footerAccent": "src/deployed",
+  "highlightedHeading": "Highlighted projects",
+  "highlightedKicker": "Projects that make an impact",
+  "otherHeading": "Other projects",
+  "otherKicker": "Less glamorous, but part of my journey",
+  "emptyState": "Unable to load repositories from GitHub right now.",
+  "fallbackDescription": "Open-source project by Rahul NS Anand.",
   "defaultCardClickTarget": "github",
   "highlightedProjects": [
     {

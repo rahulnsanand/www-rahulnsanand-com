@@ -1,13 +1,12 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { resolveSiteUrl } from "./lib/site-url.mjs";
 
 const ROOT = process.cwd();
 const APP_DIR = path.join(ROOT, "src", "app");
 const OUTPUT_FILE = path.join(APP_DIR, "robots.ts");
-const FALLBACK_BASE_URL = "https://www.rahulnsanand.com";
-
 async function main() {
-  const siteUrl = (process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_BASE_URL).replace(/\/$/, "");
+  const siteUrl = await resolveSiteUrl();
 
   const fileContent = `import type { MetadataRoute } from "next";
 
@@ -20,6 +19,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        disallow: ["/admin", "/api/"],
       },
     ],
     host: "${siteUrl}",

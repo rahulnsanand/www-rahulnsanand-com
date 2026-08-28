@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import { AboutBody } from "./about-body";
+import { aboutContent } from "@/lib/about";
+import { absoluteUrl, formatPageTitle } from "@/lib/site";
+
+const canonical = absoluteUrl("/about");
 
 export const metadata: Metadata = {
-  title: "About",
-  description:
-    "About Rahul NS Anand - experience, projects, engineering focus, and the product principles behind his work.",
+  title: aboutContent.meta.title,
+  description: aboutContent.meta.description,
   alternates: {
-    canonical: "https://www.rahulnsanand.com/about",
+    canonical,
   },
   openGraph: {
-    title: "About | Rahul NS Anand",
-    description:
-      "About Rahul NS Anand - experience, projects, engineering focus, and the product principles behind his work.",
-    url: "https://www.rahulnsanand.com/about",
+    title: formatPageTitle(aboutContent.meta.title),
+    description: aboutContent.meta.description,
+    url: canonical,
     type: "profile",
   },
 };

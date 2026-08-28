@@ -1,6 +1,6 @@
 ---
-title: Luthor: A WYSIWYG React Text Editor for Performance and Control
-description: I built Luthor to remove editor tradeoffs in React apps. Use the preset package for fast WYSIWYG shipping or go headless for full UI control.
+title: "Luthor: A WYSIWYG React Text Editor for Performance and Control"
+description: "I built Luthor to remove editor tradeoffs in React apps. Use the preset package for fast WYSIWYG shipping or go headless for full UI control."
 date: "2026-03-12"
 tags:
   - react rich text editor

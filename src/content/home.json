@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "description": "Rahul NS Anand — Software Engineer 2. Open-source contributor. Building AI + personal data tools (Lyfie, Luthor). Blogs, projects, and profiles."
+  },
+  "footerAccent": "Hello World",
+  "backgroundWords": ["explore", "engineer", "evolve"],
+  "titlePrefix": "I'm",
+  "name": "Rahul Anand",
+  "tldr": "TL;DR: I write code, value privacy, and build apps that respect it.",
+  "intro": "I build enterprise platforms for global banking and FINCrime teams as my day job and run Lyfie.org, where I ship open-source software like zero-lock-in notes, AI-friendly editors, and local-first automation with clean UX, sharp architecture, and boring reliability.",
+  "ctaLabel": "see more about me",
+  "ctaHref": "/about"
+}

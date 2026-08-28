@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-15T02:58:02.836Z",
+  "generatedAt": "2026-08-27T12:40:32.835Z",
   "site": {
     "url": "https://www.rahulnsanand.com",
     "name": "Rahul NS Anand",
@@ -29,6 +29,7 @@
       "name": "Rahul NS Anand",
       "headline": "just another engineer",
       "avatarUrl": "https://github.com/rahulnsanand.png",
+      "timezone": "Asia/Bangalore",
       "socialLinks": [
         {
           "icon": "github",
@@ -172,7 +173,7 @@
       "description": "I built Luthor to remove editor tradeoffs in React apps. Use the preset package for fast WYSIWYG shipping or go headless for full UI control.",
       "date": "2026-03-12",
       "publishedAt": "2026-03-12T00:00:00.000Z",
-      "updatedAt": "2026-03-12T17:40:59.883Z",
+      "updatedAt": "2026-08-27T12:32:26.120Z",
       "tags": [
         "react rich text editor",
         "lexical editor",

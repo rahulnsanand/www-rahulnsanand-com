@@ -5,17 +5,17 @@ import type { MetadataRoute } from "next";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-03-06T18:38:39.310Z"), changeFrequency: "weekly", priority: 1 },
-    { url: `https://www.rahulnsanand.com/about`, lastModified: new Date("2026-03-06T18:38:39.307Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/blogs`, lastModified: new Date("2026-03-06T18:58:08.115Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/`, lastModified: new Date("2026-08-27T12:27:15.189Z"), changeFrequency: "weekly", priority: 1 },
+    { url: `https://www.rahulnsanand.com/about`, lastModified: new Date("2026-08-27T12:25:58.490Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/blogs`, lastModified: new Date("2026-08-27T12:27:45.899Z"), changeFrequency: "weekly", priority: 0.7 },
     { url: `https://www.rahulnsanand.com/blogs/introduction-to-bigdata-for-dummies-module-1-1-31o6`, lastModified: new Date("2026-03-07T19:12:42.997Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/introduction-to-hadoop-for-dummies-module1-2-21bm`, lastModified: new Date("2026-03-07T19:12:46.128Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/introduction-to-hive-for-dummies-module1-3-2pp1`, lastModified: new Date("2026-03-07T19:12:49.339Z"), changeFrequency: "weekly", priority: 0.8 },
-    { url: `https://www.rahulnsanand.com/blogs/luthor-react-editor-stack`, lastModified: new Date("2026-03-12T17:40:59.883Z"), changeFrequency: "weekly", priority: 0.8 },
-    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-03-07T13:37:22.919Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-04-15T02:58:02.885Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-04-15T02:58:02.885Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-03-06T18:38:39.311Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-04-15T02:58:02.885Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/blogs/luthor-react-editor-stack`, lastModified: new Date("2026-08-27T12:32:26.120Z"), changeFrequency: "weekly", priority: 0.8 },
+    { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-08-27T12:28:38.861Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-08-27T12:40:32.854Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-08-27T12:40:32.854Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-08-27T12:28:16.672Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-08-27T12:40:32.854Z"), changeFrequency: "weekly", priority: 0.7 },
   ];
 }

@@ -31,14 +31,32 @@ export type ResumeSection = {
   groups: ResumeGroup[];
 };
 
+export type TechTool = {
+  name: string;
+  /** Key into the icon/colour registry in `about-profile-summary.tsx`. */
+  tool: string;
+};
+
+export type TechGroup = {
+  category: string;
+  items: TechTool[];
+};
+
 export type AboutContent = {
+  meta: {
+    title: string;
+    description: string;
+  };
+  footerAccent: string;
   profile: {
     name: string;
     headline: string;
     avatarUrl: string;
+    timezone: string;
     socialLinks: AboutSocialLink[];
     primaryLinks: AboutLink[];
   };
+  techGroups: TechGroup[];
   sections: ResumeSection[];
 };
 

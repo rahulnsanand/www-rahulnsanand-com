@@ -12,6 +12,8 @@ import { BlogScrollTopButton } from "@/components/blog/blog-scroll-top-button"
 import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog"
 import { formatBlogDate, getBlogMediaImage, parseYouTubeVideoId } from "@/lib/blog-shared"
 import { serializeJsonLd } from "@/lib/json-ld"
+import { blogsPageContent } from "@/lib/blogs-page"
+import { absoluteUrl, formatPageTitle, siteContent, siteUrl } from "@/lib/site"
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>
@@ -28,16 +30,16 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   if (!post) {
     return {
-      title: "Blog not found",
+      title: blogsPageContent.post.notFoundTitle,
     }
   }
 
-  const url = `https://www.rahulnsanand.com/blogs/${post.slug}`
+  const url = absoluteUrl(`/blogs/${post.slug}`)
   const socialImage = getBlogMediaImage(post)
   const imageUrl = socialImage
     ? socialImage.startsWith("http")
       ? socialImage
-      : `https://www.rahulnsanand.com${socialImage}`
+      : `${siteUrl}${socialImage}`
     : undefined
 
   return {
@@ -47,7 +49,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       canonical: url,
     },
     openGraph: {
-      title: `${post.title} | Rahul NS Anand`,
+      title: formatPageTitle(post.title),
       description: post.description,
       url,
       type: "article",
@@ -58,7 +60,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | Rahul NS Anand`,
+      title: formatPageTitle(post.title),
       description: post.description,
       images: imageUrl ? [imageUrl] : undefined,
     },
@@ -78,7 +80,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const youtubePoster = youtubeVideoId
     ? `https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`
     : null
-  const postUrl = `https://www.rahulnsanand.com/blogs/${post.slug}`
+  const postUrl = absoluteUrl(`/blogs/${post.slug}`)
   const blogPostingSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -88,8 +90,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     dateModified: post.updatedAt,
     author: {
       "@type": "Person",
-      name: "Rahul NS Anand",
-      url: "https://www.rahulnsanand.com",
+      name: siteContent.name,
+      url: siteUrl,
     },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -102,7 +104,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <article className="blog-post-page" aria-labelledby="blog-post-title">
-      <FooterAccentText text="read()" />
+      <FooterAccentText text={blogsPageContent.post.footerAccent} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingSchema) }}
@@ -113,7 +115,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         className="blog-post-back-link u-theme-fade-target u-focus-ring-target"
       >
         <ArrowLeft size={14} weight="duotone" aria-hidden="true" />
-        <span>Back to blogs</span>
+        <span>{blogsPageContent.post.backLabel}</span>
       </Link>
 
       <div className="blog-post-layout">
@@ -170,7 +172,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     href="/about"
                     className="blog-post-meta-author-name u-theme-fade-target u-focus-ring-target"
                   >
-                    Rahul Anand
+                    {blogsPageContent.authorName}
                   </Link>
                 </span>
               </div>
