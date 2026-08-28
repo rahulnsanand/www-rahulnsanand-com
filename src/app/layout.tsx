@@ -9,6 +9,9 @@ import { siteContent, siteUrl } from "@/lib/site";
 
 const themeInitScript = `
   (() => {
+    // Armed and cleared by this script so the guard fails open: if the script never runs, the page
+    // is still visible.
+    document.documentElement.setAttribute("data-theme-pending", "true");
     try {
       const PERF_MODE_KEY = "perf-mode";
       const stored = localStorage.getItem("theme");
@@ -71,7 +74,7 @@ const themeInitScript = `
         document.documentElement.removeAttribute("data-perf-lite-reasons");
       }
     } catch {}
-    document.documentElement.setAttribute("data-theme-ready", "true");
+    document.documentElement.removeAttribute("data-theme-pending");
   })();
 `;
 
@@ -103,9 +106,6 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <noscript>
-          <style>{`html:not([data-theme-ready="true"]) body { visibility: visible; }`}</style>
-        </noscript>
       </head>
       <body className="site-body">
         <FooterAccentProvider>
