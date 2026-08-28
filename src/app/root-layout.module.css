@@ -69,3 +69,18 @@
 :global(html.dark.perf-lite .site-shell::before) {
   opacity: 0.3;
 }
+
+/*
+ * Fallback for a document that has no theme class yet, mirroring the token fallback in
+ * `tokens-theme.css`. Without it the grid falls back to the base opacity above and renders far
+ * stronger than the rest of the site.
+ */
+:global(html:not(.light):not(.dark) .site-shell::before) {
+  opacity: 0.8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html:not(.light):not(.dark) .site-shell::before) {
+    opacity: 0.3;
+  }
+}
