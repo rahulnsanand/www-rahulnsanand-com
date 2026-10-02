@@ -1,7 +1,7 @@
 ---
 title: Full-text search in 300 lines of Lucene.NET (and the bugs it taught me)
 description: "Papyra's whole search layer: one writer, one document per note, a per-user fence, and two ways results used to leak."
-date: 2026-10-02
+date: 2026-10-14
 tags:
   - dotnet
   - csharp
