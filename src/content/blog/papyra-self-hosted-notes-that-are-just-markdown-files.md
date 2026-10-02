@@ -9,7 +9,7 @@ tags:
   - open-source
   - selfhosted
   - productivity
-coverImage: ''
+coverImage: /blog-covers/app-desk.png
 youtubeUrl: ''
 mediumUrl: ''
 devtoUrl: ''
