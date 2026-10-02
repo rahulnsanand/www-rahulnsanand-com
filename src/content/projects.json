@@ -13,57 +13,79 @@
   "defaultCardClickTarget": "github",
   "highlightedProjects": [
     {
-      "repo": "lyfie-org/santaclaw",
-      "title": "SantaClaw",
-      "description": "Local-first homelab AI ops agent that monitors infra health and guides safe, human-approved remediation before outages.",
-      "imageUrl": "/projects/santaclaw.png"
-    },
-    {
       "repo": "rahulnsanand/TickTrack",
       "title": "TickTrack",
       "description": "Android productivity utility combining counters, parallel and quick timers, and lap stopwatch workflows with portable Drive backups.",
-      "imageUrl": "/projects/ticktrack.jpg"
+      "imageUrl": "/projects/ticktrack.jpg",
+      "websiteUrl": "",
+      "youtubeUrl": "",
+      "blogUrl": "",
+      "demoGifUrl": "",
+      "cardClickTarget": ""
     },
     {
       "repo": "lyfie-org/luthor",
       "title": "Luthor",
       "description": "Lexical-based rich text editor ecosystem with preset and headless packages for fast launch and deep customization.",
       "imageUrl": "/projects/luthor.png",
-      "websiteUrl": "https://luthor.fyi"
+      "websiteUrl": "https://luthor.fyi",
+      "youtubeUrl": "",
+      "blogUrl": "",
+      "demoGifUrl": "",
+      "cardClickTarget": ""
     },
     {
       "repo": "lyfie-org/papyra",
       "title": "Papyra",
       "description": "Zero-database, self-hosted notes suite where Markdown stays the source of truth with near-instant sync.",
-      "imageUrl": "/projects/papyra.png",
-      "websiteUrl": "https://papyra.app"
+      "imageUrl": "/blog-covers/app-desk.png",
+      "websiteUrl": "https://papyra.app",
+      "youtubeUrl": "",
+      "blogUrl": "",
+      "demoGifUrl": "",
+      "cardClickTarget": ""
     }
   ],
   "otherProjects": [
     {
       "repo": "rahulnsanand/www-rahulnsanand-com",
       "title": "www-rahulnsanand-com",
-      "description": "My personal website showcasing my work and experience - designed to look like my notebook"
+      "description": "My personal website showcasing my work and experience - designed to look like my notebook",
+      "imageUrl": "",
+      "websiteUrl": "",
+      "cardClickTarget": ""
     },
     {
       "repo": "rahulnsanand/SearchIt-Java",
       "title": "SearchIt Java",
-      "description": " Java project that uses a custom Trie data structure to parse and list all on Zomato"
+      "description": "Java project that uses a custom Trie data structure to parse and list all on Zomato",
+      "imageUrl": "",
+      "websiteUrl": "",
+      "cardClickTarget": ""
     },
     {
       "repo": "rahulnsanand/servechat-java",
       "title": "servechat-java",
-      "description": "A high-school project developed to enable chat ability over a common server."
+      "description": "A high-school project developed to enable chat ability over a common server.",
+      "imageUrl": "",
+      "websiteUrl": "",
+      "cardClickTarget": ""
     },
     {
       "repo": "rahulnsanand/Zomato-Project",
       "title": "Zomato Big Data ETL",
-      "description": "Hands on BigData Project building a source to destination ETL pipeline"
+      "description": "Hands on BigData Project building a source to destination ETL pipeline",
+      "imageUrl": "",
+      "websiteUrl": "",
+      "cardClickTarget": ""
     },
     {
       "repo": "rahulnsanand/Face-Recognition",
       "title": "Face Recognition",
-      "description": "Computer vision experimentation with facial recognition."
+      "description": "Computer vision experimentation with facial recognition.",
+      "imageUrl": "",
+      "websiteUrl": "",
+      "cardClickTarget": ""
     }
   ]
 }
