@@ -98,15 +98,15 @@ docker compose -f docker-compose.hub.yml up -d
 
 Open `http://localhost:8080` and create the first account. That's it.
 
-## The honest part
+## Release Note
 
-I build Papyra on my own. 1.0 means I use it every day and I'm happy for you to. It does not mean it's finished or bug-free. It makes backups for you: keep them.
+1.0 means I use it every day and I'm happy for you to. It does not mean it's finished or bug-free. It makes backups for you: keep them.
 
-There's no hosted version and no native mobile app. There's an AI assistant in the code, but it's switched off for now.
+There's no hosted version and no native mobile app. There's an AI assistant in the code (nothing that sends your data out of your home), but it's switched off for now.
 
 And if Papyra isn't for you, delete it. You still have a folder of Markdown files. That's the point.
 
 ***
 
-_I'm Rahul, and I build Papyra on my own. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 [_GitHub_](https://github.com/lyfie-org/papyra) _·_ [_Live demo, no signup_](https://papyra.app/demo) _·_ [_Docs_](https://papyra.app/docs)
