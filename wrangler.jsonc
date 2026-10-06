@@ -19,7 +19,11 @@
   // Non-secret runtime values. They live here rather than in the dashboard because `wrangler deploy`
   // overwrites dashboard-set plain variables on every deploy; secrets are never touched, so
   // GITHUB_OAUTH_CLIENT_SECRET and the SMTP_* values stay in the dashboard as Secrets.
+  //
+  // An OAuth client ID is public by design -- it appears in every authorization URL the CMS sends a
+  // visitor to -- so keeping it here costs nothing and stops a deploy from wiping it.
   "vars": {
+    "GITHUB_OAUTH_CLIENT_ID": "Ov23liXL1UE7kfj9Sfk3",
     "CMS_ALLOWED_DOMAINS": "www.rahulnsanand.com"
   },
   // Worker Logs, so `console.error` from the CMS OAuth routes is readable in the dashboard.

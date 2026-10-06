@@ -1,3 +1,8 @@
+# Single-package repo, but pnpm 10 errors with "packages field missing or empty" when this file
+# exists without it, so the root is listed explicitly.
+packages:
+  - .
+
 # pnpm 11 reads these from here instead of the "pnpm" field in package.json. That field is kept in
 # sync as well, so an older pnpm (including whichever the Cloudflare build image ships) behaves the
 # same way.
