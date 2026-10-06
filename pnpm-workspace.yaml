@@ -1,0 +1,23 @@
+# Single-package repo, but pnpm 10 errors with "packages field missing or empty" when this file
+# exists without it, so the root is listed explicitly.
+packages:
+  - .
+
+# pnpm 11 reads these from here instead of the "pnpm" field in package.json. That field is kept in
+# sync as well, so an older pnpm (including whichever the Cloudflare build image ships) behaves the
+# same way.
+overrides:
+  balanced-match: 4.0.4
+
+# These packages download platform binaries in a postinstall script. workerd and esbuild back
+# `opennextjs-cloudflare build` and `wrangler`, so a skipped script fails the build.
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+  workerd: true
+
+# pnpm 11 no longer reads node-linker/shamefully-hoist from .npmrc, which silently flipped this
+# project to the isolated linker. Mirrored here so every pnpm version lays node_modules out the
+# same way as the .npmrc has always asked for.
+nodeLinker: hoisted
+shamefullyHoist: true

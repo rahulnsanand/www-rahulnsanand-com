@@ -68,7 +68,9 @@ export async function GET(request: Request): Promise<Response> {
         client_secret: client.clientSecret,
       }),
     });
-  } catch {
+  } catch (cause) {
+    console.error("[cms-oauth] token request to GitHub failed", cause);
+
     return renderHandshakeResponse({
       error: "Failed to request an access token. Please try again later.",
       errorCode: "TOKEN_REQUEST_FAILED",
@@ -87,9 +89,22 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   if (!payload.access_token) {
+    // Logged so the reason is recoverable from the Worker logs. The request body is never logged:
+    // it carries the client secret.
+    console.error("[cms-oauth] GitHub rejected the token exchange", {
+      status: response.status,
+      error: payload.error,
+      description: payload.error_description,
+    });
+
+    // Deliberately no `errorCode`: Sveltia localizes a known code and would replace this text with
+    // a generic "try again later", hiding the reason GitHub actually gave.
     return renderHandshakeResponse({
-      error: payload.error_description ?? payload.error ?? "GitHub did not return an access token.",
-      errorCode: "TOKEN_REQUEST_FAILED",
+      error: payload.error
+        ? `GitHub rejected the token request (${payload.error}): ${
+            payload.error_description ?? "no description given"
+          }`
+        : "GitHub did not return an access token.",
     });
   }
 

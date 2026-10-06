@@ -1,7 +1,7 @@
 "use client";
 
 import "./about-separator.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 const VIEWBOX_WIDTH = 32;
@@ -58,15 +58,21 @@ export function AboutSeparator({
   orbRadius,
 }: AboutSeparatorProps) {
   const shouldReduceMotion = useReducedMotion();
-  const svgRef = useRef<SVGSVGElement | null>(null);
   const [measuredHeight, setMeasuredHeight] = useState(0);
   const revealClipId = `${filterId}-reveal`;
   void orbRadius;
 
-  useEffect(() => {
-    const svg = svgRef.current;
+  /**
+   * Measures the column the separator is stretched across. A ref callback rather than an effect so
+   * the first measurement happens synchronously at commit: ResizeObserver only delivers callbacks
+   * while the document is rendering frames, so a background or hidden tab would otherwise leave the
+   * separator stuck on `FALLBACK_HEIGHT` and draw a stretched wave.
+   */
+  const trackRef = useCallback((svg: SVGSVGElement | null) => {
     const track = svg?.parentElement;
     if (!track) return;
+
+    setMeasuredHeight(Math.round(track.getBoundingClientRect().height));
 
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0];
@@ -74,8 +80,6 @@ export function AboutSeparator({
       setMeasuredHeight(Math.round(entry.contentRect.height));
     });
 
-    // `observe` delivers an initial callback with the current size, so there is no need to measure
-    // the element synchronously here.
     observer.observe(track);
 
     return () => observer.disconnect();
@@ -88,7 +92,7 @@ export function AboutSeparator({
 
   return (
     <svg
-      ref={svgRef}
+      ref={trackRef}
       className={className}
       viewBox={`0 0 ${VIEWBOX_WIDTH} ${viewBoxHeight}`}
       preserveAspectRatio="none"
