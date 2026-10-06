@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Must match the Worker name in the Cloudflare dashboard, including the WORKER_SELF_REFERENCE
+  // service binding below.
+  "name": "www-rahulnsanand-com",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "www-rahulnsanand-com"
+    }
+  ],
+  // Non-secret runtime values. They live here rather than in the dashboard because `wrangler deploy`
+  // overwrites dashboard-set plain variables on every deploy; secrets are never touched, so
+  // GITHUB_OAUTH_CLIENT_SECRET and the SMTP_* values stay in the dashboard as Secrets.
+  "vars": {
+    "CMS_ALLOWED_DOMAINS": "www.rahulnsanand.com"
+  },
+  // Worker Logs, so `console.error` from the CMS OAuth routes is readable in the dashboard.
+  "observability": {
+    "enabled": true
+  }
+}

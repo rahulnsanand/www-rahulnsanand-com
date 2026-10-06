@@ -13,9 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `https://www.rahulnsanand.com/blogs/introduction-to-hive-for-dummies-module1-3-2pp1`, lastModified: new Date("2026-03-07T19:12:49.339Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/blogs/luthor-react-editor-stack`, lastModified: new Date("2026-08-27T12:32:26.120Z"), changeFrequency: "weekly", priority: 0.8 },
     { url: `https://www.rahulnsanand.com/contact`, lastModified: new Date("2026-08-27T12:28:38.861Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-08-27T12:40:32.854Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-08-27T12:40:32.854Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms-full.txt`, lastModified: new Date("2026-10-06T06:02:15.849Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/llms.txt`, lastModified: new Date("2026-10-06T06:02:15.849Z"), changeFrequency: "weekly", priority: 0.7 },
     { url: `https://www.rahulnsanand.com/projects`, lastModified: new Date("2026-08-27T12:28:16.672Z"), changeFrequency: "weekly", priority: 0.7 },
-    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-08-27T12:40:32.854Z"), changeFrequency: "weekly", priority: 0.7 },
+    { url: `https://www.rahulnsanand.com/seo/content-index.json`, lastModified: new Date("2026-10-06T06:02:15.849Z"), changeFrequency: "weekly", priority: 0.7 },
   ];
 }
