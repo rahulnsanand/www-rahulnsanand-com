@@ -7,7 +7,7 @@ tags:
   - selfhosted
   - dotnet
   - devops
-coverImage: ''
+coverImage: /blog-covers/cover-09-one-container.png
 youtubeUrl: ''
 mediumUrl: ''
 devtoUrl: ''
@@ -57,14 +57,10 @@ private static readonly (string Env, string Key)[] Scalars =
 
 The .NET spellings still work and win if both are set. Twenty lines that remove a whole family of "I set it and nothing happened".
 
-The compose file does the same job in comments. My favourite came from a real problem:
+The compose file stays short (one image, one port, one volume) and every setting lives in one table in the [configuration docs](https://papyra.app/docs/configuration/). The one I'd point everyone at came from a real problem: open Papyra at a bare address like `http://192.168.1.50:8080`, or over a Tailscale IP, and signing in appears to work, then logs you straight back out. Browsers won't keep a `Secure` session cookie for a site that isn't https (localhost excepted).
 
 ```yaml
-# Turn ON if you open Papyra at a bare address like http://192.168.1.50:8080
-# or over a Tailscale/WireGuard IP. Without it, signing in appears to work
-# and then logs you straight back out — browsers refuse to keep the session
-# for a site that isn't https (localhost excepted).
-PAPYRA_ALLOW_INSECURE_COOKIES: "false"
+PAPYRA_ALLOW_INSECURE_COOKIES: "true"   # only on a network that's already private
 ```
 
 ## 3. A demo with no server at all
@@ -107,5 +103,6 @@ The volume holds everything: notes, attachments, and `.papyra/` (search index, d
 
 ***
 
-_I'm Rahul, and I build Papyra on my own. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
-[_GitHub_](https://github.com/lyfie-org/papyra) _·_ [_Live demo, no signup_](https://papyra.app/demo) _·_ [_Docs_](https://papyra.app/docs)
+_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+
+_[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

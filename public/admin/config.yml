@@ -7,6 +7,7 @@
 backend:
   name: github
   repo: rahulnsanand/www-rahulnsanand-com
+  # Edits publish straight to main; .github/workflows/sync-dev.yml carries them into dev.
   branch: main
   # The OAuth handshake is served by this site itself, so no third-party auth service is involved.
   base_url: https://www.rahulnsanand.com

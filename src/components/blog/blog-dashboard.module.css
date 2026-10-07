@@ -218,8 +218,9 @@
     );
 }
 
+/* Covers use the Dev.to cover size (1000 x 420), so cards show them uncropped. */
 :global(.blog-card .blog-media) {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1000 / 420;
 }
 
 :global(.blog-row-media) {
@@ -228,7 +229,7 @@
 }
 
 :global(.blog-row .blog-media) {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1000 / 420;
 }
 
 :global(.blog-media-image) {
@@ -572,7 +573,7 @@
   }
 
   :global(.blog-row .blog-media) {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 1000 / 420;
   }
 }
 

@@ -7,7 +7,7 @@ tags:
   - syncthing
   - obsidian
   - markdown
-coverImage: ''
+coverImage: /blog-covers/cover-05-next-to-syncthing-git-obsidian.png
 youtubeUrl: ''
 mediumUrl: ''
 devtoUrl: ''
@@ -107,5 +107,6 @@ Papyra should be one tool on your notes, not the gatekeeper to them.
 
 ***
 
-_I'm Rahul, and I build Papyra on my own. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
-[_GitHub_](https://github.com/lyfie-org/papyra) _·_ [_Live demo, no signup_](https://papyra.app/demo) _·_ [_Docs_](https://papyra.app/docs)
+_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+
+_[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

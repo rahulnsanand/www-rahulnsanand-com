@@ -7,13 +7,19 @@ tags:
   - opensource
   - devjournal
   - testing
-coverImage: ''
+coverImage: /blog-covers/cover-10-honestly.png
 youtubeUrl: ''
 mediumUrl: ''
 devtoUrl: ''
 ---
 
 A feature list is the least useful part of a project page; everyone's says roughly the same words. So here's the other list for [Papyra](https://github.com/lyfie-org/papyra) 1.0. If something here is a deal-breaker, better to know in five minutes than after an install.
+
+## How it was built
+
+I didn't hand-write Papyra. I vibe-coded it: I decided what it should do, described it, tested what came back and steered, while AI coding assistants wrote most of the code. What would have taken me a year or more on my own took a few months.
+
+That's worth saying here because it shapes everything below. I didn't read every line as it was typed, so the honest way to find what's wrong is to use it hard and test it, which is exactly how the four bugs at the end of this post were found.
 
 ## Left out on purpose
 
@@ -59,7 +65,7 @@ string[] jargon = ["ollama", "http://", "https://", "localhost", ":11434", "embe
 
 ## A design I undid: an id on every paragraph
 
-To let you embed any single paragraph elsewhere (`![[Note#^id]]`), my editor used to stamp an id on **every** paragraph, on every save. Notes on disk started ending every line in `^p7d2m4qz`. Almost none were ever embedded. So the editor stopped, and a daily job removes the old ones, except any something still points at:
+To let you embed any single paragraph elsewhere (`![[Note#^id]]`), the editor used to stamp an id on **every** paragraph, on every save. Notes on disk started ending every line in `^p7d2m4qz`. Almost none were ever embedded. So the editor stopped, and a daily job removes the old ones, except any something still points at:
 
 ![Terminal: a note with ^ids on every block; grep shows one, ^keepvolume, is embedded by another note; the anchor-cleanup job runs; afterwards only ^keepvolume remains](/blog-covers/term-anchors.png)
 
@@ -94,11 +100,12 @@ That's what young software means: the gaps are where nobody has looked yet. So:
 
 - **Keep the backups it makes for you.** Settings → Data & Storage has a sealed backup download; Settings → Backup can push to a private GitHub repo.
 - **Read the release notes.** They say when an upgrade signs you out or changes a setting.
-- **Tell me what you find.** One report from real use is worth a hundred tests I wrote myself.
+- **Tell me what you find.** One report from real use is worth a hundred tests written alongside the code.
 
 And if something does go wrong, Papyra's whole design makes it survivable: your notes are plain Markdown files in a folder you own.
 
 ***
 
-_I'm Rahul, and I build Papyra on my own. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
-[_GitHub_](https://github.com/lyfie-org/papyra) _·_ [_Live demo, no signup_](https://papyra.app/demo) _·_ [_Docs_](https://papyra.app/docs)
+_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+
+_[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

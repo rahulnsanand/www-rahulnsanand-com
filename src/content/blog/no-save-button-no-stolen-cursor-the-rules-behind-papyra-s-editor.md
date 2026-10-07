@@ -7,7 +7,7 @@ tags:
   - javascript
   - webdev
   - ux
-coverImage: ''
+coverImage: /blog-covers/cover-07-the-editor.png
 youtubeUrl: ''
 mediumUrl: ''
 devtoUrl: ''
@@ -75,7 +75,7 @@ The rules, from `NoteEditor.tsx`:
 // archive the revision first, so History keeps it whatever the throttle says.
 ```
 
-Then you choose. **Overwrite with Local** keeps your text, and the outside version goes into History first (I checked, with the normal snapshot throttle on). **Review** loads the outside version instead; the words you typed since the last save go with it, so pick that one when theirs is the version you want.
+Then you choose. **Overwrite with Local** keeps your text, and the outside version goes into History first (I checked, with the normal snapshot throttle on). **Review** loads the outside version instead, and first keeps what you'd typed as a History version (a toast links straight to it). If that can't be saved, nothing is replaced and the banner stays. Either way, nobody's words are thrown away.
 
 **4. Ignore your own echo.** Your save comes back as "this note changed". If it matches what you just saved, do nothing, or the editor remounts on every pause.
 
@@ -89,7 +89,7 @@ Both people's typing goes into a live room (Yjs) running inside the same contain
 
 ## Lexical is an engine, not an editor
 
-All of this sits on [Lexical](https://lexical.dev), which is great, and is not a rich text editor. It's what you _build_ one from. Toolbars, Markdown, images, `[[links]]`: that became my library, [luthor](https://www.luthor.fyi/), and Papyra only owns the thin top layer.
+All of this sits on [Lexical](https://lexical.dev), which is great, and is not a rich text editor. It's what you _build_ one from. Toolbars, Markdown, images, `[[links]]`: that became [luthor](https://www.luthor.fyi/), an editor library I vibe-coded the same way, and Papyra only owns the thin top layer.
 
 ![Diagram: Lexical 0.40 is the engine; luthor-headless adds typed extensions; the luthor PapyraEditor preset is a ready Markdown editor; Papyra owns only a thin host adapter on top](/blog-covers/diag-luthor.png)
 
@@ -105,5 +105,6 @@ None of it is clever. All of it is the difference between an editor you trust an
 
 ***
 
-_I'm Rahul. I build Papyra on my own and maintain luthor. Papyra is GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
-[_GitHub_](https://github.com/lyfie-org/papyra) _·_ [_Live demo, no signup_](https://papyra.app/demo) _·_ [_Docs_](https://papyra.app/docs)
+_I'm Rahul. I vibe-coded Papyra, and luthor under it, with AI coding assistants: what would have taken me a year or more to build by hand took a few months. Papyra is GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+
+_[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

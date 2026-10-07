@@ -176,7 +176,7 @@
 
 :global(.blog-post-video-thumb) {
   position: relative;
-  aspect-ratio: 21 / 8;
+  aspect-ratio: 1000 / 420;
 }
 
 :global(.blog-post-video-image-frame),

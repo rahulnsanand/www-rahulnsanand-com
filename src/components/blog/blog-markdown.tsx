@@ -26,7 +26,8 @@ const IMAGE_PATTERN = /^!\[([^\]]*)\]\(([^)]+)\)\s*$/;
 const FIGCAPTION_PATTERN = /^<figcaption>([\s\S]*?)<\/figcaption>\s*$/i;
 const FIGCAPTION_LINK_PATTERN = /^\[\s*<figcaption>([\s\S]*?)<\/figcaption>\s*\]\(([^)]+)\)\s*$/i;
 const QUOTED_CAPTION_PATTERN = /^"([^"]+)"(?:\s+(.+))?$/;
-const ITALIC_CAPTION_PATTERN = /^\*([\s\S]+)\*$/;
+// The CMS rewrites `*caption*` as `_caption_`, so both spellings mark a caption.
+const ITALIC_CAPTION_PATTERN = /^([*_])(?![*_])([\s\S]+)\1$/;
 const GIST_PATTERN = /^\{%\s*gist\s+([^\s%]+)\s*%\}\s*$/i;
 const HTML_UL_OPEN_PATTERN = /^<ul>\s*$/i;
 const HTML_UL_CLOSE_PATTERN = /^<\/ul>\s*$/i;
@@ -108,6 +109,10 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
     const trimmedLine = line.trim();
     const previousRawLine = (lines[index - 1] ?? "").trim();
     const imageImmediatelyAbove = IMAGE_PATTERN.test(previousRawLine);
+    // The CMS puts a blank line between an image and its italic caption, so look past blank lines.
+    let previousIndex = index - 1;
+    while (previousIndex >= 0 && !(lines[previousIndex] ?? "").trim()) previousIndex -= 1;
+    const imageAboveAcrossBlankLines = IMAGE_PATTERN.test((lines[previousIndex] ?? "").trim());
 
     if (!trimmedLine) {
       index += 1;
@@ -220,9 +225,9 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
     }
 
     const italicCaptionMatch =
-      previousBlock?.type === "image" && imageImmediatelyAbove ? trimmedLine.match(ITALIC_CAPTION_PATTERN) : null;
+      previousBlock?.type === "image" && imageAboveAcrossBlankLines ? trimmedLine.match(ITALIC_CAPTION_PATTERN) : null;
     if (italicCaptionMatch) {
-      const content = normalizeInlineContent(italicCaptionMatch[1] ?? "").trim();
+      const content = normalizeInlineContent(italicCaptionMatch[2] ?? "").trim();
       if (content) {
         blocks.push({ type: "figcaption", content });
       }
@@ -330,8 +335,10 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
 }
 
 function renderInlineMarkdown(input: string): ReactNode[] {
+  // Emphasis closes with the delimiter it opened with, and `_` only counts at word edges, so
+  // identifiers such as PAPYRA_DATA_DIR stay plain text.
   const pattern =
-    /(`[^`]+`|\[[^\]]+\]\([^)]+\)|<a\s+href=['"][^'"]+['"][^>]*>[\s\S]*?<\/a>|<b>[\s\S]*?<\/b>|<i>[\s\S]*?<\/i>|\*__[\s\S]+?__\*|(?:\*\*|__)[\s\S]+?(?:\*\*|__)|(?:\*|_)[^*_][\s\S]*?(?:\*|_))/gi;
+    /(`[^`]+`|\[[^\]]+\]\([^)]+\)|<a\s+href=['"][^'"]+['"][^>]*>[\s\S]*?<\/a>|<b>[\s\S]*?<\/b>|<i>[\s\S]*?<\/i>|\*__[\s\S]+?__\*|\*\*[\s\S]+?\*\*|(?<!\w)__[\s\S]+?__(?!\w)|\*[^\s*](?:[^*]*?[^\s*])?\*|(?<!\w)_[^\s_](?:[^_]*?[^\s_])?_(?!\w))/gi;
   const parts = normalizeInlineContent(input).split(pattern).filter(Boolean);
 
   return parts.map((part, index) => {
@@ -432,7 +439,7 @@ function renderInlineMarkdown(input: string): ReactNode[] {
 
       return (
         <strong key={`inline-strong-${index}`} className="blog-inline-strong">
-          {strongText}
+          {renderInlineMarkdown(strongText)}
         </strong>
       );
     }
@@ -499,14 +506,14 @@ function renderInlineMarkdown(input: string): ReactNode[] {
             rel={isExternal ? "noreferrer noopener" : undefined}
             className={className}
           >
-            {label}
+            {renderInlineMarkdown(label)}
           </a>
         );
       }
 
       return (
         <Link key={`inline-link-${index}`} href={href} className={className}>
-          {label}
+          {renderInlineMarkdown(label)}
         </Link>
       );
     }

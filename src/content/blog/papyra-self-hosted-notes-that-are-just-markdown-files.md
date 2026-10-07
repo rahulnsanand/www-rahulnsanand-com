@@ -4,12 +4,11 @@ description: A Google Keep-style notes app for your own server, where every note
 date: 2026-09-23
 tags:
   - papyra
-  - self-hosted
-  - markdown
-  - open-source
   - selfhosted
+  - markdown
+  - opensource
   - productivity
-coverImage: /blog-covers/app-desk.png
+coverImage: /blog-covers/cover-01-papyra-1-0.png
 youtubeUrl: ''
 mediumUrl: ''
 devtoUrl: ''
@@ -109,4 +108,5 @@ And if Papyra isn't for you, delete it. You still have a folder of Markdown file
 ***
 
 _I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
-[_GitHub_](https://github.com/lyfie-org/papyra) _·_ [_Live demo, no signup_](https://papyra.app/demo) _·_ [_Docs_](https://papyra.app/docs)
+
+_[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

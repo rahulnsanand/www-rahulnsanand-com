@@ -7,7 +7,7 @@ tags:
   - dotnet
   - webdev
   - selfhosted
-coverImage: ''
+coverImage: /blog-covers/cover-08-small-security-decisions.png
 youtubeUrl: ''
 mediumUrl: ''
 devtoUrl: ''
@@ -96,7 +96,7 @@ Locked notes open with a PIN or, optionally, a passkey:
 
 ![Diagram: the server issues a fresh single-use challenge tied to the host; the device signs it with Touch ID or Windows Hello; the server verifies signature, origin and host; the result is a 5-minute unlock token kept in memory](/blog-covers/diag-webauthn.png)
 
-The part that broke in production was the **relying party id**. I'd set it once (`localhost`). Self-hosted apps don't have one address: LAN name, Tailscale name, real domain. So now it follows the host the page was loaded from, and the browser and authenticator do the rest of the binding.
+The part that broke in production was the **relying party id**. It was set once, to `localhost`. Self-hosted apps don't have one address: LAN name, Tailscale name, real domain. So now it follows the host the page was loaded from, and the browser and authenticator do the rest of the binding.
 
 What success buys is small on purpose: a 5-minute token, in memory only, extended while you read.
 
@@ -123,5 +123,6 @@ The door is as small as it can be: one file, the same path check as everything e
 
 ***
 
-_I'm Rahul, and I build Papyra on my own. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
-[_GitHub_](https://github.com/lyfie-org/papyra) _·_ [_Live demo, no signup_](https://papyra.app/demo) _·_ [_Docs_](https://papyra.app/docs)
+_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+
+_[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

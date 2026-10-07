@@ -1,0 +1,53 @@
+# Keep dev in step with main.
+#
+# Sveltia CMS (/admin) commits straight to main, so without this every post written there
+# leaves dev behind and the next dev -> main pull request starts from stale content.
+# On every push to main, dev is fast-forwarded to main, or main is merged into dev when dev
+# has its own unmerged work. A real conflict fails the run instead of guessing.
+
+name: Sync main into dev
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-dev
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Bring dev up to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+
+          if git merge-base --is-ancestor origin/main HEAD; then
+            echo "dev already contains main."
+            exit 0
+          fi
+
+          if git merge --ff-only origin/main; then
+            echo "Fast-forwarded dev to main."
+          elif git merge --no-edit -m "chore: sync main into dev" origin/main; then
+            echo "Merged main into dev."
+          else
+            git merge --abort
+            echo "::error::main and dev conflict. Merge main into dev by hand, then re-run this workflow."
+            exit 1
+          fi
+
+          git push origin HEAD:dev
