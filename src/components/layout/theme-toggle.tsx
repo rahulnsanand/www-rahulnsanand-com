@@ -26,9 +26,9 @@ function getInitialTheme(): Theme {
   }
 
   if (typeof window !== "undefined") {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+    // No saved choice yet: follow the visitor's local clock (dark 18:00–05:59).
+    const hour = new Date().getHours();
+    return hour >= 18 || hour < 6 ? "dark" : "light";
   }
 
   return "light";
@@ -47,17 +47,14 @@ function subscribeThemeStore(onStoreChange: () => void): () => void {
     return () => {};
   }
 
-  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const notify = () => onStoreChange();
 
   window.addEventListener("storage", notify);
   window.addEventListener(THEME_EVENT, notify);
-  mediaQuery.addEventListener("change", notify);
 
   return () => {
     window.removeEventListener("storage", notify);
     window.removeEventListener(THEME_EVENT, notify);
-    mediaQuery.removeEventListener("change", notify);
   };
 }
 
