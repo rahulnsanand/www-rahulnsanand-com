@@ -16,8 +16,9 @@ const themeInitScript = `
       const PERF_MODE_KEY = "perf-mode";
       const stored = localStorage.getItem("theme");
       const perfMode = localStorage.getItem(PERF_MODE_KEY);
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const theme = stored === "light" || stored === "dark" ? stored : (prefersDark ? "dark" : "light");
+      // No saved choice yet: follow the visitor's local clock (dark 18:00–05:59).
+      const hour = new Date().getHours();
+      const theme = stored === "light" || stored === "dark" ? stored : (hour >= 18 || hour < 6 ? "dark" : "light");
       const deviceMemory = typeof navigator.deviceMemory === "number" ? navigator.deviceMemory : null;
       const cpuCores = typeof navigator.hardwareConcurrency === "number" ? navigator.hardwareConcurrency : null;
       const userAgent = navigator.userAgent || "";
