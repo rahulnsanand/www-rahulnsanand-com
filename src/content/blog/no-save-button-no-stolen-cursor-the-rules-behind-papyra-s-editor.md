@@ -1,5 +1,5 @@
 ---
-title: "No save button, no stolen cursor: the rules behind Papyra's editor"
+title: "No Save Button, No Stolen Cursor: The Rules Behind Papyra's Editor"
 description: Autosave, offline editing, outside changes arriving mid-sentence, and two people typing at once. The small rules that make an editor you can trust.
 date: 2026-10-17
 tags:
@@ -7,9 +7,12 @@ tags:
   - javascript
   - webdev
   - ux
+  - typescript
+  - web-development
+  - programming
 coverImage: /blog-covers/cover-07-the-editor.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/7d65b1c7a7e8"
 devtoUrl: ''
 ---
 
@@ -105,6 +108,6 @@ None of it is clever. All of it is the difference between an editor you trust an
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra, and luthor under it, with AI coding assistants: what would have taken me a year or more to build by hand took a few months. Papyra is GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra, and luthor under it: what would have taken me a year or more to build by hand took a few months. Papyra is GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

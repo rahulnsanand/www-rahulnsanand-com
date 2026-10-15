@@ -1,5 +1,5 @@
 ---
-title: 'Files are hard: safe writes, a lying watcher, and the infinite sync loop'
+title: "Files Are Hard: Safe Writes, a Lying Watcher, and the Infinite Sync Loop"
 description: Three things you have to get right when an app's storage is a folder of files other tools also edit. Measured, with the real code.
 date: 2026-10-07
 tags:
@@ -7,9 +7,14 @@ tags:
   - csharp
   - filesystem
   - programming
+  - architecture
+  - technology
+  - software-engineering
+  - software-development
+  - coding
 coverImage: /blog-covers/cover-04-files-are-hard.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/07b822218e3c"
 devtoUrl: ''
 ---
 
@@ -126,6 +131,6 @@ Write to a temp file on the same disk, fsync, rename, retry. Treat watcher event
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

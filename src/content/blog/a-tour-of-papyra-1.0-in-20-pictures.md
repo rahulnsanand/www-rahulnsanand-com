@@ -1,5 +1,5 @@
 ---
-title: A tour of Papyra 1.0 in 20 pictures
+title: "A Tour of Papyra 1.0 in 20 Pictures"
 description: Every screen of a self-hosted notes app, one picture at a time. No account needed to try it.
 date: 2026-09-28
 tags:
@@ -7,9 +7,14 @@ tags:
   - productivity
   - opensource
   - webdev
+  - showdev
+  - technology
+  - programming
+  - software-development
+  - web-development
 coverImage: /blog-covers/cover-02-tour.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/5b70fb269f14"
 devtoUrl: ''
 ---
 
@@ -149,6 +154,6 @@ That's the tour. The [demo](https://papyra.app/demo) is the same app. Go break i
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

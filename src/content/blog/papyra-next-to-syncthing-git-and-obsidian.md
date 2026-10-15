@@ -1,5 +1,5 @@
 ---
-title: Papyra next to Syncthing, git and Obsidian
+title: "Papyra Next to Syncthing, Git and Obsidian"
 description: Your notes folder is shared with other tools. How Papyra keeps their keys, adopts their files and handles sync conflicts, shown for real.
 date: 2026-10-10
 tags:
@@ -7,9 +7,16 @@ tags:
   - syncthing
   - obsidian
   - markdown
+  - productivity
+  - devops
+  - opensource
+  - git
+  - technology
+  - programming
+  - software-development
 coverImage: /blog-covers/cover-05-next-to-syncthing-git-obsidian.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/71f06177ed47"
 devtoUrl: ''
 ---
 
@@ -107,6 +114,6 @@ Papyra should be one tool on your notes, not the gatekeeper to them.
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

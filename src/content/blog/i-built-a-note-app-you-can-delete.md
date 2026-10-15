@@ -1,5 +1,5 @@
 ---
-title: A note app you can delete
+title: "A Note App You Can Delete"
 description: Papyra's files are the truth and its database is a cache. What that buys, what it costs, and what's left when you uninstall it.
 date: 2026-10-02
 tags:
@@ -7,9 +7,14 @@ tags:
   - architecture
   - markdown
   - opensource
+  - programming
+  - productivity
+  - technology
+  - software-engineering
+  - software-development
 coverImage: /blog-covers/cover-03-files-are-the-truth.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/f2b55f5ac001"
 devtoUrl: ''
 ---
 
@@ -83,6 +88,6 @@ The app should have to earn the next day. Not trap you into it.
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

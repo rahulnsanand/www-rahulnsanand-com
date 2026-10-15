@@ -1,5 +1,5 @@
 ---
-title: 'Papyra 1.0: self-hosted notes that are just Markdown files'
+title: 'Papyra v1: Self-Hosted Notes That Are Just Markdown Files'
 description: A Google Keep-style notes app for your own server, where every note is a plain .md file you can open with anything.
 date: 2026-09-23
 tags:
@@ -8,10 +8,19 @@ tags:
   - markdown
   - opensource
   - productivity
+  - self-hosted
+  - open-source
+  - homelab
+  - webdev
+  - showdev
+  - technology
+  - programming
+  - docker
+  - software-development
 coverImage: /blog-covers/cover-01-papyra-1-0.png
 youtubeUrl: ''
-mediumUrl: ''
-devtoUrl: ''
+mediumUrl: "https://rahulnsanand.medium.com/papyra-v1-self-hosted-notes-that-are-just-markdown-files-dde514b8c920"
+devtoUrl: "https://dev.to/rahulnsanand/papyra-v1-self-hosted-notes-that-are-just-markdown-files-42jk"
 ---
 
 Papyra 1.0 is out. It's a notes app you run on your own server. It looks like Google Keep, and every note is a plain `.md` file.
@@ -52,7 +61,7 @@ Point Obsidian at the folder and it opens. Write a new note in Obsidian and it s
 
 ![GIF: two browser windows side by side, Ana and Jun editing the same Lisbon trip note, each seeing the other's cursor and text appear](/blog-covers/gif-collab.gif)
 
-**Search that's fast.** Press Ctrl+K and type.
+**Fast full-text search.** Press Ctrl+K and type.
 
 ![GIF: typing "sourdough" then "per seat" into search; results narrow and highlight the match](/blog-covers/gif-search.gif)
 
@@ -95,18 +104,18 @@ curl -O https://raw.githubusercontent.com/lyfie-org/papyra/main/docker-compose.h
 docker compose -f docker-compose.hub.yml up -d
 ```
 
-Open `http://localhost:8080` and create the first account. That's it.
+Open `http://localhost:8080` and create the first account. That's it. The image is built for amd64 and arm64, so a Raspberry Pi 4 or 5 works too.
 
 ## Release Note
 
 1.0 means I use it every day and I'm happy for you to. It does not mean it's finished or bug-free. It makes backups for you: keep them.
 
-There's no hosted version and no native mobile app. There's an AI assistant in the code (nothing that sends your data out of your home), but it's switched off for now.
+There's no hosted version and no native mobile app. There's an AI assistant in the code, but it's switched off for now.
 
 And if Papyra isn't for you, delete it. You still have a folder of Markdown files. That's the point.
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

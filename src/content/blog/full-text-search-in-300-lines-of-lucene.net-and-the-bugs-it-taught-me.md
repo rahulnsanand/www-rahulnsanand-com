@@ -1,5 +1,5 @@
 ---
-title: Full-text search in 300 lines of Lucene.NET (and the bugs it taught me)
+title: "Full-Text Search in 300 Lines of Lucene.NET (and the Bugs It Taught Me)"
 description: "Papyra's whole search layer: one writer, one document per note, a per-user fence, and two ways results used to leak."
 date: 2026-10-14
 tags:
@@ -7,9 +7,15 @@ tags:
   - csharp
   - search
   - lucene
+  - programming
+  - database
+  - technology
+  - software-engineering
+  - software-development
+  - coding
 coverImage: /blog-covers/cover-06-search.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/fa2ae1d91478"
 devtoUrl: ''
 ---
 
@@ -117,6 +123,6 @@ The file is [`SearchIndexService.cs`](https://github.com/lyfie-org/papyra/blob/m
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_
