@@ -5,7 +5,7 @@ export type AboutLink = {
   label: string;
 };
 
-export type AboutSocialIcon = "github" | "youtube" | "linkedin" | "medium" | "devto" | "leetcode";
+export type AboutSocialIcon = "github" | "youtube" | "linkedin" | "medium" | "devto" | "leetcode" | "discord";
 
 export type AboutSocialLink = AboutLink & {
   icon: AboutSocialIcon;

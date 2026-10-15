@@ -2,6 +2,7 @@ import "./about-intro-panel.module.css";
 import {
   Code,
   DevToLogo,
+  DiscordLogo,
   EnvelopeSimple,
   GithubLogo,
   LinkedinLogo,
@@ -18,6 +19,7 @@ const socialIcons = {
   medium: MediumLogo,
   devto: DevToLogo,
   leetcode: Code,
+  discord: DiscordLogo,
 } satisfies Record<AboutSocialIcon, typeof GithubLogo>;
 
 export function AboutIntroPanel() {
