@@ -34,6 +34,11 @@
         "icon": "devto",
         "href": "https://dev.to/rahulnsanand",
         "label": "Dev.to"
+      },
+      {
+        "icon": "discord",
+        "href": "https://discord.gg/KQNsjGAUUz",
+        "label": "Discord"
       }
     ],
     "primaryLinks": [

@@ -3,6 +3,7 @@ import {
   ArrowUpRight,
   Code,
   DevToLogo,
+  DiscordLogo,
   GithubLogo,
   LinkedinLogo,
   MediumLogo,
@@ -21,6 +22,7 @@ const socialIcons = {
   medium: MediumLogo,
   devto: DevToLogo,
   leetcode: Code,
+  discord: DiscordLogo,
 } satisfies Record<AboutSocialIcon, typeof GithubLogo>;
 
 // The handwritten background words are laid out on a fixed 760x500 canvas, stepping right and down
