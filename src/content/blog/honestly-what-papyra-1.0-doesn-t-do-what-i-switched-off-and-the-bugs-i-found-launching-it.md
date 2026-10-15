@@ -1,5 +1,5 @@
 ---
-title: "Honestly: what Papyra 1.0 doesn't do, what I switched off, and the bugs I found launching it"
+title: "Honestly: What Papyra 1.0 Doesn't Do, What I Switched Off, and the Bugs I Found Launching It"
 description: "The other list: features left out on purpose, an AI assistant that's built but off, a design I undid, and four bugs the launch screenshots caught."
 date: 2026-10-28
 tags:
@@ -7,9 +7,15 @@ tags:
   - opensource
   - devjournal
   - testing
+  - ai
+  - programming
+  - artificial-intelligence
+  - technology
+  - software-engineering
+  - software-development
 coverImage: /blog-covers/cover-10-honestly.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/796a1af33e2d"
 devtoUrl: ''
 ---
 
@@ -106,6 +112,6 @@ And if something does go wrong, Papyra's whole design makes it survivable: your 
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

@@ -1,5 +1,5 @@
 ---
-title: Five small security decisions in a self-hosted notes app
+title: "Five Small Security Decisions in a Self-Hosted Notes App"
 description: A missing slash, the wrong hash, an honest status code, a fingerprint, and the one door into someone else's vault. How Papyra handles each.
 date: 2026-10-21
 tags:
@@ -7,9 +7,14 @@ tags:
   - dotnet
   - webdev
   - selfhosted
+  - programming
+  - cybersecurity
+  - technology
+  - privacy
+  - software-engineering
 coverImage: /blog-covers/cover-08-small-security-decisions.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/0b45f5622f2a"
 devtoUrl: ''
 ---
 
@@ -123,6 +128,6 @@ The door is as small as it can be: one file, the same path check as everything e
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_

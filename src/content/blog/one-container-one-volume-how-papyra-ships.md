@@ -1,15 +1,20 @@
 ---
-title: 'One container, one volume: how Papyra ships'
-description: A .NET API, a React app and a live-editing engine in one Docker image. Plus friendly env vars, a demo with no server, and a 7,500-line Program.cs.
+title: "One Container, One Volume: How Papyra Ships"
+description: A .NET API, a React app and a live-editing engine in one Docker image. Plus friendly env vars, a demo with no server, and an 8,000-line Program.cs.
 date: 2026-10-24
 tags:
   - docker
   - selfhosted
   - dotnet
   - devops
+  - webdev
+  - opensource
+  - technology
+  - programming
+  - software-development
 coverImage: /blog-covers/cover-09-one-container.png
 youtubeUrl: ''
-mediumUrl: ''
+mediumUrl: "https://medium.com/p/210134d19949"
 devtoUrl: ''
 ---
 
@@ -69,7 +74,7 @@ The hardest part of self-hosted software is the Docker command before someone ha
 
 ![The Papyra demo: the real desk with a banner at the bottom saying "This is a demo. Everything runs in your browser — nothing is sent anywhere."](/blog-covers/app-demo.png)
 
-It's the real app. Papyra has no central API client, just a lot of `fetch()` calls (141 lines across 57 files), so the demo build replaces `globalThis.fetch` and answers `/api/*` in the tab:
+It's the real app. Papyra has no central API client, just a lot of `fetch()` calls (about 150 of them, across 60-odd files), so the demo build replaces `globalThis.fetch` and answers `/api/*` in the tab:
 
 ![Diagram: the normal build sends /api requests to the Papyra server; the demo build sends the same requests to a replaced globalThis.fetch that runs a fake server in the tab](/blog-covers/diag-static-demo.png)
 
@@ -77,9 +82,11 @@ No call site knows. So the demo can't drift from the app.
 
 One trap worth knowing if you host a single-page app on Cloudflare Pages: the usual `/demo/* /demo/index.html 200` rule is rejected as an infinite loop, and per-route rules turn into cached redirects. What works is no rule at all: a copy of `index.html` named `404.html`. Pages serves it for unknown paths and leaves the URL alone.
 
-## 4. A 7,500-line Program.cs
+## 4. An 8,000-line Program.cs
 
 ![Terminal: wc -l says Program.cs has about 7,500 lines; grep counts its route groups and Map calls](/blog-covers/term-programcs.png)
+
+_About 7,500 lines when I took this. Just over 8,100 now._
 
 Almost every HTTP route is in one Minimal API file, grouped:
 
@@ -103,6 +110,6 @@ The volume holds everything: notes, attachments, and `.papyra/` (search index, d
 
 ***
 
-_I'm Rahul. I vibe-coded Papyra with AI coding assistants: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
+_I'm Rahul. I vibe-coded Papyra: what would have taken me a year or more to build by hand took a few months. It's GPLv3 and self-hosted: one Docker container, your notes as plain Markdown files._
 
 _[GitHub](https://github.com/lyfie-org/papyra) · [Live demo, no signup](https://papyra.app/demo) · [Docs](https://papyra.app/docs)_
